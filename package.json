@@ -1,0 +1,20 @@
+{
+  "name": "cypress-ncatestify-plugin",
+  "version": "1.0.0",
+  "description": "NCA TESTIFY commands and tests",
+  "main": "src",
+  "types": "src",
+  "files": [
+    "**/*.js",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Roland Golla",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^10.11.0"
+  }
+}
