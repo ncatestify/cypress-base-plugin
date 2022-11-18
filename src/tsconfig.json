@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "types": ["cypress", "cypress-data-session", "../src/"]
+  },
+  "include": ["**/*.ts"],
+  "extends": "../tsconfig.json"
+}
