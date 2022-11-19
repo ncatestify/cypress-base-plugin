@@ -9,7 +9,9 @@
     "index.d.ts"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --skipLibCheck",
+    "release": "npm build && npm version && node scripts/release.js && npm publish dist"
   },
   "keywords": [],
   "author": "Roland Golla",
