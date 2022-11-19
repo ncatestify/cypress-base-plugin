@@ -1,14 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getInternalLinks = void 0;
-var getInternalLinks = function () {
-    var listOfResults = [];
-    cy.get("a").each(function (resultItem) {
-        var singleResult = "";
+export const getInternalLinks = () => {
+    const listOfResults = [];
+    cy.get("a").each((resultItem) => {
+        let singleResult = "";
         //Retrive Title
         cy.wrap(resultItem)
             .invoke("attr", "href")
-            .then(function (href) {
+            .then((href) => {
             if (isInternal(href) &&
                 typeof href !== "undefined" &&
                 href.indexOf("mailto") == -1 &&
@@ -20,7 +17,7 @@ var getInternalLinks = function () {
                 cy.log("Filtered URL: " + href);
             }
         });
-        cy.then(function () {
+        cy.then(() => {
             if (singleResult.length) {
                 listOfResults.push(singleResult);
             }
@@ -28,7 +25,6 @@ var getInternalLinks = function () {
     });
     return cy.wrap(listOfResults);
 };
-exports.getInternalLinks = getInternalLinks;
 function isInternal(url) {
     return url.startsWith("/") || url.includes(Cypress.env("baseUrl"));
 }

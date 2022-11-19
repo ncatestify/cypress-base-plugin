@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
+    "strict": true,
     "target": "ES2019",
-    "lib": ["es5", "dom"],
-    "types": ["cypress", "node", "./src"]
+    "lib": ["esnext", "dom"],
+    "types": ["cypress", "node", "./src"],
+    "paths": {
+      "@/src/*": ["./src"]
+    }
   },
   "include": ["**/*.ts"]
 }

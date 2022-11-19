@@ -3,6 +3,6 @@ declare namespace Cypress {
     getInternalLinks<Subject>(): Chainable<Subject>;
     validateImprintClickable(): void;
     everyInternalLinkStatusOk(): void;
-    everyInternalLinkStatusIsLoading(): void;
+    everyInternalLinkIsLoading(): void;
   }
 }
