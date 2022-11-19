@@ -6,7 +6,8 @@
     "types": ["cypress", "node", "./src"],
     "paths": {
       "@/src/*": ["./src"]
-    }
+    },
+    "moduleResolution": "node"
   },
   "include": ["**/*.ts"]
 }

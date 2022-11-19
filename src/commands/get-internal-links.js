@@ -6,8 +6,8 @@ export const getInternalLinks = () => {
         cy.wrap(resultItem)
             .invoke("attr", "href")
             .then((href) => {
-            if (isInternal(href) &&
-                typeof href !== "undefined" &&
+            if (typeof href !== "undefined" &&
+                isInternal(href) &&
                 href.indexOf("mailto") == -1 &&
                 href.indexOf("tel") == -1 &&
                 Cypress._.indexOf(listOfResults, href) == -1) {

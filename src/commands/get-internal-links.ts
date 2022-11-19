@@ -1,5 +1,7 @@
+import { List } from "../../node_modules/cypress/types/lodash/index";
+
 export const getInternalLinks = () => {
-  const listOfResults = [];
+  const listOfResults: string[] = [];
   cy.get("a").each((resultItem) => {
     let singleResult = "";
     //Retrive Title
@@ -7,8 +9,8 @@ export const getInternalLinks = () => {
       .invoke("attr", "href")
       .then((href) => {
         if (
-          isInternal(href) &&
           typeof href !== "undefined" &&
+          isInternal(href) &&
           href.indexOf("mailto") == -1 &&
           href.indexOf("tel") == -1 &&
           Cypress._.indexOf(listOfResults, href) == -1
