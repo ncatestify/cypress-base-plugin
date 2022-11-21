@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import { getInternalLinks } from "./commands/get-internal-links";
 import { everyInternalLinkStatusOk } from "./commands/every-internal-link-status-ok";
 
+Cypress.Commands.add("getInternalLinks", getInternalLinks);
 Cypress.Commands.add("everyInternalLinkStatusOk", everyInternalLinkStatusOk);
