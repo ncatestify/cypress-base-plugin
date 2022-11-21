@@ -12,7 +12,6 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           config-file: cypress.config.ts
-          support-file: e2e.ts
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v2
         id: semantic
