@@ -3,11 +3,11 @@ describe("Validate NCA Tests", () => {
     cy.everyInternalLinkStatusOk();
   });
 
-  it("Validate every page is loading", () => {
+  /* it("Validate every page is loading", () => {
     cy.everyInternalLinkIsLoading();
   });
 
   it("Validate imprint is clickable", () => {
     cy.validateImprintClickable();
-  });
+  }); */
 });
