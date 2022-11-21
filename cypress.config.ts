@@ -2,7 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "https://adesso.de",
+    baseUrl: "https://nevercodealone.de",
     supportFile: "cypress/support/e2e.ts",
   },
   env: {
