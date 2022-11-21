@@ -17,9 +17,3 @@ fs.copy(
   path.resolve(__dirname, "..", "src", "index.d.ts"),
   path.resolve(__dirname, "..", "dist", "index.d.ts")
 );
-
-// if your types need additional files, copy them too
-fs.copy(
-  path.resolve(__dirname, "..", "src", "api-version.ts"),
-  path.resolve(__dirname, "..", "dist", "api-version.ts")
-);
