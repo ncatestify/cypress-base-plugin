@@ -11,7 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --skipLibCheck",
-    "release": "npm build && npm version && node scripts/release.js && npm publish dist"
+    "release": "npm run build && npm version && node scripts/release.js && npm publish dist"
   },
   "keywords": [],
   "author": "Roland Golla",
