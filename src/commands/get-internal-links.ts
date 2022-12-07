@@ -15,7 +15,8 @@ export const getInternalLinks = () => {
           href.indexOf("tel") == -1 &&
           Cypress._.indexOf(listOfResults, href) == -1
         ) {
-          singleResult = href;
+          // @ts-ignore
+          singleResult = href.replace(Cypress.config("baseUrl"), "");
         } else {
           cy.log("Filtered URL: " + href);
         }
