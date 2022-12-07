@@ -31,5 +31,6 @@ export const getInternalLinks = () => {
 };
 
 function isInternal(url: string): boolean {
-  return url.startsWith("/") || url.includes(Cypress.env("baseUrl"));
+  // @ts-ignore
+  return url.startsWith("/") || url.includes(Cypress.config("baseUrl"));
 }
