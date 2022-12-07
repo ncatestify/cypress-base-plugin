@@ -24,8 +24,12 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-import { getInternalLinks } from "./commands/get-internal-links";
 import { everyInternalLinkStatusOk } from "./commands/every-internal-link-status-ok";
+import { everyInternalLinkIsLoading } from "./commands/every-internal-link-is-loading";
+import { getInternalLinks } from "./commands/get-internal-links";
+import { validateImprintClickable } from "./commands/validate-imprint-clickable";
 
-Cypress.Commands.add("getInternalLinks", getInternalLinks);
 Cypress.Commands.add("everyInternalLinkStatusOk", everyInternalLinkStatusOk);
+Cypress.Commands.add("everyInternalLinkIsLoading", everyInternalLinkIsLoading);
+Cypress.Commands.add("getInternalLinks", getInternalLinks);
+Cypress.Commands.add("validateImprintClickable", validateImprintClickable);

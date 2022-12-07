@@ -3,21 +3,12 @@ export const everyInternalLinkIsLoading = () => {
     cy.log("everyInternalLinkIsLoading - NCA TESTIFY");
     cy.getInternalLinks().then((urls: Array<string>) => {
       urls.forEach((url) => {
-        cy.request({
-          url: url,
-          followRedirect: false,
-        }).then((resp) => {
-          if (resp.headers["content-type"].includes("text/html")) {
-            cy.visit(url);
-            cy.get("a", { timeout: Cypress.env("waitForStartpage") }).should(
-              "be.visible"
-            );
-          } else {
-            cy.log("Skip content type");
-            cy.log(url);
-            cy.log(resp.headers["content-type"].toString());
-          }
-        });
+        if (!url.includes(".pdf")) {
+          cy.visit(url);
+          cy.get("a").should("be.visible");
+        } else {
+          cy.log("PDF detected" + url);
+        }
       });
     });
   });
