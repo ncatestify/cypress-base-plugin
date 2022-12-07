@@ -5,8 +5,5 @@ module.exports = defineConfig({
     baseUrl: "https://testify.team",
     supportFile: "cypress/support/e2e.ts",
   },
-  env: {
-    waitForStartpage: "5000",
-  },
   viewportWidth: 1200,
 });
