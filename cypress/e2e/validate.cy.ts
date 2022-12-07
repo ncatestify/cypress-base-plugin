@@ -1,5 +1,6 @@
 describe("Validate NCA Tests", () => {
   it("Command internal links is ok with status 200", () => {
+    cy.visit("/");
     cy.everyInternalLinkStatusOk();
   });
 
