@@ -1,5 +1,3 @@
-import { List } from "../../node_modules/cypress/types/lodash/index";
-
 export const getInternalLinks = () => {
   const listOfResults: string[] = [];
   cy.get("a").each((resultItem) => {
