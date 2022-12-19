@@ -1,6 +1,6 @@
 {
   "name": "cypress-ncatestify-plugin",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "NCA TESTIFY commands and tests",
   "main": "src",
   "types": "src",
@@ -9,9 +9,12 @@
     "index.d.ts"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "typecheck": "tsc --skipLibCheck --noEmit",
     "build": "tsc --skipLibCheck",
-    "release": "npm run build && npm version && node scripts/release.js && npm publish dist"
+    "lint": "eslint --ext=.js,.ts,.tsx",
+    "release": "yarn build && yarn version && node scripts/release.js && yarn publish dist",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "keywords": [],
   "author": "Roland Golla",
