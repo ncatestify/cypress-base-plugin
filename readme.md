@@ -24,10 +24,10 @@ module.exports = defineConfig({
 Then in your Testfile
 
 ```js
-describe("empty spec", () => {
-  it("passes", () => {
+describe("Validate links", () => {
+  it("internal links give response status ok", () => {
     cy.visit("/");
-    cy.everyInternalLinkStatusOk();
+    cy.ncaEveryInternalLinkStatusOk();
   });
 });
 ```

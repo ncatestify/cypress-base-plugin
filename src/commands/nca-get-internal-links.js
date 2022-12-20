@@ -1,4 +1,4 @@
-export const getInternalLinks = () => {
+export const ncaGetInternalLinks = () => {
     const listOfResults = [];
     cy.get("a").each((resultItem) => {
         let singleResult = "";
