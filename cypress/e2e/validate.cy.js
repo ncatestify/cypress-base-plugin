@@ -4,12 +4,12 @@ describe("Validate NCA Tests", () => {
         cy.visit("/");
     });
     it("Command internal links is ok with status 200", () => {
-        cy.everyInternalLinkStatusOk();
+        cy.ncaEveryInternalLinkStatusOk();
     });
     it("Validate every page is loading", () => {
-        cy.everyInternalLinkIsLoading();
+        cy.ncaEveryInternalLinkIsLoading();
     });
     it("Validate imprint is clickable", () => {
-        cy.validateImprintClickable();
+        cy.ncaValidateImprintClickable();
     });
 });

@@ -1,7 +1,7 @@
-export const everyInternalLinkIsLoading = () => {
-    cy.getInternalLinks().then((urls) => {
+export const ncaEveryInternalLinkIsLoading = () => {
+    cy.ncaGetInternalLinks().then((urls) => {
         cy.log("everyInternalLinkIsLoading - NCA TESTIFY");
-        cy.getInternalLinks().then((urls) => {
+        cy.ncaGetInternalLinks().then((urls) => {
             urls.forEach((url) => {
                 if (!url.includes(".pdf")) {
                     cy.visit(url);
