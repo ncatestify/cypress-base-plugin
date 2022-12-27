@@ -15,7 +15,7 @@ describe("Validate NCA Tests", () => {
     cy.ncaValidateImprintClickable();
   });
 
-  it.only("Validates no google fonts are loading", () => {
+  it("Validates no google fonts are loading", () => {
     cy.ncaValidateNoGoogleFonts();
   });
 });
