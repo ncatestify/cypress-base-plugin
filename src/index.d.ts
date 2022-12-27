@@ -1,9 +1,9 @@
 declare namespace Cypress {
   interface Chainable<Subject = any> {
-    ncaGetInternalLinks<Subject>(): Chainable<string[]>;
-    ncaValidateImprintClickable(): void;
-    ncaEveryInternalLinkStatusOk(): void;
-    ncaEveryInternalLinkIsLoading(): void;
-    ncaValidateNoGoogleFonts(): void;
+    ttGetInternalLinks<Subject>(): Chainable<string[]>;
+    ttValidateImprintClickable(): void;
+    ttEveryInternalLinkStatusOk(): void;
+    ttEveryInternalLinkIsLoading(): void;
+    ttValidateNoGoogleFonts(): void;
   }
 }

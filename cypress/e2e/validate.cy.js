@@ -1,18 +1,18 @@
 "use strict";
-describe("Validate NCA Tests", () => {
+describe("Validate Testify Tests", () => {
     beforeEach(() => {
         cy.visit("/");
     });
     it("Command internal links is ok with status 200", () => {
-        cy.ncaEveryInternalLinkStatusOk();
+        cy.ttEveryInternalLinkStatusOk();
     });
     it("Validate every page is loading", () => {
-        cy.ncaEveryInternalLinkIsLoading();
+        cy.ttEveryInternalLinkIsLoading();
     });
     it("Validate imprint is clickable", () => {
-        cy.ncaValidateImprintClickable();
+        cy.ttValidateImprintClickable();
     });
     it("Validates no google fonts are loading", () => {
-        cy.ncaValidateNoGoogleFonts();
+        cy.ttValidateNoGoogleFonts();
     });
 });
