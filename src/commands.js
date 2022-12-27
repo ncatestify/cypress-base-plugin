@@ -27,7 +27,9 @@ import { ncaEveryInternalLinkStatusOk } from "./commands/nca-every-internal-link
 import { ncaEveryInternalLinkIsLoading } from "./commands/nca-every-internal-link-is-loading";
 import { ncaGetInternalLinks } from "./commands/nca-get-internal-links";
 import { ncaValidateImprintClickable } from "./commands/nca-validate-imprint-clickable";
+import { ncaValidateNoGoogleFonts } from "./commands/nca-validate-no-google-fonts";
 Cypress.Commands.add("ncaEveryInternalLinkStatusOk", ncaEveryInternalLinkStatusOk);
 Cypress.Commands.add("ncaEveryInternalLinkIsLoading", ncaEveryInternalLinkIsLoading);
 Cypress.Commands.add("ncaGetInternalLinks", ncaGetInternalLinks);
 Cypress.Commands.add("ncaValidateImprintClickable", ncaValidateImprintClickable);
+Cypress.Commands.add("ncaValidateNoGoogleFonts", ncaValidateNoGoogleFonts);

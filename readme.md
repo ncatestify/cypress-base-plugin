@@ -50,6 +50,18 @@ npx cypress open
 export CYPRESS_BASE_URL=https://nevercodealone.de && npx cypress open
 ```
 
+For contributing remove local js files
 ```bash
 rm -rf **/*.js
 ```
+
+Validate types with no generating
+```bash
+npm run typecheck
+```
+
+Build js files
+```bash
+npm run build
+```
+
