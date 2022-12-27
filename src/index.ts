@@ -1,25 +1,25 @@
 /// <reference types="Cypress" />
 
-import { ncaGetInternalLinks } from "./commands/nca-get-internal-links";
-import { ncaValidateImprintClickable } from "./commands/nca-validate-imprint-clickable";
-import { ncaEveryInternalLinkStatusOk } from "./commands/nca-every-internal-link-status-ok";
-import { ncaEveryInternalLinkIsLoading } from "./commands/nca-every-internal-link-is-loading";
-import { ncaValidateNoGoogleFonts } from "./commands/nca-validate-no-google-fonts";
+import { ttGetInternalLinks } from "./commands/tt-get-internal-links";
+import { ttValidateImprintClickable } from "./commands/tt-validate-imprint-clickable";
+import { ttEveryInternalLinkStatusOk } from "./commands/tt-every-internal-link-status-ok";
+import { ttEveryInternalLinkIsLoading } from "./commands/tt-every-internal-link-is-loading";
+import { ttValidateNoGoogleFonts } from "./commands/tt-validate-no-google-fonts";
 
-Cypress.Commands.add("ncaGetInternalLinks", ncaGetInternalLinks);
+Cypress.Commands.add("ttGetInternalLinks", ttGetInternalLinks);
 Cypress.Commands.add(
-  "ncaValidateImprintClickable",
-  ncaValidateImprintClickable
+  "ttValidateImprintClickable",
+  ttValidateImprintClickable
 );
 Cypress.Commands.add(
-  "ncaEveryInternalLinkStatusOk",
-  ncaEveryInternalLinkStatusOk
+  "ttEveryInternalLinkStatusOk",
+  ttEveryInternalLinkStatusOk
 );
 Cypress.Commands.add(
-  "ncaEveryInternalLinkIsLoading",
-  ncaEveryInternalLinkIsLoading
+  "ttEveryInternalLinkIsLoading",
+  ttEveryInternalLinkIsLoading
 );
 Cypress.Commands.add(
-  "ncaValidateNoGoogleFonts", 
-  ncaValidateNoGoogleFonts
+  "ttValidateNoGoogleFonts", 
+  ttValidateNoGoogleFonts
 );

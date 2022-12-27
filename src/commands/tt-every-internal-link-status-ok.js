@@ -1,5 +1,5 @@
-export const ncaEveryInternalLinkStatusOk = () => {
-    cy.ncaGetInternalLinks().then((urls) => {
+export const ttEveryInternalLinkStatusOk = () => {
+    cy.ttGetInternalLinks().then((urls) => {
         cy.log("everyInternalLinkStatusOk - NCA TESTIFY");
         cy.wrap(urls).its("length").should("be.gt", 2);
         urls.forEach((url) => {
