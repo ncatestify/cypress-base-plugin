@@ -4,5 +4,6 @@ declare namespace Cypress {
     ncaValidateImprintClickable(): void;
     ncaEveryInternalLinkStatusOk(): void;
     ncaEveryInternalLinkIsLoading(): void;
+    ncaValidateNoGoogleFonts(): void;
   }
 }
