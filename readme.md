@@ -27,7 +27,7 @@ Then in your Testfile
 describe("Validate links", () => {
   it("internal links give response status ok", () => {
     cy.visit("/");
-    cy.ncaEveryInternalLinkStatusOk();
+    cy.ttEveryInternalLinkStatusOk();
   });
 });
 ```
