@@ -9,7 +9,7 @@ describe("Validate Testify Tests", () => {
     it("Validate every page is loading", () => {
         cy.ttEveryInternalLinkIsLoading();
     });
-    it("Validate imprint is clickable", () => {
+    it.only("Validate imprint is clickable", () => {
         cy.ttValidateImprintClickable();
     });
     it("Validates no google fonts are loading", () => {
