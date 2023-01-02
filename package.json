@@ -20,7 +20,7 @@
   "author": "Roland Golla",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^12.1.0",
+    "cypress": "^12.2.0",
     "eslint": "^8.30.0",
     "typescript": "^4.8.4"
   }
