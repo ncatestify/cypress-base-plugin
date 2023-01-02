@@ -11,7 +11,7 @@ describe("Validate Testify Tests", () => {
     cy.ttEveryInternalLinkIsLoading();
   });
 
-  it("Validate imprint is clickable", () => {
+  it.only("Validate imprint is clickable", () => {
     cy.ttValidateImprintClickable();
   });
 

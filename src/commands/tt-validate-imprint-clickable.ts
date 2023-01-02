@@ -1,4 +1,5 @@
 export const ttValidateImprintClickable = () => {
+  let oneLinkIsClickable = false;
   cy.log("validateImprintClickable - NCA TESTIFY");
-  cy.get("a").contains("Impressum").click();
+  cy.contains("a:visible", "mpressum", { matchCase: false }).click();
 };
