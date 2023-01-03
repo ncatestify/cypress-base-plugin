@@ -39,8 +39,11 @@ Cypress.Commands.add(
   ttEveryInternalLinkIsLoading
 );
 Cypress.Commands.add("ttGetInternalLinks", ttGetInternalLinks);
-Cypress.Commands.add(
-  "ttValidateImprintClickable",
-  ttValidateImprintClickable
-);
+Cypress.Commands.add("ttValidateImprintClickable", ttValidateImprintClickable);
 Cypress.Commands.add("ttValidateNoGoogleFonts", ttValidateNoGoogleFonts);
+
+Cypress.Commands.add("elementExists", (selector) => {
+  return cy
+    .window()
+    .then(($window) => $window.document.querySelector(selector));
+});
