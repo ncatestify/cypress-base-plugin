@@ -6,5 +6,6 @@ declare namespace Cypress {
     ttEveryInternalLinkIsLoading(): void;
     ttValidateNoGoogleFonts(): void;
     ttElementExists(element: string): Chainable<Subject>;
+    ttRunTestifyBaseTests(): void;
   }
 }
