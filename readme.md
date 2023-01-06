@@ -24,10 +24,10 @@ module.exports = defineConfig({
 Then in your Testfile
 
 ```js
-describe("Validate links", () => {
-  it("internal links give response status ok", () => {
+describe("Validate Testify Tests", () => {
+  it("Runs Testify base tests", () => {
     cy.visit("/");
-    cy.ttEveryInternalLinkStatusOk();
+    cy.ttRunTestifyBaseTests();
   });
 });
 ```
