@@ -1,3 +1,3 @@
 /// <reference types="Cypress" />
 
-import "./commands";
+import './commands'

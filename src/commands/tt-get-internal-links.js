@@ -1,21 +1,21 @@
 export const ttGetInternalLinks = () => {
     const listOfResults = [];
-    cy.get("a").each((resultItem) => {
-        let singleResult = "";
+    cy.get('a').each((resultItem) => {
+        let singleResult = '';
         //Retrive Title
         cy.wrap(resultItem)
-            .invoke("attr", "href")
+            .invoke('attr', 'href')
             .then((href) => {
-            if (typeof href !== "undefined" &&
+            if (typeof href !== 'undefined' &&
                 isInternal(href) &&
-                href.indexOf("mailto") == -1 &&
-                href.indexOf("tel") == -1 &&
+                href.indexOf('mailto') == -1 &&
+                href.indexOf('tel') == -1 &&
                 Cypress._.indexOf(listOfResults, href) == -1) {
                 // @ts-ignore
-                singleResult = href.replace(Cypress.config("baseUrl"), "");
+                singleResult = href.replace(Cypress.config('baseUrl'), '');
             }
             else {
-                cy.log("Filtered URL: " + href);
+                cy.log('Filtered URL: ' + href);
             }
         });
         cy.then(() => {
@@ -28,5 +28,5 @@ export const ttGetInternalLinks = () => {
 };
 function isInternal(url) {
     // @ts-ignore
-    return url.startsWith("/") || url.includes(Cypress.config("baseUrl"));
+    return url.startsWith('/') || url.includes(Cypress.config('baseUrl'));
 }

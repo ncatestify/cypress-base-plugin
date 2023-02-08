@@ -14,10 +14,10 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import "./../../src/commands";
+import './../../src/commands'
 
-Cypress.on("uncaught:exception", (err, runnable) => {
+Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from
   // failing the test
-  return false;
-});
+  return false
+})
