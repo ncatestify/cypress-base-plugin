@@ -13,8 +13,8 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 // Import commands.js using ES2015 syntax:
-import "./../../src/commands";
-Cypress.on("uncaught:exception", (err, runnable) => {
+import './../../src/commands';
+Cypress.on('uncaught:exception', (err, runnable) => {
     // returning false here prevents Cypress from
     // failing the test
     return false;
