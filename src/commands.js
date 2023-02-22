@@ -27,13 +27,13 @@ import { ttEveryInternalLinkStatusOk } from './commands/tt-every-internal-link-s
 import { ttEveryInternalLinkIsLoading } from './commands/tt-every-internal-link-is-loading';
 import { ttGetInternalLinks } from './commands/tt-get-internal-links';
 import { ttValidateImprintClickable } from './commands/tt-validate-imprint-clickable';
-import { ttValidateNoGoogleFonts } from './commands/tt-validate-no-google-fonts';
+import { ttValidateNoGoogleServices } from './commands/tt-validate-no-google-services';
 import { ttElementExists } from './commands/tt-element-exists';
 import { ttRunTestifyBaseTests } from './commands/tt-run-testify-base-tests';
 Cypress.Commands.add('ttEveryInternalLinkStatusOk', ttEveryInternalLinkStatusOk);
 Cypress.Commands.add('ttEveryInternalLinkIsLoading', ttEveryInternalLinkIsLoading);
 Cypress.Commands.add('ttGetInternalLinks', ttGetInternalLinks);
 Cypress.Commands.add('ttValidateImprintClickable', ttValidateImprintClickable);
-Cypress.Commands.add('ttValidateNoGoogleFonts', ttValidateNoGoogleFonts);
+Cypress.Commands.add('ttValidateNoGoogleServices', ttValidateNoGoogleServices);
 Cypress.Commands.add('ttElementExists', ttElementExists);
 Cypress.Commands.add('ttRunTestifyBaseTests', ttRunTestifyBaseTests);
