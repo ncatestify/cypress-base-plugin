@@ -6,6 +6,7 @@ describe('Validate Testify Tests', () => {
     it('Runs Testify base tests', () => {
         //cy.ttEveryInternalLinkStatusOk()
         //cy.ttValidateImprintClickable()
+        //cy.ttValidateNoGoogleServices()
         cy.ttRunTestifyBaseTests();
     });
 });

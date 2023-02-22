@@ -4,5 +4,6 @@ declare namespace Cypress {
     validateImprintClickable(): void
     everyInternalLinkStatusOk(): void
     everyInternalLinkIsLoading(): void
+    ttValidateNoGoogleServices(): void
   }
 }
