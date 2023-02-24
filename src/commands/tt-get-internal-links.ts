@@ -1,4 +1,5 @@
 export const ttGetInternalLinks = () => {
+  cy.log('ttGetInternalLinks - NCA TESTIFY')
   const listOfResults: string[] = []
   cy.get('a').each((resultItem) => {
     let singleResult = ''
