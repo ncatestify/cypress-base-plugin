@@ -7,5 +7,6 @@ declare namespace Cypress {
     ttValidateNoGoogleServices(): void
     ttElementExists(element: string): Chainable<Subject>
     ttRunTestifyBaseTests(): void
+    ttValidateAllImagesResponseStatusOk(): void
   }
 }
