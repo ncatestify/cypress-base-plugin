@@ -24,6 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import { ttEveryInternalLinkStatusOk } from './commands/tt-every-internal-link-status-ok';
+import { ttValidateAllImagesResponseStatusOk } from './commands/tt-validate-all-images-response-status-ok';
 import { ttEveryInternalLinkIsLoading } from './commands/tt-every-internal-link-is-loading';
 import { ttGetInternalLinks } from './commands/tt-get-internal-links';
 import { ttValidateImprintClickable } from './commands/tt-validate-imprint-clickable';
@@ -31,6 +32,7 @@ import { ttValidateNoGoogleServices } from './commands/tt-validate-no-google-ser
 import { ttElementExists } from './commands/tt-element-exists';
 import { ttRunTestifyBaseTests } from './commands/tt-run-testify-base-tests';
 Cypress.Commands.add('ttEveryInternalLinkStatusOk', ttEveryInternalLinkStatusOk);
+Cypress.Commands.add('ttValidateAllImagesResponseStatusOk', ttValidateAllImagesResponseStatusOk);
 Cypress.Commands.add('ttEveryInternalLinkIsLoading', ttEveryInternalLinkIsLoading);
 Cypress.Commands.add('ttGetInternalLinks', ttGetInternalLinks);
 Cypress.Commands.add('ttValidateImprintClickable', ttValidateImprintClickable);

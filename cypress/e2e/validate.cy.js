@@ -7,6 +7,7 @@ describe('Validate Testify Tests', () => {
         //cy.ttEveryInternalLinkStatusOk()
         //cy.ttValidateImprintClickable()
         //cy.ttValidateNoGoogleServices()
+        //cy.ttValidateAllImagesResponseStatusOk()
         cy.ttRunTestifyBaseTests();
     });
 });
