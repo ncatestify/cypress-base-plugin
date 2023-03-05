@@ -5,7 +5,8 @@
     "lib": ["esnext", "dom"],
     "types": ["cypress", "node", "./src"],
     "paths": {
-      "@/src/*": ["./src"]
+      "@/src/*": ["./src"],
+      "@/cypress/*": ["./cypress"]
     },
     "moduleResolution": "node"
   },

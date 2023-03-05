@@ -4,10 +4,10 @@ describe('Validate Testify Tests', () => {
         cy.visit('/');
     });
     it('Runs Testify base tests', () => {
-        //cy.ttEveryInternalLinkStatusOk()
-        //cy.ttValidateImprintClickable()
-        //cy.ttValidateNoGoogleServices()
-        //cy.ttValidateAllImagesResponseStatusOk()
+        // cy.ttEveryInternalLinkStatusOk()
+        // cy.ttValidateImprintClickable()
+        // cy.ttValidateNoGoogleServices()
+        // cy.ttValidateAllImagesResponseStatusOk()
         cy.ttRunTestifyBaseTests();
     });
 });

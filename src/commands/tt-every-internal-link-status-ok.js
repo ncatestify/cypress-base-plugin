@@ -4,11 +4,9 @@ export const ttEveryInternalLinkStatusOk = () => {
         cy.wrap(urls).its('length').should('be.gt', 2);
         urls.forEach((url) => {
             cy.request({
-                url: url,
+                url,
             }).then((resp) => {
                 if (resp.headers['content-type'].includes('text/html')) {
-                    url = url;
-                    debugger;
                     expect(resp.status).to.eq(200);
                 }
                 else {
