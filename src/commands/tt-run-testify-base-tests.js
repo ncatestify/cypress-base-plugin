@@ -1,6 +1,8 @@
 export const ttRunTestifyBaseTests = () => {
-    cy.ttValidateImprintClickable();
+    cy.log('ttRunTestifyBaseTests - NCA TESTIFY');
     cy.ttEveryInternalLinkStatusOk();
+    cy.ttValidateAllImagesResponseStatusOk();
+    cy.ttValidateNoGoogleServices();
+    cy.ttValidateImprintClickable();
     cy.ttEveryInternalLinkIsLoading();
-    cy.ttValidateNoGoogleFonts();
 };

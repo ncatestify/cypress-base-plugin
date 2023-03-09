@@ -1,9 +1,13 @@
-describe("Validate Testify Tests", () => {
+describe('Validate Testify Tests', () => {
   beforeEach(() => {
-    cy.visit("/");
-  });
-  
+    cy.visit('/')
+  })
+
   it('Runs Testify base tests', () => {
-    cy.ttRunTestifyBaseTests();
-  });
-});
+    // cy.ttEveryInternalLinkStatusOk()
+    // cy.ttValidateImprintClickable()
+    // cy.ttValidateNoGoogleServices()
+    // cy.ttValidateAllImagesResponseStatusOk()
+    cy.ttRunTestifyBaseTests()
+  })
+})

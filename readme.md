@@ -13,23 +13,23 @@ in your cypress.config.js|.ts file the key baseUrl must be set
 ```js
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "https://testify.team/de",
+    baseUrl: 'https://testify.team/de',
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
   },
-});
+})
 ```
 
 Then in your Testfile
 
 ```js
-describe("Validate Testify Tests", () => {
-  it("Runs Testify base tests", () => {
-    cy.visit("/");
-    cy.ttRunTestifyBaseTests();
-  });
-});
+describe('Validate Testify Tests', () => {
+  it('Runs Testify base tests', () => {
+    cy.visit('/')
+    cy.ttRunTestifyBaseTests()
+  })
+})
 ```
 
 ## Run commands
@@ -51,16 +51,19 @@ export CYPRESS_BASE_URL=https://nevercodealone.de && npx cypress open
 ```
 
 For contributing remove local js files
+
 ```bash
 rm -rf **/*.js
 ```
 
 Validate types with no generating
+
 ```bash
 npm run typecheck
 ```
 
 Build js files
+
 ```bash
 npm run build
 ```
