@@ -3,7 +3,7 @@ describe('Validate Testify Tests', () => {
     cy.visit('/de/use-cases')
   })
 
-  it.only('Accessibility test', () => {
+  it('Accessibility test', () => {
     cy.ttAccessibility()
   })
 
