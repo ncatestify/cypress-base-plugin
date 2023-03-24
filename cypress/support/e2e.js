@@ -13,6 +13,7 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 // Import commands.js using ES2015 syntax:
+import 'cypress-axe';
 import './../../src/commands';
 Cypress.on('uncaught:exception', (_err, runnable) => {
     // returning false here prevents Cypress from
