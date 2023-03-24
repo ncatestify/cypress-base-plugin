@@ -69,6 +69,7 @@ npm run build
 ```
 
 ## Websites being tested with this plugin
+
 https://www.auto-hortz.de
 https://www.discounto.de
 https://nevercodealone.de

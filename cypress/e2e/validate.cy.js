@@ -1,7 +1,10 @@
 "use strict";
 describe('Validate Testify Tests', () => {
     beforeEach(() => {
-        cy.visit('/');
+        cy.visit('/de/use-cases');
+    });
+    it.only('Accessibility test', () => {
+        cy.ttAccessibility();
     });
     it('Runs Testify base tests', () => {
         // cy.ttEveryInternalLinkStatusOk()

@@ -8,5 +8,6 @@ declare namespace Cypress {
     ttElementExists(element: string): Chainable<Subject>
     ttRunTestifyBaseTests(): void
     ttValidateAllImagesResponseStatusOk(): void
+    ttAccessibility(context?: any, options?: any): Chainable<Subject>
   }
 }
