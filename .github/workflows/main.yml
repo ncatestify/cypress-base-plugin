@@ -37,7 +37,7 @@ jobs:
 
     - name: Run Cypress tests
       run: |
-        npx cypress run --config baseUrl=http://localhost:8090
+        npx cypress run --config baseUrl=http://localhost:8090 --config-file cypress.config.ts
 
     - name: Stop Python HTTP Server
       if: always()
