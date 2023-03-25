@@ -68,6 +68,12 @@ Build js files
 npm run build
 ```
 
+## Docker command for local host on port 8090
+docker run -p 8090:80 -v $(pwd)/src:/app --entrypoint python3 python:3.9-alpine -m http.server --directory /app 80
+
+Open
+http://localhost:8090/index.html
+
 ## Websites being tested with this plugin
 
 https://www.auto-hortz.de
