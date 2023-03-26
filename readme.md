@@ -72,7 +72,7 @@ npm run build
 docker run -p 8090:80 -v $(pwd)/src:/app --entrypoint python3 python:3.9-alpine -m http.server --directory /app 80
 
 Open
-http://localhost:8090/index.html
+http://localhost:8090
 
 ## Websites being tested with this plugin
 
