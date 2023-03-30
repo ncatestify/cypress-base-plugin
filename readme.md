@@ -50,6 +50,16 @@ npx cypress open
 export CYPRESS_BASE_URL=https://nevercodealone.de && npx cypress open
 ```
 
+### Static file CMS
+npx eleventy --serve
+
+### Build
+npx eleventy 
+
+### Browser
+http://localhost:8080
+
+
 For contributing remove local js files
 
 ```bash

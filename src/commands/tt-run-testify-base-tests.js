@@ -5,4 +5,5 @@ export const ttRunTestifyBaseTests = () => {
     cy.ttValidateNoGoogleServices();
     cy.ttValidateImprintClickable();
     cy.ttEveryInternalLinkIsLoading();
+    cy.ttAccessibility();
 };
