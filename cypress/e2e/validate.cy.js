@@ -1,16 +1,24 @@
 "use strict";
 describe('Validate Testify Tests', () => {
     beforeEach(() => {
-        cy.visit('/de/use-cases');
+        cy.visit('/');
     });
-    it.only('Accessibility test', () => {
+    it('Accessibility test', () => {
         cy.ttAccessibility();
     });
-    it('Runs Testify base tests', () => {
-        // cy.ttEveryInternalLinkStatusOk()
-        // cy.ttValidateImprintClickable()
-        // cy.ttValidateNoGoogleServices()
-        // cy.ttValidateAllImagesResponseStatusOk()
-        cy.ttRunTestifyBaseTests();
+    it('Imprint', () => {
+        cy.ttValidateImprintClickable();
+    });
+    it('Detect google services', () => {
+        cy.ttValidateNoGoogleServices();
+    });
+    it('More than one img with status ok', () => {
+        cy.ttValidateAllImagesResponseStatusOk();
+    });
+    it('More than 2 internal links for each are ok', () => {
+        cy.ttEveryInternalLinkStatusOk();
+    });
+    it('All subpages are loading', () => {
+        cy.ttEveryInternalLinkIsLoading();
     });
 });

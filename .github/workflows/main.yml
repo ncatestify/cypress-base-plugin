@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Start Python HTTP Server
+      run: |
+        python -m http.server --directory src 8090 &
+        echo "SERVER_PID=$!" >> $GITHUB_ENV
+
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+
+    - name: Install Cypress and dependencies
+      run: |
+        npm ci
+
+    - name: Run Cypress tests
+      run: |
+        npx cypress run --config baseUrl=http://localhost:8090 --config-file=cypress.config.ts
+
+    - name: Stop Python HTTP Server
+      if: always()
+      run: |
+        kill $SERVER_PID
+

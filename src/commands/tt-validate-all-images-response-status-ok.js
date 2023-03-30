@@ -1,5 +1,6 @@
 export const ttValidateAllImagesResponseStatusOk = () => {
     cy.log('ttValidateAllImagesResponseStatusOk - NCA TESTIFY');
+    cy.get('img').should('have.length.gt', 0);
     cy.get('img').each((img) => {
         cy.wrap(img)
             .should('have.attr', 'src')

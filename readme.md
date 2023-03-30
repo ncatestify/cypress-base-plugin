@@ -50,6 +50,16 @@ npx cypress open
 export CYPRESS_BASE_URL=https://nevercodealone.de && npx cypress open
 ```
 
+### Static file CMS
+npx eleventy --serve
+
+### Build
+npx eleventy 
+
+### Browser
+http://localhost:8080
+
+
 For contributing remove local js files
 
 ```bash
@@ -67,6 +77,12 @@ Build js files
 ```bash
 npm run build
 ```
+
+## Docker command for local host on port 8090
+docker run -p 8090:80 -v $(pwd)/src:/app --entrypoint python3 python:3.9-alpine -m http.server --directory /app 80
+
+Open
+http://localhost:8090
 
 ## Websites being tested with this plugin
 
