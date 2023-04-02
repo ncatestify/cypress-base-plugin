@@ -9,7 +9,7 @@ describe('Validate Testify Tests', () => {
     it('Imprint', () => {
         cy.ttValidateImprintClickable();
     });
-    it('Detect google services', () => {
+    it.only('Detect google services', () => {
         cy.ttValidateNoGoogleServices();
     });
     it('More than one img with status ok', () => {

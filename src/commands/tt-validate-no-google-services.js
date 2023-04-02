@@ -1,5 +1,5 @@
 export const ttValidateNoGoogleServices = () => {
-    cy.intercept({ method: 'GET', path: '*' }, (req) => {
+    cy.on('request', (req) => {
         if (!req.url.startsWith(`${Cypress.config('baseUrl')}`)) {
             cy.log('External url: ' + req.url);
             expect(req.url).not.to.include('/fonts.gstatic.com/');
