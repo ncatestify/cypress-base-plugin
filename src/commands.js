@@ -31,7 +31,8 @@ import { ttValidateImprintClickable } from './commands/tt-validate-imprint-click
 import { ttValidateNoGoogleServices } from './commands/tt-validate-no-google-services';
 import { ttElementExists } from './commands/tt-element-exists';
 import { ttRunTestifyBaseTests } from './commands/tt-run-testify-base-tests';
-import { ttAccessibility } from './commands/ttAccessibility';
+import { ttAccessibility } from './commands/tt-accessibility';
+import { ttValidatePageContent } from './commands/tt-validate-page-content';
 Cypress.Commands.add('ttEveryInternalLinkStatusOk', ttEveryInternalLinkStatusOk);
 Cypress.Commands.add('ttValidateAllImagesResponseStatusOk', ttValidateAllImagesResponseStatusOk);
 Cypress.Commands.add('ttEveryInternalLinkIsLoading', ttEveryInternalLinkIsLoading);
@@ -41,3 +42,4 @@ Cypress.Commands.add('ttValidateNoGoogleServices', ttValidateNoGoogleServices);
 Cypress.Commands.add('ttElementExists', ttElementExists);
 Cypress.Commands.add('ttRunTestifyBaseTests', ttRunTestifyBaseTests);
 Cypress.Commands.add('ttAccessibility', ttAccessibility);
+Cypress.Commands.add('ttValidatePageContent', ttValidatePageContent);

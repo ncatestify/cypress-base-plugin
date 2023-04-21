@@ -9,5 +9,6 @@ declare namespace Cypress {
     ttRunTestifyBaseTests(): void
     ttValidateAllImagesResponseStatusOk(): void
     ttAccessibility(context?: any, options?: any): Chainable<Subject>
+    ttValidatePageContent(): void  
   }
 }

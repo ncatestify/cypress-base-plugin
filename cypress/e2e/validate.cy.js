@@ -9,7 +9,7 @@ describe('Validate Testify Tests', () => {
     it('Imprint', () => {
         cy.ttValidateImprintClickable();
     });
-    it.only('Detect google services', () => {
+    it('Detect google services', () => {
         cy.ttValidateNoGoogleServices();
     });
     it('More than one img with status ok', () => {
@@ -20,5 +20,8 @@ describe('Validate Testify Tests', () => {
     });
     it('All subpages are loading', () => {
         cy.ttEveryInternalLinkIsLoading();
+    });
+    it('Validate page content', () => {
+        cy.ttValidatePageContent();
     });
 });
