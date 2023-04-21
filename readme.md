@@ -51,7 +51,7 @@ export CYPRESS_BASE_URL=https://nevercodealone.de && npx cypress open
 ```
 
 ### Static file CMS
-npx eleventy --serve
+cd mysite && npx eleventy --serve
 
 ### Build
 npx eleventy 

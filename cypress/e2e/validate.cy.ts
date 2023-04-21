@@ -26,4 +26,8 @@ describe('Validate Testify Tests', () => {
   it('All subpages are loading', () => {
     cy.ttEveryInternalLinkIsLoading()  
   })  
+
+  it('Validate page content', () => {
+    cy.ttValidatePageContent()  
+  })  
 })
