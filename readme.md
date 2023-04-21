@@ -1,6 +1,6 @@
 # Cypress.IO plugin by NCA TESTIFY
 
-Basis tests for every website testing project
+Basis tests for every website testing project.
 
 ## Usage:
 
@@ -60,7 +60,7 @@ npx eleventy
 http://localhost:8080
 
 
-For contributing remove local js files
+For contributing remove local `.js` files
 
 ```bash
 rm -rf **/*.js
