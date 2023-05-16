@@ -43,11 +43,11 @@ npm run build
 ```
 
 ```bash
-npx cypress open
+npx cypress open --config-file config.cypress.ts/js
 ```
 
 ```bash
-export CYPRESS_BASE_URL=https://nevercodealone.de && npx cypress open
+export CYPRESS_BASE_URL=https://nevercodealone.de && npx cypress open --config-file config.cypress.ts/js
 ```
 
 ### Static file CMS
