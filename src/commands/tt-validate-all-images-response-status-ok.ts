@@ -8,6 +8,7 @@ export const ttValidateAllImagesResponseStatusOk = () => {
       .then((src) => {
         if (typeof src === 'string') {
           cy.request(src).its('status').should('eq', 200)
+          cy.log('Validated image: ' + src)
         } else {
           cy.log('img src is not a string')
         }
