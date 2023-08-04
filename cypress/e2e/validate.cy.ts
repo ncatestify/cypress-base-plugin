@@ -30,4 +30,8 @@ describe('Validate Testify Tests', () => {
   it('Validate page content', () => {
     cy.ttValidatePageContent()  
   })  
+
+  it('Only one h1', () => {
+    cy.ttOnlyOneH1()
+  })
 })

@@ -33,7 +33,8 @@ import { ttValidateNoGoogleServices } from './commands/tt-validate-no-google-ser
 import { ttElementExists } from './commands/tt-element-exists'
 import { ttRunTestifyBaseTests } from './commands/tt-run-testify-base-tests'
 import { ttAccessibility } from './commands/tt-accessibility'
-import {ttValidatePageContent} from './commands/tt-validate-page-content'
+import { ttValidatePageContent } from './commands/tt-validate-page-content'
+import { ttOnlyOneH1 } from './commands/tt-only-one-h1'
 
 Cypress.Commands.add('ttEveryInternalLinkStatusOk', ttEveryInternalLinkStatusOk)
 Cypress.Commands.add(
@@ -47,8 +48,8 @@ Cypress.Commands.add(
 Cypress.Commands.add('ttGetInternalLinks', ttGetInternalLinks)
 Cypress.Commands.add('ttValidateImprintClickable', ttValidateImprintClickable)
 Cypress.Commands.add('ttValidateNoGoogleServices', ttValidateNoGoogleServices)
-
 Cypress.Commands.add('ttElementExists', ttElementExists)
 Cypress.Commands.add('ttRunTestifyBaseTests', ttRunTestifyBaseTests)
 Cypress.Commands.add('ttAccessibility', ttAccessibility)
 Cypress.Commands.add('ttValidatePageContent', ttValidatePageContent)
+Cypress.Commands.add('ttOnlyOneH1', ttOnlyOneH1)
