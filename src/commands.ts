@@ -35,6 +35,7 @@ import { ttRunTestifyBaseTests } from './commands/tt-run-testify-base-tests'
 import { ttAccessibility } from './commands/tt-accessibility'
 import { ttValidatePageContent } from './commands/tt-validate-page-content'
 import { ttOnlyOneH1 } from './commands/tt-only-one-h1'
+import { ttInvalidPath404 } from './commands/tt-invalid-path-404'
 
 Cypress.Commands.add('ttEveryInternalLinkStatusOk', ttEveryInternalLinkStatusOk)
 Cypress.Commands.add(
@@ -53,3 +54,4 @@ Cypress.Commands.add('ttRunTestifyBaseTests', ttRunTestifyBaseTests)
 Cypress.Commands.add('ttAccessibility', ttAccessibility)
 Cypress.Commands.add('ttValidatePageContent', ttValidatePageContent)
 Cypress.Commands.add('ttOnlyOneH1', ttOnlyOneH1)
+Cypress.Commands.add('ttInvalidPath404', ttInvalidPath404)

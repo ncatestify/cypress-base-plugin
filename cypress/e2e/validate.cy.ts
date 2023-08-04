@@ -34,4 +34,8 @@ describe('Validate Testify Tests', () => {
   it('Only one h1', () => {
     cy.ttOnlyOneH1()
   })
+
+  it('Invalid path returns 404', () => {
+    cy.ttInvalidPath404()
+  })
 })

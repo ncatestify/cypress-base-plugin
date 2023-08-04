@@ -11,5 +11,6 @@ declare namespace Cypress {
     ttAccessibility(context?: any, options?: any): Chainable<Subject>
     ttValidatePageContent(): void  
     ttOnlyOneH1(): void
+    ttInvalidPath404(): void
   }
 }
