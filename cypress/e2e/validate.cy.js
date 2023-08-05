@@ -24,4 +24,10 @@ describe('Validate Testify Tests', () => {
     it('Validate page content', () => {
         cy.ttValidatePageContent();
     });
+    it('Only one h1', () => {
+        cy.ttOnlyOneH1();
+    });
+    it('Invalid path returns 404', () => {
+        cy.ttInvalidPath404();
+    });
 });
