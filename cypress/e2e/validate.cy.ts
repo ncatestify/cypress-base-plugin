@@ -40,7 +40,7 @@ describe('Validate Testify Tests', () => {
   })
 
   it('Validates language tag', () => {
-    cy.ttValidateLanguageTag()
+    cy.ttValidateLanguageTag('de')
   })
 
   it('Detects http', () => {

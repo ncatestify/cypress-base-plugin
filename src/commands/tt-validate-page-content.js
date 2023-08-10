@@ -5,4 +5,6 @@ export const ttValidatePageContent = () => {
     cy.ttEveryInternalLinkStatusOk();
     cy.ttEveryInternalLinkIsLoading();
     cy.ttValidateImprintClickable();
+    cy.ttOnlyOneH1();
+    cy.ttDetectHttp();
 };

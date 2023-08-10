@@ -12,7 +12,7 @@ declare namespace Cypress {
     ttValidatePageContent(): void  
     ttOnlyOneH1(): void
     ttInvalidPath404(): void
-    ttValidateLanguageTag(): void
+    ttValidateLanguageTag(language: string): void
     ttDetectHttp(): void
   }
 }
