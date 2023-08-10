@@ -38,4 +38,12 @@ describe('Validate Testify Tests', () => {
   it('Invalid path returns 404', () => {
     cy.ttInvalidPath404()
   })
+
+  it('Validates language tag', () => {
+    cy.ttValidateLanguageTag()
+  })
+
+  it('Detects http', () => {
+    cy.ttDetectHttp()
+  })
 })
