@@ -5,5 +5,9 @@ export const ttRunTestifyBaseTests = () => {
   cy.ttValidateNoGoogleServices()
   cy.ttValidateImprintClickable()
   cy.ttEveryInternalLinkIsLoading()
-  cy.ttAccessibility()  
+  cy.ttAccessibility()
+  cy.ttOnlyOneH1()
+  cy.ttInvalidPath404()
+  cy.ttValidateLanguageTag('de')
+  cy.ttDetectHttp();
 }

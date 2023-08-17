@@ -31,7 +31,7 @@ describe('Validate Testify Tests', () => {
         cy.ttInvalidPath404();
     });
     it('Validates language tag', () => {
-        cy.ttValidateLanguageTag();
+        cy.ttValidateLanguageTag('de');
     });
     it('Detects http', () => {
         cy.ttDetectHttp();

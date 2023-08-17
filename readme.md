@@ -81,6 +81,87 @@ npm run build
 ## Docker command for local host on port 8090
 docker run -p 8090:80 -v $(pwd)/src:/app --entrypoint python3 python:3.9-alpine -m http.server --directory /app 80
 
+## Commands
+
+#### Validate all internal links return status code 200
+
+```js
+cy.ttEveryInternalLinkStatusOk()
+```
+
+#### Validate all images return status code 200
+
+```js
+cy.ttValidateAllImagesResponseStatusOk()
+```
+
+#### Validate all internal links are loading
+
+```js
+cy.ttEveryInternalLinkIsLoading()
+```
+
+#### Return all internal links as array
+
+```js
+cy.ttGetInternalLinks()
+```
+
+#### Validate imprint is clickable
+
+```js
+cy.ttValidateImprintClickable()
+```
+
+#### Validate no google services are being loaded
+
+```js
+cy.ttValidateNoGoogleServices()
+```
+
+#### Run all TESTIFY base tests
+
+```js
+cy.ttRunTestifyBaseTests()
+```
+
+#### Check for accesibility issues
+
+```js
+cy.ttAccessibility()
+```
+
+#### Run all TESTIFY page content validation tests
+
+```js
+cy.ttValidatePageContent()
+```
+
+#### Validate page has only one headline
+
+```js
+cy.ttOnlyOneH1()
+```
+
+#### Validate invalid path returns 404 error
+
+```js
+cy.ttInvalidPath404()
+```
+
+#### Validate page has language tag
+
+```js
+cy.ttValidateLanguageTag(language: string)
+```
+
+#### Detect http links
+
+```js
+cy.ttDetectHttp()
+``````
+
+
 Open
 http://localhost:8090
 
