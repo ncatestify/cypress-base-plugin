@@ -7,8 +7,6 @@ export const ttValidateAllImagesResponseStatusOk = () => {
         if (img.attr('src') !== undefined) {
             cy.wrap(img).invoke('attr', 'src').then((src) => {
                 if (typeof src === 'string') {
-                    cy.request(src).its('status').should('eq', 200);
-                    cy.log('Validated image: ' + src);
                     srcArray.push(src);
                 }
                 else {
@@ -19,7 +17,8 @@ export const ttValidateAllImagesResponseStatusOk = () => {
         if (img.attr('srcset') !== undefined) {
             cy.wrap(img).invoke('attr', 'srcset').then((srcset) => {
                 if (typeof srcset === 'string') {
-                    srcSetArray.push(srcset);
+                    const srcsetUrls = srcset.split(',').map((srcsetItem) => srcsetItem.trim().split(' ')[0]);
+                    srcSetArray.push(...srcsetUrls);
                 }
                 else {
                     cy.log('img srcset is not a string');
@@ -34,11 +33,24 @@ export const ttValidateAllImagesResponseStatusOk = () => {
             });
         }
     }).then(() => {
+        const promises = [];
+        srcArray.forEach((url) => {
+            promises.push(cy.request('HEAD', url).its('status').should('eq', 200).then(() => {
+                cy.log('Validated image: ' + url);
+            }));
+        });
+        srcSetArray.forEach((url) => {
+            promises.push(cy.request('HEAD', url).its('status').should('eq', 200).then(() => {
+                cy.log('Validated image in srcset: ' + url);
+            }));
+        });
+        return Cypress.Promise.all(promises);
+    }).then(() => {
         srcArray.forEach((entry) => {
             cy.get(`[src="${entry}"]`).should('exist');
         });
         srcSetArray.forEach((entry) => {
-            cy.get(`[srcset="${entry}"]`).should('exist');
+            cy.get(`[srcset*="${entry}"]`).should('exist');
         });
     });
 };
