@@ -93,10 +93,6 @@ cy.ttCookieAllAcceptClick()
 ```
 
 ```js
-cy.ttCookieAllAcceptClick()
-```
-
-```js
 cy.ttEveryInternalLinkStatusOk()
 ```
 
