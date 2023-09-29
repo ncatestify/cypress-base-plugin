@@ -9,5 +9,5 @@ export const ttRunTestifyBaseTests = () => {
   cy.ttOnlyOneH1()
   cy.ttInvalidPath404()
   cy.ttValidateLanguageTag('de')
-  cy.ttDetectHttp();
+  cy.ttDetectHttp()
 }

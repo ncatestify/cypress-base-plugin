@@ -3,6 +3,9 @@ describe('Validate Testify Tests', () => {
     beforeEach(() => {
         cy.visit('/');
     });
+    it('Click accept all cookies', () => {
+        cy.ttCookieAllAcceptClick();
+    });
     it('Accessibility test', () => {
         cy.ttAccessibility();
     });

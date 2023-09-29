@@ -1,2 +1,7 @@
-[  { "url": "/", "label": "Startseite" },  { "url": "/ueber-uns/", "label": "Über uns" },  { "url": "/impressum/", "label": "Impressum" },  { "url": "/blog/post1/", "label": "Blog Post 1" },  { "url": "/blog/post2/", "label": "Blog Post 2" }]
-
+[
+  { "url": "/", "label": "Startseite" },
+  { "url": "/ueber-uns/", "label": "Über uns" },
+  { "url": "/impressum/", "label": "Impressum" },
+  { "url": "/blog/post1/", "label": "Blog Post 1" },
+  { "url": "/blog/post2/", "label": "Blog Post 2" }
+]
