@@ -86,7 +86,11 @@ docker run -p 8090:80 -v $(pwd)/src:/app --entrypoint python3 python:3.9-alpine 
 
 ## Commands
 
-#### Validate all internal links return status code 200
+#### Click accept all cookies
+
+```js
+cy.ttCookieAllAcceptClick()
+```
 
 ```js
 cy.ttCookieAllAcceptClick()
