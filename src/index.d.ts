@@ -5,14 +5,15 @@ declare namespace Cypress {
     ttEveryInternalLinkStatusOk(): void
     ttEveryInternalLinkIsLoading(): void
     ttValidateNoGoogleServices(): void
-    ttElementExists(element: string): Chainable<Subject>
+    ttElementExists(element: string): void
     ttRunTestifyBaseTests(): void
     ttValidateAllImagesResponseStatusOk(): void
     ttAccessibility(context?: any, options?: any): Chainable<Subject>
-    ttValidatePageContent(): void  
+    ttValidatePageContent(): void
     ttOnlyOneH1(): void
     ttInvalidPath404(): void
     ttValidateLanguageTag(language: string): void
     ttDetectHttp(): void
+    ttCookieAllAcceptClick(): void
   }
 }
