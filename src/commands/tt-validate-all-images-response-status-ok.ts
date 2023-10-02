@@ -1,85 +1,84 @@
+const excludedUrlPrefixes = ['data:'];
+
+const isExcludedUrl = (url: string): boolean => {
+  return excludedUrlPrefixes.some((prefix) => url.startsWith(prefix));
+};
+
+const normalizeUrl = (url: string): string => {
+  return url.startsWith('//') ? `https:${url}` : url;
+};
+
 export const ttValidateAllImagesResponseStatusOk = () => {
-  cy.log('ttValidateAllImagesResponseStatusOk - NCA TESTIFY')
-  const srcArray: string[] = []
-  const srcSetArray: string[] = []
+  const srcArray: string[] = [];
+  const srcSetArray: string[] = [];
 
-  cy.get('img').should('have.length.gt', 0)
+  cy.get('img').should('have.length.gt', 0);
   cy.get('img')
-    .each((img, i) => {
-      if (img.attr('src') !== undefined) {
-        cy.wrap(img)
-          .invoke('attr', 'src')
-          .then((src) => {
-            if (typeof src === 'string') {
-              srcArray.push(src)
-            } else {
-              cy.log('img src is not a string')
-            }
-          })
+    .each(($img) => {
+      const img = $img[0] as HTMLImageElement;
+      const src = img.getAttribute('src');
+      const srcset = img.getAttribute('srcset');
+
+      if (src !== null) {
+        const normalizedSrc = normalizeUrl(src);
+        if (!isExcludedUrl(normalizedSrc)) {
+          srcArray.push(normalizedSrc);
+        }
       }
 
-      if (img.attr('srcset') !== undefined) {
-        cy.wrap(img)
-          .invoke('attr', 'srcset')
-          .then((srcset) => {
-            if (typeof srcset === 'string') {
-              const srcsetUrls = srcset
-                .split(',')
-                .map((srcsetItem) => srcsetItem.trim().split(' ')[0])
-              srcSetArray.push(...srcsetUrls)
-            } else {
-              cy.log('img srcset is not a string')
-            }
-          })
+      if (srcset !== null) {
+        const srcsetUrls = srcset
+          .split(',')
+          .map((srcsetItem) => srcsetItem.trim().split(' ')[0])
+          .map(normalizeUrl);
+        srcsetUrls.forEach((url) => {
+          if (!isExcludedUrl(url)) {
+            srcSetArray.push(url);
+          }
+        });
       }
 
-      if (img.attr('srcset') === undefined && img.attr('src') === undefined) {
-        cy.wrap(img)
-          .invoke('attr', 'alt')
-          .then((imgAlt) => {
-            cy.log(`Image ${imgAlt} has neither src nor srcset attribute`).then(
-              () => {
-                expect(img).to.have.attr('src')
-              },
-            )
-          })
+      if (src === null && srcset === null) {
+        const alt = img.getAttribute('alt') ?? '';
+        cy.log(`Image ${alt} has neither src nor srcset attribute`).then(() => {
+          expect(img).to.have.attr('src');
+        });
       }
     })
     .then(() => {
-      const promises = []
+      const promises: Cypress.Chainable[] = [];
 
       srcArray.forEach((url) => {
-        promises.push(
-          cy
-            .request('HEAD', url)
-            .its('status')
-            .should('eq', 200)
-            .then(() => {
-              cy.log('Validated image: ' + url)
-            }),
-        )
-      })
+        const promise = cy
+          .request('HEAD', url)
+          .its('status')
+          .should('eq', 200)
+          .then(() => {
+            cy.log(`Validated image: ${url}`);
+          });
+        promises.push(promise);
+      });
 
       srcSetArray.forEach((url) => {
-        promises.push(
-          cy
-            .request('HEAD', url)
-            .its('status')
-            .should('eq', 200)
-            .then(() => {
-              cy.log('Validated image in srcset: ' + url)
-            }),
-        )
-      })
+        const promise = cy
+          .request('HEAD', url)
+          .its('status')
+          .should('eq', 200)
+          .then(() => {
+            cy.log(`Validated image in srcset: ${url}`);
+          });
+        promises.push(promise);
+      });
 
-      return Cypress.Promise.all(promises)
+      return Cypress.Promise.all(promises);
     })
     .then(() => {
       srcArray.forEach((entry) => {
-        cy.get(`[src="${entry}"]`).should('exist')
-      })
+        cy.get(`[src="${entry}"]`).should('exist');
+      });
       srcSetArray.forEach((entry) => {
-        cy.get(`[srcset*="${entry}"]`).should('exist')
-      })
-    })
-}
+        cy.get(`[srcset*="${entry}"]`).should('exist');
+      });
+    });
+};
+
