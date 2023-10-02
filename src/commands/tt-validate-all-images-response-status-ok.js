@@ -1,71 +1,70 @@
+const excludedUrlPrefixes = ['data:'];
+const isExcludedUrl = (url) => {
+    return excludedUrlPrefixes.some((prefix) => url.startsWith(prefix));
+};
+const normalizeUrl = (url) => {
+    return url.startsWith('//') ? `https:${url}` : url;
+};
 export const ttValidateAllImagesResponseStatusOk = () => {
-    cy.log('ttValidateAllImagesResponseStatusOk - NCA TESTIFY');
-    const srcArray = [];
-    const srcSetArray = [];
+    const srcSet = new Set();
+    const srcSetArray = new Set();
     cy.get('img').should('have.length.gt', 0);
     cy.get('img')
-        .each((img, i) => {
-        if (img.attr('src') !== undefined) {
-            cy.wrap(img)
-                .invoke('attr', 'src')
-                .then((src) => {
-                if (typeof src === 'string') {
-                    srcArray.push(src);
-                }
-                else {
-                    cy.log('img src is not a string');
+        .each(($img) => {
+        var _a;
+        const img = $img[0];
+        const src = img.getAttribute('src');
+        const srcset = img.getAttribute('srcset');
+        if (src !== null) {
+            const normalizedSrc = normalizeUrl(src);
+            if (!isExcludedUrl(normalizedSrc)) {
+                srcSet.add(normalizedSrc);
+            }
+        }
+        if (srcset !== null) {
+            const srcsetUrls = srcset
+                .split(',')
+                .map((srcsetItem) => srcsetItem.trim().split(' ')[0])
+                .map(normalizeUrl);
+            srcsetUrls.forEach((url) => {
+                if (!isExcludedUrl(url)) {
+                    srcSetArray.add(url);
                 }
             });
         }
-        if (img.attr('srcset') !== undefined) {
-            cy.wrap(img)
-                .invoke('attr', 'srcset')
-                .then((srcset) => {
-                if (typeof srcset === 'string') {
-                    const srcsetUrls = srcset
-                        .split(',')
-                        .map((srcsetItem) => srcsetItem.trim().split(' ')[0]);
-                    srcSetArray.push(...srcsetUrls);
-                }
-                else {
-                    cy.log('img srcset is not a string');
-                }
-            });
-        }
-        if (img.attr('srcset') === undefined && img.attr('src') === undefined) {
-            cy.wrap(img)
-                .invoke('attr', 'alt')
-                .then((imgAlt) => {
-                cy.log(`Image ${imgAlt} has neither src nor srcset attribute`).then(() => {
-                    expect(img).to.have.attr('src');
-                });
+        if (src === null && srcset === null) {
+            const alt = (_a = img.getAttribute('alt')) !== null && _a !== void 0 ? _a : '';
+            cy.log(`Image ${alt} has neither src nor srcset attribute`).then(() => {
+                expect(img).to.have.attr('src');
             });
         }
     })
         .then(() => {
         const promises = [];
-        srcArray.forEach((url) => {
-            promises.push(cy
+        srcSet.forEach((url) => {
+            const promise = cy
                 .request('HEAD', url)
                 .its('status')
                 .should('eq', 200)
                 .then(() => {
-                cy.log('Validated image: ' + url);
-            }));
+                cy.log(`Validated image: ${url}`);
+            });
+            promises.push(promise);
         });
         srcSetArray.forEach((url) => {
-            promises.push(cy
+            const promise = cy
                 .request('HEAD', url)
                 .its('status')
                 .should('eq', 200)
                 .then(() => {
-                cy.log('Validated image in srcset: ' + url);
-            }));
+                cy.log(`Validated image in srcset: ${url}`);
+            });
+            promises.push(promise);
         });
         return Cypress.Promise.all(promises);
     })
         .then(() => {
-        srcArray.forEach((entry) => {
+        srcSet.forEach((entry) => {
             cy.get(`[src="${entry}"]`).should('exist');
         });
         srcSetArray.forEach((entry) => {

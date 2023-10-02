@@ -9,8 +9,8 @@ const normalizeUrl = (url: string): string => {
 };
 
 export const ttValidateAllImagesResponseStatusOk = () => {
-  const srcArray: string[] = [];
-  const srcSetArray: string[] = [];
+  const srcSet = new Set<string>();
+  const srcSetArray = new Set<string>();
 
   cy.get('img').should('have.length.gt', 0);
   cy.get('img')
@@ -22,7 +22,7 @@ export const ttValidateAllImagesResponseStatusOk = () => {
       if (src !== null) {
         const normalizedSrc = normalizeUrl(src);
         if (!isExcludedUrl(normalizedSrc)) {
-          srcArray.push(normalizedSrc);
+          srcSet.add(normalizedSrc);
         }
       }
 
@@ -33,7 +33,7 @@ export const ttValidateAllImagesResponseStatusOk = () => {
           .map(normalizeUrl);
         srcsetUrls.forEach((url) => {
           if (!isExcludedUrl(url)) {
-            srcSetArray.push(url);
+            srcSetArray.add(url);
           }
         });
       }
@@ -48,7 +48,7 @@ export const ttValidateAllImagesResponseStatusOk = () => {
     .then(() => {
       const promises: Cypress.Chainable[] = [];
 
-      srcArray.forEach((url) => {
+      srcSet.forEach((url) => {
         const promise = cy
           .request('HEAD', url)
           .its('status')
@@ -73,7 +73,7 @@ export const ttValidateAllImagesResponseStatusOk = () => {
       return Cypress.Promise.all(promises);
     })
     .then(() => {
-      srcArray.forEach((entry) => {
+      srcSet.forEach((entry) => {
         cy.get(`[src="${entry}"]`).should('exist');
       });
       srcSetArray.forEach((entry) => {
