@@ -43,18 +43,25 @@ import { ttCookieAllAcceptClick } from './commands/tt-cookie-all-accept'
 Cypress.Commands.add('ttEveryInternalLinkStatusOk', ttEveryInternalLinkStatusOk)
 Cypress.Commands.add(
   'ttValidateAllImagesResponseStatusOk',
-  ttValidateAllImagesResponseStatusOk,
+  ttValidateAllImagesResponseStatusOk
 )
 Cypress.Commands.add(
   'ttEveryInternalLinkIsLoading',
-  ttEveryInternalLinkIsLoading,
+  ttEveryInternalLinkIsLoading
 )
+// @ts-ignore
+Cypress.Commands.add('ttElementExists', ttElementExists)
 Cypress.Commands.add('ttGetInternalLinks', ttGetInternalLinks)
 Cypress.Commands.add('ttValidateImprintClickable', ttValidateImprintClickable)
 Cypress.Commands.add('ttValidateNoGoogleServices', ttValidateNoGoogleServices)
-Cypress.Commands.add('ttElementExists', ttElementExists)
 Cypress.Commands.add('ttRunTestifyBaseTests', ttRunTestifyBaseTests)
 Cypress.Commands.add('ttAccessibility', ttAccessibility)
+Cypress.Commands.add('ttValidatePageContent', ttValidatePageContent)
+Cypress.Commands.add('ttOnlyOneH1', ttOnlyOneH1)
+Cypress.Commands.add('ttInvalidPath404', ttInvalidPath404)
+Cypress.Commands.add('ttValidateLanguageTag', ttValidateLanguageTag)
+Cypress.Commands.add('ttDetectHttp', ttDetectHttp)
+Cypress.Commands.add('ttCookieAllAcceptClick', ttCookieAllAcceptClick)
 Cypress.Commands.add('ttValidatePageContent', ttValidatePageContent)
 Cypress.Commands.add('ttOnlyOneH1', ttOnlyOneH1)
 Cypress.Commands.add('ttInvalidPath404', ttInvalidPath404)
