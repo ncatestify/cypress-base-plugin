@@ -5,7 +5,7 @@ declare namespace Cypress {
     ttEveryInternalLinkStatusOk(): void
     ttEveryInternalLinkIsLoading(): void
     ttValidateNoGoogleServices(): void
-    ttElementExists(element: string): void
+    ttElementExists(element: string): boolean
     ttRunTestifyBaseTests(): void
     ttValidateAllImagesResponseStatusOk(): void
     ttAccessibility(context?: any, options?: any): Chainable<Subject>
