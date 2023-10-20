@@ -1,4 +1,6 @@
 # Update md file
+2.0.39
+Improve imprint command to detect all imprint links and validate if one is clickable.
 
 2.0.38
 Fix typescript errors
