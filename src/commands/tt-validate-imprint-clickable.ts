@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+
 export const ttValidateImprintClickable = (): void => {
   cy.get('a').each(($el, index, $list) => {
     if ($el.text().toLowerCase().includes('impressum')) {
@@ -9,14 +11,14 @@ export const ttValidateImprintClickable = (): void => {
         cy.wrap($el).click();
         cy.window().then((win) => {
           const isImpressum = win.location.href.includes('/impressum');
-          cy.expect(isImpressum).to.be.true;
+          expect(isImpressum).to.be.true;
           return false; // to break out of the each loop
         });
       }
     }
   }).then(($list) => {
     if ($list.length === 0) {
-      cy.expect(false).to.be.true; // Fails the test if no clickable link is found
+      expect(false).to.be.true; // Fails the test if no clickable link is found
     }
   });
 };
