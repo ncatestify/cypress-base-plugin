@@ -1,9 +1,9 @@
 {
   "name": "cypress-ncatestify-plugin",
-  "version": "2.0.39",
+  "version": "2.1.0",
   "description": "NCA TESTIFY commands and tests",
-  "main": "src",
-  "types": "src",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "files": [
     "**/*.js",
     "index.d.ts"
@@ -12,19 +12,22 @@
     "typecheck": "tsc --skipLibCheck --noEmit",
     "build": "tsc --skipLibCheck",
     "lint": "eslint --ext=.js,.ts,.tsx",
-    "release": "npm build && npm version && node scripts/release.js && npm publish",
+    "release": "npm run build && npm version patch && node scripts/release.js && npm publish",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "prettier": "npx prettier --write ."
   },
-  "keywords": [],
+  "keywords": ["cypress", "testing", "NCA", "TESTIFY"],
   "author": "Roland Golla",
   "license": "ISC",
+  "peerDependencies": {
+    "chai": ">=4.3.10",
+    "cypress": ">=13.1.0",
+    "cypress-axe": ">=1.4.0",
+    "axe-core": ">=4.0.0"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.54.0",
-    "chai": "^4.3.10",
-    "cypress": "^13.1.0",
-    "cypress-axe": "^1.4.0",
     "eslint": "^8.35.0",
     "eslint-config-standard-with-typescript": "^34.0.0",
     "eslint-plugin-cypress": "^2.12.1",
@@ -38,3 +41,4 @@
     "@11ty/eleventy": "^2.0.0"
   }
 }
+

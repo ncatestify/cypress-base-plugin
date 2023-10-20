@@ -1,4 +1,7 @@
 # Update md file
+2.1.0
+Use peer dependencies to have less problems with cypress, chai and axe.
+
 2.0.39
 Improve imprint command to detect all imprint links and validate if one is clickable.
 
