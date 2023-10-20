@@ -1,6 +1,6 @@
 {
   "name": "cypress-ncatestify-plugin",
-  "version": "2.0.38",
+  "version": "2.0.39",
   "description": "NCA TESTIFY commands and tests",
   "main": "src",
   "types": "src",
