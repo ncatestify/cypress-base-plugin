@@ -1,4 +1,6 @@
 # Update md file
+2.1.2
+Use force click in accept all cookies command.
 2.1.0
 Use peer dependencies to have less problems with cypress, chai and axe.
 
