@@ -16,8 +16,8 @@ module.exports = defineConfig({
     baseUrl: 'https://testify.team/de',
     setupNodeEvents(on, config) {
       // implement node event listeners here
-    },
-  },
+    }
+  }
 })
 ```
 
@@ -83,6 +83,42 @@ npm run build
 ## Docker command for local host on port 8090
 
 docker run -p 8090:80 -v $(pwd)/src:/app --entrypoint python3 python:3.9-alpine -m http.server --directory /app 80
+
+## Testing and Code Quality
+
+### Running Tests
+
+To run the test suite, execute the following command:
+
+```bash
+npm run test
+```
+
+This will run all Jest tests located in the `__tests__` directory.
+
+### Type Checking
+
+To perform TypeScript type checking, run:
+
+```bash
+npm run typecheck
+```
+
+This ensures that the code adheres to the TypeScript configurations and catches potential type errors.
+
+### Code Formatting
+
+To auto-format the codebase, run:
+
+```bash
+npm run prettier
+```
+
+This will format the code according to the rules specified in the `.prettierrc` file.
+
+### CI/CD Pipeline
+
+All of these checks are automatically run in our GitHub Actions CI/CD pipeline on every push and pull request to the `main` branch. This ensures that all merged code is properly tested, type-checked, and formatted.
 
 ## Commands
 
