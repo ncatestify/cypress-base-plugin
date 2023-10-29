@@ -1,6 +1,6 @@
 declare namespace Cypress {
   interface Chainable<Subject = any> {
-    ttGetInternalLinks<Subject>(): Chainable<string[]>
+    ttGetInternalLinks<Subject>(): string[]
     ttValidateImprintClickable(): void
     ttEveryInternalLinkStatusOk(): void
     ttEveryInternalLinkIsLoading(): void

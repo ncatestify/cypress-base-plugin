@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 export const ttValidateImprintClickable = () => {
-    cy.get('a').each(($el, index, $list) => {
+    cy.get('a')
+        .each(($el, index, $list) => {
         if ($el.text().toLowerCase().includes('impressum')) {
             const element = $el.get(0);
             const rect = element.getBoundingClientRect();
@@ -15,7 +16,8 @@ export const ttValidateImprintClickable = () => {
                 });
             }
         }
-    }).then(($list) => {
+    })
+        .then(($list) => {
         if ($list.length === 0) {
             expect(false).to.be.true; // Fails the test if no clickable link is found
         }

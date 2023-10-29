@@ -1,36 +1,35 @@
-export const ttGetInternalLinks = () => {
+import { isInternal } from '../utils/isInternal'
+
+export const ttGetInternalLinks = (): string[] => {
   cy.log('ttGetInternalLinks - NCA TESTIFY')
   const listOfResults: string[] = []
   cy.get('a').each((resultItem) => {
     let singleResult = ''
-    //Retrive Title
     cy.wrap(resultItem)
       .invoke('attr', 'href')
-      .then((href) => {
+      .then((href: string | undefined) => {
         if (
-          typeof href !== 'undefined' &&
+          href != null &&
           isInternal(href) &&
-          href.indexOf('mailto') == -1 &&
-          href.indexOf('tel') == -1 &&
-          Cypress._.indexOf(listOfResults, href) == -1
+          !href.includes('mailto') &&
+          !href.includes('tel') &&
+          !listOfResults.includes(href)
         ) {
-          // @ts-ignore
-          singleResult = href.replace(Cypress.config('baseUrl'), '')
-        } else {
+          const baseUrl = Cypress.config('baseUrl') as string
+          singleResult = href.replace(baseUrl, '')
+        } else if (href != null) {
           cy.log('Filtered URL: ' + href)
+        } else {
+          cy.log('Empty or null URL')
         }
       })
+
     cy.then(() => {
-      if (singleResult.length) {
+      if (singleResult.length !== 0) {
         listOfResults.push(singleResult)
       }
     })
   })
 
-  return cy.wrap(listOfResults)
-}
-
-function isInternal(url: string): boolean {
-  // @ts-ignore
-  return url.startsWith('/') || url.includes(Cypress.config('baseUrl'))
+  return cy.wrap(listOfResults, { log: false })
 }

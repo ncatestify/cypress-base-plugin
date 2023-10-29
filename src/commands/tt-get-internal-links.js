@@ -1,33 +1,32 @@
+import { isInternal } from '../utils/isInternal';
 export const ttGetInternalLinks = () => {
     cy.log('ttGetInternalLinks - NCA TESTIFY');
     const listOfResults = [];
     cy.get('a').each((resultItem) => {
         let singleResult = '';
-        //Retrive Title
         cy.wrap(resultItem)
             .invoke('attr', 'href')
             .then((href) => {
-            if (typeof href !== 'undefined' &&
+            if (href != null &&
                 isInternal(href) &&
-                href.indexOf('mailto') == -1 &&
-                href.indexOf('tel') == -1 &&
-                Cypress._.indexOf(listOfResults, href) == -1) {
-                // @ts-ignore
-                singleResult = href.replace(Cypress.config('baseUrl'), '');
+                !href.includes('mailto') &&
+                !href.includes('tel') &&
+                !listOfResults.includes(href)) {
+                const baseUrl = Cypress.config('baseUrl');
+                singleResult = href.replace(baseUrl, '');
+            }
+            else if (href != null) {
+                cy.log('Filtered URL: ' + href);
             }
             else {
-                cy.log('Filtered URL: ' + href);
+                cy.log('Empty or null URL');
             }
         });
         cy.then(() => {
-            if (singleResult.length) {
+            if (singleResult.length !== 0) {
                 listOfResults.push(singleResult);
             }
         });
     });
-    return cy.wrap(listOfResults);
+    return cy.wrap(listOfResults, { log: false });
 };
-function isInternal(url) {
-    // @ts-ignore
-    return url.startsWith('/') || url.includes(Cypress.config('baseUrl'));
-}

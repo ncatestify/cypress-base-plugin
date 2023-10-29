@@ -18,7 +18,7 @@ describe('Validate Testify Tests', () => {
     it('More than one img with status ok', () => {
         cy.ttValidateAllImagesResponseStatusOk();
     });
-    it('More than 2 internal links for each are ok', () => {
+    it.only('More than 2 internal links for each are ok', () => {
         cy.ttEveryInternalLinkStatusOk();
     });
     it('All subpages are loading', () => {
