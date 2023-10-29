@@ -23,7 +23,7 @@ describe('Validate Testify Tests', () => {
     cy.ttValidateAllImagesResponseStatusOk()
   })
 
-  it.only('More than 2 internal links for each are ok', () => {
+  it('More than 2 internal links for each are ok', () => {
     cy.ttEveryInternalLinkStatusOk()
   })
 

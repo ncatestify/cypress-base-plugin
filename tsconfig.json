@@ -5,11 +5,8 @@
     "target": "ES2019",
     "lib": ["esnext", "dom"],
     "types": ["jest", "cypress", "node", "./src", "cypress-axe"],
-    "paths": {
-      "@/src/*": ["./src"],
-      "@/cypress/*": ["./cypress"]
-    },
+    "outDir": "./dist",
     "moduleResolution": "node"
   },
-  "include": ["**/*.ts"]
+  "include": ["src/**/*.ts"]
 }
