@@ -8,7 +8,7 @@ export const ttEveryInternalLinkIsLoading = () => {
       } else {
         cy.log('PDF detected' + url)
       }
-      cy.clearAllLocalStorage();
+      cy.clearAllLocalStorage()
     })
   })
 }

@@ -1,4 +1,9 @@
 # Update md file
+
+2.1.3
+Add feature to detect internal links with validation of domain and protocol.
+Add jest utils to test functions.
+Add testing infos for static code analysis to readme file.
 2.1.2
 Use force click in accept all cookies command.
 2.1.0
@@ -13,8 +18,8 @@ Fix typescript errors
 - ttElementExist boolean and null operator.
 - ttValidateImprint use new method signature and improve.
 
-2.0.37
-Do something for the planet
+  2.0.37
+  Do something for the planet
 
 - Add cy.clearAllLocalStorage() to everyInternalLinkIsLoading for better memory handling.
 - Update npm dependencies.
