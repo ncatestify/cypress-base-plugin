@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Run Jest tests
-        run: npx jest
+        run: npx jest --config jest.config.ts
 
       - name: Run TypeScript typecheck
         run: npm run typecheck
