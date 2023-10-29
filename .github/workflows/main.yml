@@ -28,4 +28,4 @@ jobs:
         run: npm run build
 
       - name: Run Jest tests
-        run: npx jest --config jest.config.ts
+        run: npx jest
