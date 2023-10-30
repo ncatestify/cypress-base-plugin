@@ -1,6 +1,6 @@
 import { isInternal } from '../utils/isInternal'
 
-export const ttGetInternalLinks = (): string[] => {
+export const ttGetInternalLinks = (): Cypress.Chainable<string[]> => {
   cy.log('ttGetInternalLinks - NCA TESTIFY')
   const listOfResults: string[] = []
   cy.get('a').each((resultItem) => {
