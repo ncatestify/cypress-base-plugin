@@ -6,7 +6,9 @@
     "lib": ["esnext", "dom"],
     "types": ["jest", "cypress", "node", "./src", "cypress-axe"],
     "outDir": "./dist",
+    "declaration": true,
     "moduleResolution": "node"
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules/@types/jest", "src/**/*.test.ts", "src/commands.ts"]
 }

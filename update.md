@@ -1,5 +1,7 @@
 # Update md file
 
+2.1.6
+Fix issue with type delclaration in dist folder.
 2.1.3
 Add feature to detect internal links with validation of domain and protocol.
 Add jest utils to test functions.
