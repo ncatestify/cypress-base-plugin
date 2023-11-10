@@ -19,4 +19,8 @@ describe('isInternal', () => {
   test('returns true for wildcard protocol matching baseUrl', () => {
     expect(isInternal('//localhost:3000/path/to/page')).toBe(true)
   })
+
+  test('returns false for wildcard protocol not matching baseUrl', () => {
+    expect(isInternal('//www.instagram.com/profile')).toBe(false)
+  })
 })
