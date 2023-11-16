@@ -2,3 +2,5 @@
 **/videos
 **/screenshots
 **/cypress.env.json
+
+coverage/*
