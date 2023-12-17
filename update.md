@@ -1,5 +1,9 @@
 # Update md file
 
+2.1.10
+ttCookieAllAcceptClick can now handle different cookie banners.
+NPM dependencies updated.
+Add new cookie pages to testing page.
 2.1.6
 Fix issue with type delclaration in dist folder.
 2.1.3

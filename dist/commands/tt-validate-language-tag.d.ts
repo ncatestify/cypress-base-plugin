@@ -1,1 +1,1 @@
-export declare const ttValidateLanguageTag: (language: string) => void;
+export declare const ttValidateLanguageTag: (language: string) => void

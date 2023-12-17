@@ -1,1 +1,1 @@
-export declare const ttAccessibility: () => void;
+export declare const ttAccessibility: () => void

@@ -1,1 +1,1 @@
-export declare const ttInvalidPath404: () => void;
+export declare const ttInvalidPath404: () => void

@@ -1,8 +1,14 @@
 export const ttCookieAllAcceptClick = (
-  cookieButtonString: string = 'alle akzeptieren'
-) => {
+  cookieButtonStrings: string[] = ['alle akzeptieren', 'alles akzeptieren']
+): Cypress.Chainable<any> => {
   cy.log('ttCookieAllAcceptClick - NCA TESTIFY')
-  return cy
-    .contains(cookieButtonString, { matchCase: false })
-    .click({ force: true })
+  return cy.get('body').then(($body: JQuery<HTMLBodyElement>) => {
+    for (const buttonString of cookieButtonStrings) {
+      if ($body.text().includes(buttonString)) {
+        return cy
+          .contains(buttonString, { matchCase: false })
+          .click({ force: true })
+      }
+    }
+  })
 }
