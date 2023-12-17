@@ -1,13 +1,13 @@
 export const ttRunTestifyBaseTests = () => {
-  cy.log('ttRunTestifyBaseTests - NCA TESTIFY')
-  cy.ttEveryInternalLinkStatusOk()
-  cy.ttValidateAllImagesResponseStatusOk()
-  cy.ttValidateNoGoogleServices()
-  cy.ttValidateImprintClickable()
-  cy.ttEveryInternalLinkIsLoading()
-  cy.ttAccessibility()
-  cy.ttOnlyOneH1()
-  cy.ttInvalidPath404()
-  cy.ttValidateLanguageTag('de')
-  cy.ttDetectHttp()
-}
+    cy.log('ttRunTestifyBaseTests - NCA TESTIFY');
+    cy.ttEveryInternalLinkStatusOk();
+    cy.ttValidateAllImagesResponseStatusOk();
+    cy.ttValidateNoGoogleServices();
+    cy.ttValidateImprintClickable();
+    cy.ttEveryInternalLinkIsLoading();
+    cy.ttAccessibility();
+    cy.ttOnlyOneH1();
+    cy.ttInvalidPath404();
+    cy.ttValidateLanguageTag('de');
+    cy.ttDetectHttp();
+};

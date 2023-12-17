@@ -1,1 +1,1 @@
-export declare const ttEveryInternalLinkStatusOk: () => void
+export declare const ttEveryInternalLinkStatusOk: () => void;
