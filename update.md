@@ -1,5 +1,7 @@
 # Update md file
 
+2.1.11
+User centrics cookie banner is now supported.
 2.1.10
 ttCookieAllAcceptClick can now handle different cookie banners.
 NPM dependencies updated.

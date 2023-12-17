@@ -1,1 +1,1 @@
-export declare const ttValidateAllImagesResponseStatusOk: () => void
+export declare const ttValidateAllImagesResponseStatusOk: () => void;
