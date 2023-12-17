@@ -1,1 +1,1 @@
-export declare const ttRunTestifyBaseTests: () => void;
+export declare const ttRunTestifyBaseTests: () => void

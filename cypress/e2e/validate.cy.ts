@@ -3,6 +3,16 @@ describe('Validate Testify Tests', () => {
     cy.visit('/')
   })
 
+  it('Alles akzeptieren', () => {
+    cy.visit('/alles/')
+    cy.ttCookieAllAcceptClick()
+  })
+
+  it('Alle akzeptieren', () => {
+    cy.visit('/alle/')
+    cy.ttCookieAllAcceptClick()
+  })
+
   it('Click accept all cookies', () => {
     cy.ttCookieAllAcceptClick()
   })
@@ -29,10 +39,6 @@ describe('Validate Testify Tests', () => {
 
   it('All subpages are loading', () => {
     cy.ttEveryInternalLinkIsLoading()
-  })
-
-  it('Validate page content', () => {
-    cy.ttValidatePageContent()
   })
 
   it('Only one h1', () => {

@@ -1,1 +1,1 @@
-export declare const ttEveryInternalLinkIsLoading: () => void;
+export declare const ttEveryInternalLinkIsLoading: () => void
