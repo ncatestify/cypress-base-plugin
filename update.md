@@ -1,5 +1,5 @@
 # Update md file
-
+2.1.12 Update npm dependencies.
 2.1.11
 User centrics cookie banner is now supported.
 2.1.10
