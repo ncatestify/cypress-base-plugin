@@ -1,4 +1,4 @@
-export const ttDetectHttp = () => {
+export const ttDetectHttp = (): void => {
   cy.log('ttDetectHttp - NCA TESTIFY')
   cy.get('a').each((resultItem) => {
     cy.wrap(resultItem)
@@ -6,12 +6,12 @@ export const ttDetectHttp = () => {
       .then((href) => {
         if (
           typeof href !== 'undefined' &&
-          href.indexOf('mailto') == -1 &&
-          href.indexOf('tel') == -1
+          !href.includes('mailto') &&
+          !href.includes('tel')
         ) {
-          expect(href).to.not.include('http:')
+          assert.notInclude(href, 'http:')
         } else {
-          cy.log('Filtered URL: ' + href)
+          cy.log(`Filtered URL: ${href as string}`)
         }
       })
   })

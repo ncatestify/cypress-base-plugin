@@ -1,13 +1,14 @@
-export const ttEveryInternalLinkStatusOk = () => {
-  cy.ttGetInternalLinks().then((urls: string[]) => {
+export const ttEveryInternalLinkStatusOk = (): Cypress.Chainable<boolean> => {
+  return cy.ttGetInternalLinks().then((urls: string[]) => {
     cy.log('everyInternalLinkStatusOk - NCA TESTIFY')
     cy.wrap(urls).its('length').should('be.gt', 2)
+    let allLinksOk = true
     urls.forEach((url) => {
       cy.request({
         url
       }).then((resp) => {
         if (resp.headers['content-type'].includes('text/html')) {
-          expect(resp.status).to.eq(200)
+          allLinksOk = allLinksOk && resp.status === 200
         } else {
           cy.log('Skip content type')
           cy.log(url)
@@ -15,5 +16,6 @@ export const ttEveryInternalLinkStatusOk = () => {
         }
       })
     })
+    return cy.wrap(allLinksOk)
   })
 }
