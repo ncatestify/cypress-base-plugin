@@ -4,11 +4,11 @@
     "esModuleInterop": true,
     "target": "ES2019",
     "lib": ["esnext", "dom"],
-    "types": ["jest", "cypress", "node", "./src", "cypress-axe"],
+    "types": ["cypress", "node", "./src", "cypress-axe"],
     "outDir": "./dist",
     "declaration": true,
     "moduleResolution": "node"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "cypress/**/*.ts"],
   "exclude": ["node_modules/@types/jest", "src/**/*.test.ts", "src/commands.ts"]
 }
