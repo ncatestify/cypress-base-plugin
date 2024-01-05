@@ -1,4 +1,11 @@
 # Update md file
+2.1.13 
+- Update npm dependencies
+- Add cookie example pages
+- Improve TS config files.
+- Use cookie commands in validate test file
+- Cleanup example pages
+
 2.1.12 Update npm dependencies.
 2.1.11
 User centrics cookie banner is now supported.
