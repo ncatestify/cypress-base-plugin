@@ -13,10 +13,6 @@ describe('Validate Testify Tests', () => {
     cy.ttCookieAllAcceptClick()
   })
 
-  it('Click accept all cookies', () => {
-    cy.ttCookieAllAcceptClick()
-  })
-
   it('Accessibility test', () => {
     cy.ttAccessibility()
   })
