@@ -4,6 +4,6 @@ export const ttInvalidPath404 = () => {
         url: '/TESTIFY.invalidUrl',
         failOnStatusCode: false
     }).then((resp) => {
-        expect(resp.status).to.eq(404);
+        assert.equal(resp.status, 404);
     });
 };

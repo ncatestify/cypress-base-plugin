@@ -5,12 +5,12 @@ export const ttDetectHttp = () => {
             .invoke('attr', 'href')
             .then((href) => {
             if (typeof href !== 'undefined' &&
-                href.indexOf('mailto') == -1 &&
-                href.indexOf('tel') == -1) {
-                expect(href).to.not.include('http:');
+                !href.includes('mailto') &&
+                !href.includes('tel')) {
+                assert.notInclude(href, 'http:');
             }
             else {
-                cy.log('Filtered URL: ' + href);
+                cy.log(`Filtered URL: ${href}`);
             }
         });
     });

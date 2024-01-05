@@ -34,9 +34,8 @@ export const ttValidateAllImagesResponseStatusOk = () => {
         }
         if (src === null && srcset === null) {
             const alt = (_a = img.getAttribute('alt')) !== null && _a !== void 0 ? _a : '';
-            cy.log(`Image ${alt} has neither src nor srcset attribute`).then(() => {
-                expect(img).to.have.attr('src');
-            });
+            cy.log(`Image ${alt} has neither src nor srcset attribute`);
+            throw new Error(`Image ${alt} has neither src nor srcset attribute`);
         }
     })
         .then(() => {

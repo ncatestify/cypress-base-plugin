@@ -1,11 +1,12 @@
 export const ttValidateNoGoogleServices = () => {
     cy.on('request', (req) => {
-        if (!req.url.startsWith(`${Cypress.config('baseUrl')}`)) {
-            cy.log('External url: ' + req.url);
-            expect(req.url).not.to.include('/fonts.gstatic.com/');
-            expect(req.url).not.to.include('/fonts.googleapis.com/');
-            expect(req.url).not.to.include('/maps.google');
-            expect(req.url).not.to.include('/google.com/maps');
+        var _a;
+        if (!req.url.startsWith(`${(_a = Cypress.config('baseUrl')) !== null && _a !== void 0 ? _a : ''}`)) {
+            cy.log('External url: ' + String(req.url));
+            expect(req.url).not.to.contain('/fonts.gstatic.com/');
+            expect(req.url).not.to.contain('/fonts.googleapis.com/');
+            expect(req.url).not.to.contain('/maps.google');
+            expect(req.url).not.to.contain('/google.com/maps');
         }
     });
     cy.reload();

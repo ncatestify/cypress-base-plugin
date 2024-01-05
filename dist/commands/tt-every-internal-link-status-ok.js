@@ -7,7 +7,7 @@ export const ttEveryInternalLinkStatusOk = () => {
                 url
             }).then((resp) => {
                 if (resp.headers['content-type'].includes('text/html')) {
-                    expect(resp.status).to.eq(200);
+                    assert.equal(resp.status, 200);
                 }
                 else {
                     cy.log('Skip content type');
