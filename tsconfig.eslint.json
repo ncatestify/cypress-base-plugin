@@ -1,4 +1,5 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src", "cypress", ".eslintrc.js"]
+  "include": ["src", "cypress", ".eslintrc.js"],
+  "exclude": ["node_modules"]
 }

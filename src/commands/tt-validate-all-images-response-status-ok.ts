@@ -8,7 +8,7 @@ const normalizeUrl = (url: string): string => {
   return url.startsWith('//') ? `https:${url}` : url
 }
 
-export const ttValidateAllImagesResponseStatusOk = () => {
+export const ttValidateAllImagesResponseStatusOk = (): void => {
   const srcSet = new Set<string>()
   const srcSetArray = new Set<string>()
 
@@ -40,9 +40,8 @@ export const ttValidateAllImagesResponseStatusOk = () => {
 
       if (src === null && srcset === null) {
         const alt = img.getAttribute('alt') ?? ''
-        cy.log(`Image ${alt} has neither src nor srcset attribute`).then(() => {
-          expect(img).to.have.attr('src')
-        })
+        cy.log(`Image ${alt} has neither src nor srcset attribute`)
+        throw new Error(`Image ${alt} has neither src nor srcset attribute`)
       }
     })
     .then(() => {

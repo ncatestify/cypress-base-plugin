@@ -1,6 +1,7 @@
-export const ttEveryInternalLinkIsLoading = () => {
+export const ttEveryInternalLinkIsLoading = (): void => {
   cy.log('everyInternalLinkIsLoading - NCA TESTIFY')
-  cy.ttGetInternalLinks().then((urls: Array<string>) => {
+  //@ts-ignore
+  cy.ttGetInternalLinks().then((urls: string[]) => {
     urls.forEach((url) => {
       if (!url.includes('.pdf')) {
         cy.visit(url)

@@ -1,28 +1,5 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+/// <reference types="cypress" />
+// @ts-nocheck
 import { ttEveryInternalLinkStatusOk } from './commands/tt-every-internal-link-status-ok';
 import { ttValidateAllImagesResponseStatusOk } from './commands/tt-validate-all-images-response-status-ok';
 import { ttEveryInternalLinkIsLoading } from './commands/tt-every-internal-link-is-loading';
@@ -41,7 +18,6 @@ import { ttCookieAllAcceptClick } from './commands/tt-cookie-all-accept';
 Cypress.Commands.add('ttEveryInternalLinkStatusOk', ttEveryInternalLinkStatusOk);
 Cypress.Commands.add('ttValidateAllImagesResponseStatusOk', ttValidateAllImagesResponseStatusOk);
 Cypress.Commands.add('ttEveryInternalLinkIsLoading', ttEveryInternalLinkIsLoading);
-// @ts-ignore
 Cypress.Commands.add('ttElementExists', ttElementExists);
 Cypress.Commands.add('ttGetInternalLinks', ttGetInternalLinks);
 Cypress.Commands.add('ttValidateImprintClickable', ttValidateImprintClickable);

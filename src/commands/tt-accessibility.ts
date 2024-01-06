@@ -1,4 +1,4 @@
-export const ttAccessibility = () => {
+export const ttAccessibility = (): void => {
   cy.log('ttAccessibility - NCA TESTIFY')
 
   cy.injectAxe()

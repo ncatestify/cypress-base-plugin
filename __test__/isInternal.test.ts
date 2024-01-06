@@ -1,11 +1,5 @@
-import { isInternal } from '../utils/isInternal'
+import { isInternal } from '../src/utils/isInternal'
 import { expect } from '@jest/globals'
-
-declare const global: any
-
-global.Cypress = {
-  config: jest.fn().mockReturnValue('http://localhost:3000')
-}
 
 describe('isInternal', () => {
   test('returns true for internal URLs', () => {

@@ -1,4 +1,5 @@
-export const ttRunTestifyBaseTests = () => {
+//@ts-nocheck
+export const ttRunTestifyBaseTests = (): void => {
   cy.log('ttRunTestifyBaseTests - NCA TESTIFY')
   cy.ttEveryInternalLinkStatusOk()
   cy.ttValidateAllImagesResponseStatusOk()

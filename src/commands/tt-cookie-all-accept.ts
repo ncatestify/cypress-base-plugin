@@ -4,10 +4,9 @@ export const ttCookieAllAcceptClick = (
   cy.log('ttCookieAllAcceptClick - NCA TESTIFY')
 
   return cy.get('body').then(($body) => {
-    // Prüfen, ob der Button außerhalb des Shadow DOMs ist
     let found = false
     for (const buttonString of cookieButtonStrings) {
-      if ($body.text().includes(buttonString)) {
+      if ($body.text().toLowerCase().includes(buttonString)) {
         cy.log(`Found matching string: ${buttonString}`)
         cy.contains(buttonString, { matchCase: false }).click({ force: true })
         found = true
@@ -16,7 +15,7 @@ export const ttCookieAllAcceptClick = (
     }
 
     if (!found) {
-      // Usercentrics Special Case: Zugriff auf den Shadow DOM
+      // Usercentrics special case
       cy.window().then((win) => {
         const shadowHost = win.document.querySelector('#usercentrics-root')
         if (shadowHost !== null) {
