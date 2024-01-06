@@ -1,4 +1,11 @@
 # Update md file
+2.1.14
+- Import axe dependencies
+- Delete ckkie html file
+- Improve TS files caused by jest cypress issue
+- Move jest tests to root folder
+- Use inline ts check ignore statements
+
 2.1.13 
 - Update npm dependencies
 - Add cookie example pages
