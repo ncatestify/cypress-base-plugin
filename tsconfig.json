@@ -1,14 +1,15 @@
+// Haupt-tsconfig.json
 {
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,
     "target": "ES2019",
     "lib": ["esnext", "dom"],
-    "types": ["cypress", "node", "./src", "cypress-axe"],
     "outDir": "./dist",
     "declaration": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "cypress/**/*.ts"],
-  "exclude": ["node_modules/@types/jest", "src/**/*.test.ts", "src/commands.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "cypress"]
 }

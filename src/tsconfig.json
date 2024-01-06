@@ -1,11 +1,8 @@
+// src/tsconfig.json
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "types": ["jest"]
+    "types": ["cypress"]
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "cypress"]
+  "include": ["**/*.ts"]
 }
