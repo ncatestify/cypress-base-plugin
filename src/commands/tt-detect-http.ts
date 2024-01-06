@@ -1,3 +1,5 @@
+import { assert } from 'chai'
+
 export const ttDetectHttp = (): void => {
   cy.log('ttDetectHttp - NCA TESTIFY')
   cy.get('a').each((resultItem) => {

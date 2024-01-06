@@ -1,3 +1,4 @@
+//@ts-nocheck
 export const ttValidatePageContent = (): void => {
   cy.ttAccessibility()
   cy.ttValidateNoGoogleServices()

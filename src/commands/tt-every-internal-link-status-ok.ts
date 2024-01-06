@@ -1,4 +1,5 @@
-export const ttEveryInternalLinkStatusOk = (): Cypress.Chainable<boolean> => {
+export const ttEveryInternalLinkStatusOk = (): Cypress.Chainable<any> => {
+  //@ts-ignore
   return cy.ttGetInternalLinks().then((urls: string[]) => {
     cy.log('everyInternalLinkStatusOk - NCA TESTIFY')
     cy.wrap(urls).its('length').should('be.gt', 2)

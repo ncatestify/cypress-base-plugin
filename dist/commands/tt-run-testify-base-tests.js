@@ -1,3 +1,4 @@
+//@ts-nocheck
 export const ttRunTestifyBaseTests = () => {
     cy.log('ttRunTestifyBaseTests - NCA TESTIFY');
     cy.ttEveryInternalLinkStatusOk();

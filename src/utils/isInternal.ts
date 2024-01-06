@@ -1,6 +1,8 @@
+// src/utils/isInternal.ts
 export const isInternal = (url: string): boolean => {
-  // Extract the domain from the baseUrl
-  const baseUrlDomain = new URL(Cypress.config('baseUrl') as string).hostname
+  // Verwenden einer Umgebungsvariablen oder eines Standardwerts
+  const baseUrlDomain = new URL(process.env.BASE_URL || 'http://localhost:3000')
+    .hostname
 
   // Regular expression to match URLs starting with "//"
   const regex = /^\/\/([a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+)/

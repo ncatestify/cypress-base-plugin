@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+// @ts-nocheck
 import { ttEveryInternalLinkStatusOk } from './commands/tt-every-internal-link-status-ok'
 import { ttValidateAllImagesResponseStatusOk } from './commands/tt-validate-all-images-response-status-ok'
 import { ttEveryInternalLinkIsLoading } from './commands/tt-every-internal-link-is-loading'
@@ -23,7 +25,6 @@ Cypress.Commands.add(
   'ttEveryInternalLinkIsLoading',
   ttEveryInternalLinkIsLoading
 )
-// @ts-ignore
 Cypress.Commands.add('ttElementExists', ttElementExists)
 Cypress.Commands.add('ttGetInternalLinks', ttGetInternalLinks)
 Cypress.Commands.add('ttValidateImprintClickable', ttValidateImprintClickable)
