@@ -1,15 +1,18 @@
-// Haupt-tsconfig.json
 {
   "compilerOptions": {
-    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/support/*": ["./cypress/support/*"],
+      "@/pages/*": ["./cypress/pages/*"]
+    },
+    "module": "amd",
     "esModuleInterop": true,
+    "moduleResolution": "node",
     "target": "ES2019",
     "lib": ["esnext", "dom"],
-    "outDir": "./dist",
-    "declaration": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true
+    "types": ["cypress", "node"],
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["node_modules/@types"]
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "cypress"]
+  "include": ["**/*.ts"]
 }
