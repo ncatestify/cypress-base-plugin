@@ -204,6 +204,12 @@ cy.ttValidateLanguageTag(language: string)
 cy.ttDetectHttp()
 ```
 
+#### Detect console errors
+
+```js
+cy.ttNoConsoleErrors()
+```
+
 Open
 http://localhost:8090
 

@@ -52,4 +52,8 @@ describe('Validate Testify Tests', () => {
   it('Detects http', () => {
     cy.ttDetectHttp()
   })
+
+  it('No console errors', () => {
+    cy.ttNoConsoleErrors()
+  });
 })
