@@ -1,3 +1,4 @@
+"use strict";
 // ***********************************************************
 // This example support/e2e.js is processed and
 // loaded automatically before your test files.
@@ -12,12 +13,12 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-define(["require", "exports", "cypress-axe", "./../../src/commands"], function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    Cypress.on('uncaught:exception', (_err, runnable) => {
-        // returning false here prevents Cypress from
-        // failing the test
-        return false;
-    });
+Object.defineProperty(exports, "__esModule", { value: true });
+// Import commands.js using ES2015 syntax:
+require("cypress-axe");
+require("./../../src/commands");
+Cypress.on('uncaught:exception', (_err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false;
 });

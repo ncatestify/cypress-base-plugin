@@ -1,6 +1,14 @@
 # Update md file
 
-2.1.20
+2.1.21
+
+- Optimized module imports: Refactored the import statements to ensure efficient module resolution and to avoid potential conflicts.
+
+- Streamlined build process: Adjusted the build configuration to enhance the compilation process, ensuring that only necessary files are included in the final build.
+
+- Improved module format: Transitioned to a more suitable module format for the project's context, enhancing compatibility and performance.
+
+  2.1.20
 
 Enhanced isInternal function for compatibility with both Cypress and Jest environments: The function now dynamically determines the base URL by checking the execution context. In a Cypress context, it uses Cypress.config('baseUrl'), while in a Jest context, it falls back to process.env.BASE_URL or a default value. This update ensures consistent behavior of the isInternal function across different testing environments, enhancing its reliability and flexibility.
 
