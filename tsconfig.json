@@ -12,7 +12,8 @@
     "lib": ["esnext", "dom"],
     "types": ["cypress", "node"],
     "allowSyntheticDefaultImports": true,
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types"],
+    "outDir": "./dist"
   },
   "include": ["**/*.ts"]
 }

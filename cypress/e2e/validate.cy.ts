@@ -55,5 +55,5 @@ describe('Validate Testify Tests', () => {
 
   it('No console errors', () => {
     cy.ttNoConsoleErrors()
-  });
+  })
 })
