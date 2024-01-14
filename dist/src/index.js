@@ -1,4 +1,3 @@
-define(["require", "exports", "./commands"], function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-});
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+require("./commands");

@@ -3,9 +3,10 @@
     "baseUrl": ".",
     "paths": {
       "@/support/*": ["./cypress/support/*"],
-      "@/pages/*": ["./cypress/pages/*"]
+      "@/pages/*": ["./cypress/pages/*"],
+      "@/utils/*": ["./src/utils/*"]
     },
-    "module": "amd",
+    "module": "CommonJS",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "target": "ES2019",
@@ -13,7 +14,8 @@
     "types": ["cypress", "node"],
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["node_modules/@types"],
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "declaration": false
   },
   "include": ["**/*.ts"]
 }
