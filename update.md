@@ -1,5 +1,9 @@
 # Update md file
 
+2.1.20
+
+Enhanced isInternal function for compatibility with both Cypress and Jest environments: The function now dynamically determines the base URL by checking the execution context. In a Cypress context, it uses Cypress.config('baseUrl'), while in a Jest context, it falls back to process.env.BASE_URL or a default value. This update ensures consistent behavior of the isInternal function across different testing environments, enhancing its reliability and flexibility.
+
 2.1.19
 
 - Adjusted isInternal function to utilize Cypress context: The isInternal function has been updated to directly use the baseUrl from Cypress configuration. This ensures accurate determination of internal URLs within the Cypress testing environment.
