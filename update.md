@@ -1,4 +1,10 @@
 # Update md file
+2.1.18
+- Update npm dependencies
+
+2.1.16
+- Add new javascript error detection
+
 2.1.14
 - Import axe dependencies
 - Delete ckkie html file
