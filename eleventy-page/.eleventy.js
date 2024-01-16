@@ -1,8 +1,11 @@
 module.exports = function (eleventyConfig) {
-  eleventyConfig.addPassthroughCopy('assets')
+  eleventyConfig.addPassthroughCopy('pages/assets')
   return {
     dir: {
-      output: 'output'
+      input: 'pages',
+      output: 'output',
+      includes: "_includes",
+      data: "_data",
     }
   }
 }
