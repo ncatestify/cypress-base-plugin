@@ -1,4 +1,9 @@
 # Update md file
+2.1.24
+Update npm dependencies.
+
+2.1.23
+Use clean structure for eleventy pages.
 
 2.1.21
 
