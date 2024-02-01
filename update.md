@@ -1,16 +1,27 @@
 # Update md file
-2.1.25
+
+2.1.27
+
+- Use relative path for utils
+
+  2.1.26
+
+- Remove jest test from dist folder
+- New build with index.d.ts file in copy
+
+  2.1.25
+
 - Use index.d file in Cypress folder
 - Remove no errors call in validate file
 - Build with node version 18.5
 
-2.1.24
-Update npm dependencies.
+  2.1.24
+  Update npm dependencies.
 
-2.1.23
-Use clean structure for eleventy pages.
+  2.1.23
+  Use clean structure for eleventy pages.
 
-2.1.21
+  2.1.21
 
 - Optimized module imports: Refactored the import statements to ensure efficient module resolution and to avoid potential conflicts.
 
