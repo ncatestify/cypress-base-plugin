@@ -1,4 +1,9 @@
 # Update md file
+2.1.25
+- Use index.d file in Cypress folder
+- Remove no errors call in validate file
+- Build with node version 18.5
+
 2.1.24
 Update npm dependencies.
 
