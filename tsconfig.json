@@ -15,7 +15,9 @@
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["node_modules/@types"],
     "outDir": "./dist",
+    "rootDir": "./src",
+
     "declaration": false
   },
-  "include": ["**/*.ts"]
+  "include": ["src/**/*.ts"]
 }

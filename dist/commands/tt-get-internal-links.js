@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttGetInternalLinks = void 0;
-const isInternal_1 = require("@/utils/isInternal");
+const isInternal_1 = require("./../utils/isInternal");
 const ttGetInternalLinks = () => {
     cy.log('ttGetInternalLinks - NCA TESTIFY');
     const listOfResults = [];
