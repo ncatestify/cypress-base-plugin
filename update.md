@@ -2,7 +2,7 @@
 
 2.1.28
 
-- Implemented ttValidateAccordions command, to validated accordions functionality
+- Implemented ttValidateAccordions command, to validate accordions functionality
 
 2.1.27
 
