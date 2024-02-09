@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "typecheck": "tsc --skipLibCheck --noEmit",
-    "postbuild": "copyfiles -u 1 src/index.d.ts dist",
+    "postbuild": "copyfiles -u 1 src/index.d.ts dist && rm jest.config.js",
     "build": "tsc --skipLibCheck",
     "lint": "eslint --ext=.js,.ts,.tsx",
     "release": "npm run build && npm version patch && node scripts/release.js && npm publish",
