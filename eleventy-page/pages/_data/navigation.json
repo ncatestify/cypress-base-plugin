@@ -5,5 +5,6 @@
   { "url": "/blog/post1/", "label": "Blog Post 1" },
   { "url": "/blog/post2/", "label": "Blog Post 2" },
   { "url": "/alle/", "label": "Alle" },
-  { "url": "/alles/", "label": "Alles" }
+  { "url": "/alles/", "label": "Alles" },
+  { "url": "/performance/", "label": "Performance" }
 ]
