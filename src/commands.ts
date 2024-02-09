@@ -15,6 +15,7 @@ import { ttInvalidPath404 } from './commands/tt-invalid-path-404'
 import { ttValidateLanguageTag } from './commands/tt-validate-language-tag'
 import { ttDetectHttp } from './commands/tt-detect-http'
 import { ttCookieAllAcceptClick } from './commands/tt-cookie-all-accept'
+import { ttValidateAccordions } from './commands/tt-validate-accordions'
 
 Cypress.Commands.add('ttEveryInternalLinkStatusOk', ttEveryInternalLinkStatusOk)
 Cypress.Commands.add(
@@ -43,3 +44,4 @@ Cypress.Commands.add('ttInvalidPath404', ttInvalidPath404)
 Cypress.Commands.add('ttValidateLanguageTag', ttValidateLanguageTag)
 Cypress.Commands.add('ttDetectHttp', ttDetectHttp)
 Cypress.Commands.add('ttCookieAllAcceptClick', ttCookieAllAcceptClick)
+Cypress.Commands.add('ttValidateAccordions', ttValidateAccordions)

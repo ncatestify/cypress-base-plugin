@@ -17,6 +17,7 @@ const tt_invalid_path_404_1 = require("./commands/tt-invalid-path-404");
 const tt_validate_language_tag_1 = require("./commands/tt-validate-language-tag");
 const tt_detect_http_1 = require("./commands/tt-detect-http");
 const tt_cookie_all_accept_1 = require("./commands/tt-cookie-all-accept");
+const tt_validate_accordions_1 = require("./commands/tt-validate-accordions");
 Cypress.Commands.add('ttEveryInternalLinkStatusOk', tt_every_internal_link_status_ok_1.ttEveryInternalLinkStatusOk);
 Cypress.Commands.add('ttValidateAllImagesResponseStatusOk', tt_validate_all_images_response_status_ok_1.ttValidateAllImagesResponseStatusOk);
 Cypress.Commands.add('ttEveryInternalLinkIsLoading', tt_every_internal_link_is_loading_1.ttEveryInternalLinkIsLoading);
@@ -38,3 +39,4 @@ Cypress.Commands.add('ttInvalidPath404', tt_invalid_path_404_1.ttInvalidPath404)
 Cypress.Commands.add('ttValidateLanguageTag', tt_validate_language_tag_1.ttValidateLanguageTag);
 Cypress.Commands.add('ttDetectHttp', tt_detect_http_1.ttDetectHttp);
 Cypress.Commands.add('ttCookieAllAcceptClick', tt_cookie_all_accept_1.ttCookieAllAcceptClick);
+Cypress.Commands.add('ttValidateAccordions', tt_validate_accordions_1.ttValidateAccordions);
