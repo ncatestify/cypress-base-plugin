@@ -15,5 +15,6 @@ declare namespace Cypress {
     ttValidateLanguageTag(language: string): void
     ttDetectHttp(): void
     ttCookieAllAcceptClick(): void
+    ttValidateAccordions(accordionSelector: string, pTagSelector: string): Chainable
   }
 }

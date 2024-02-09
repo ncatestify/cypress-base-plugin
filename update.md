@@ -1,5 +1,9 @@
 # Update md file
 
+2.1.28
+
+- Implemented ttValidateAccordions command, to validated accordions functionality
+
 2.1.27
 
 - Use relative path for utils

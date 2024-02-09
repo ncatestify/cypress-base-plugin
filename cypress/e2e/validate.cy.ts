@@ -52,4 +52,8 @@ describe('Validate Testify Tests', () => {
   it('Detects http', () => {
     cy.ttDetectHttp()
   })
+
+  it.skip('Validates Accordions', () => {
+    cy.ttValidateAccordions('.faq-item-plain', 'p')
+  })
 })
