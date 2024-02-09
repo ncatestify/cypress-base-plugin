@@ -54,6 +54,6 @@ describe('Validate Testify Tests', () => {
   })
 
   it.skip('Validates Accordions', () => {
-    cy.ttValidateAccordions('.faq-item-plain', 'p')
+    cy.ttValidateAccordions('yourAccordionSelector', 'yourPTagSelector')
   })
 })
