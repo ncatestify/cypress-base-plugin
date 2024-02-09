@@ -1,6 +1,13 @@
 # Update md file
 
-2.1.27
+2.1.28
+
+- Add page load method
+- Add new test for threshold in mb
+- Add cypress axe to peer dependencies
+- Update npm dependencies
+
+  2.1.27
 
 - Use relative path for utils
 
