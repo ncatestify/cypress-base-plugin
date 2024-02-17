@@ -17,6 +17,7 @@ import { ttDetectHttp } from './commands/tt-detect-http'
 import { ttCookieAllAcceptClick } from './commands/tt-cookie-all-accept'
 import { ttThreshold } from './commands/tt-threshold'
 import { ttPageLoaded } from './commands/tt-page-loaded'
+import { ttSetupConsoleErrorListener } from './commands/tt-setup-console-error-listener'
 
 Cypress.Commands.add('ttEveryInternalLinkStatusOk', ttEveryInternalLinkStatusOk)
 Cypress.Commands.add(
@@ -47,3 +48,4 @@ Cypress.Commands.add('ttDetectHttp', ttDetectHttp)
 Cypress.Commands.add('ttCookieAllAcceptClick', ttCookieAllAcceptClick)
 Cypress.Commands.add('ttThreshold', ttThreshold)
 Cypress.Commands.add('ttPageLoaded', ttPageLoaded)
+Cypress.Commands.add('ttSetupConsoleErrorListener', ttSetupConsoleErrorListener)
