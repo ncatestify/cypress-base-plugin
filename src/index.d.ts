@@ -15,5 +15,8 @@ declare namespace Cypress {
     ttValidateLanguageTag(language: string): void
     ttDetectHttp(): void
     ttCookieAllAcceptClick(): void
+    ttThreshold(): void
+    ttConsoleErrors(): void
+    ttPageLoaded(): void
   }
 }

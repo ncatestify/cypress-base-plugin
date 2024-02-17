@@ -56,4 +56,9 @@ describe('Validate Testify Tests', () => {
   it('Detects treshold', () => {
     cy.ttThreshold()
   })
+
+  it.only('Detects console errors', () => {
+    cy.ttSetupConsoleErrorListener()
+    cy.visit('/console-errors/')
+  })
 })
