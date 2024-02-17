@@ -1,5 +1,17 @@
 # Update md file
 
+2.1.29
+
+Implemented Console Error Detection Command: Introduced a new Cypress command, ttSetupConsoleErrorListener, designed to monitor and capture any console errors that occur during the execution of tests. This command sets up listeners for uncaught exceptions and console errors, providing a robust way to ensure that our applications behave as expected without producing unintended errors in the console.
+
+Enhanced Error Handling Mechanism: By registering an uncaught:exception handler, we've strengthened our error handling mechanism. This allows us to catch and record unexpected errors that occur during page execution, which are often indicative of underlying issues in the application code.
+
+Automated Error Verification Post-Test Execution: The command also includes an automated verification step that runs after each test. It checks if any console errors were captured and, if so, fails the test with a detailed error message. This ensures that issues are caught early in the development cycle, promoting higher code quality and stability.
+
+Streamlined Test Setup: The introduction of ttSetupConsoleErrorListener simplifies the test setup process by encapsulating error detection and handling within a single, reusable command. This reduces boilerplate code and enhances test readability and maintainability.
+
+Updated Documentation and Examples: To support the adoption of the new command, we've updated our documentation to include clear instructions and examples on how to integrate ttSetupConsoleErrorListener into existing tests. This ensures that teams can quickly benefit from improved error detection capabilities.
+
 2.1.28
 
 - Add page load method
