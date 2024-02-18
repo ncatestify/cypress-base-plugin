@@ -1,10 +1,14 @@
 export const ttThreshold = (thresholdMB: number = 1): void => {
-  cy.ttPageLoaded()
   cy.window().then((win) => {
     const thresholdBytes = thresholdMB * 1024 * 1024
     const pageWeight = win.performance
       .getEntriesByType('resource')
-      .reduce((total, resource) => total + (resource.encodedBodySize || 0), 0)
+      .reduce((total, resource) => {
+        if (resource instanceof PerformanceResourceTiming) {
+          return total + (resource.encodedBodySize || 0)
+        }
+        return total
+      }, 0)
     const pageWeightMB = pageWeight / (1024 * 1024)
     if (pageWeight > thresholdBytes) {
       cy.log(
