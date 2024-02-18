@@ -1,4 +1,12 @@
 # Update md file
+2.1.30
+Adds type checking in ttThreshold function to optimize performance measurement
+
+A type check has been added in the ttThreshold function to ensure that the 'encodedBodySize' property is only accessed when the PerformanceEntry object is indeed an instance of PerformanceResourceTiming. This prevents runtime errors and improves the accuracy of the performance measurement.
+
+The change affects the way the total size of loaded resources is calculated. Previously, it attempted to access the 'encodedBodySize' property from every PerformanceEntry object, which could lead to errors if the object was not an instance of PerformanceResourceTiming. With the new change, this property is only accessed when the object is indeed an instance of PerformanceResourceTiming.
+
+This change should improve the accuracy of the performance measurement and prevent potential errors in calculating the total size of loaded resources.
 
 2.1.29
 
