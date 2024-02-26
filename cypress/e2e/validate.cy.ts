@@ -46,7 +46,7 @@ describe('Validate Testify Tests', () => {
   })
 
   it('Validates language tag', () => {
-    cy.ttValidateLanguageTag('de')
+    cy.ttValidateLanguageTag()
   })
 
   it('Detects http', () => {
@@ -57,7 +57,7 @@ describe('Validate Testify Tests', () => {
     cy.ttThreshold()
   })
 
-  it.only('Detects console errors', () => {
+  it('Detects console errors', () => {
     cy.ttSetupConsoleErrorListener()
     cy.visit('/console-errors/')
   })

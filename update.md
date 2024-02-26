@@ -1,4 +1,7 @@
 # Update md file
+2.1.31
+Updated cy.ttValidateLanguageTag command to use 'de' as default language
+
 2.1.30
 Adds type checking in ttThreshold function to optimize performance measurement
 
