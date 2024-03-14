@@ -1,6 +1,10 @@
 # Update md file
 
-2.1.35
+2.1.36
+
+- Fix specual case for a hrefs that only have the base url like a logo
+
+  2.1.35
 
 - Set detault value for get internal links to 10.
 - Filter anchor links in get internal links.
