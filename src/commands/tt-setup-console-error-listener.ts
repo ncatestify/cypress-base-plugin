@@ -18,4 +18,6 @@ export const ttSetupConsoleErrorListener = () => {
       throw new Error(errors.join('\n'))
     }
   }).as('anyRequest')
+
+  cy.reload()
 }
