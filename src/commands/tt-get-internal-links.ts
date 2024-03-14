@@ -15,7 +15,8 @@ export const ttGetInternalLinks = (): Cypress.Chainable<string[]> => {
         href &&
         isInternal(href) &&
         !href.includes('mailto') &&
-        !href.includes('tel')
+        !href.includes('tel') &&
+        !href.includes('#')
       ) {
         const baseUrl = Cypress.config('baseUrl')
         const singleResult = href.replace(baseUrl, '')

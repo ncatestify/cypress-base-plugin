@@ -1,6 +1,13 @@
 # Update md file
 
-2.1.34
+2.1.35
+
+- Set detault value for get internal links to 10.
+- Filter anchor links in get internal links.
+
+  2.1.34
+
+  2.1.34
 
 - Make better console error detection with a reload of the page.
 
