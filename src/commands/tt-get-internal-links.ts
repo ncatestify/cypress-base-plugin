@@ -13,6 +13,7 @@ export const ttGetInternalLinks = (): Cypress.Chainable<string[]> => {
       const href = anchorElements[index].getAttribute('href')
       if (
         href &&
+        href.trim() !== '' &&
         isInternal(href) &&
         !href.includes('mailto') &&
         !href.includes('tel') &&
@@ -20,7 +21,11 @@ export const ttGetInternalLinks = (): Cypress.Chainable<string[]> => {
       ) {
         const baseUrl = Cypress.config('baseUrl')
         const singleResult = href.replace(baseUrl, '')
-        if (!listOfResults.includes(singleResult)) {
+        if (
+          singleResult &&
+          singleResult.trim() !== '' &&
+          !listOfResults.includes(singleResult)
+        ) {
           listOfResults.push(singleResult)
         }
       } else if (href) {

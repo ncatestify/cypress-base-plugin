@@ -12,13 +12,16 @@ const ttGetInternalLinks = () => {
             }
             const href = anchorElements[index].getAttribute('href');
             if (href &&
+                href.trim() !== '' &&
                 (0, isInternal_1.isInternal)(href) &&
                 !href.includes('mailto') &&
                 !href.includes('tel') &&
                 !href.includes('#')) {
                 const baseUrl = Cypress.config('baseUrl');
                 const singleResult = href.replace(baseUrl, '');
-                if (!listOfResults.includes(singleResult)) {
+                if (singleResult &&
+                    singleResult.trim() !== '' &&
+                    !listOfResults.includes(singleResult)) {
                     listOfResults.push(singleResult);
                 }
             }
