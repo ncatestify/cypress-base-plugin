@@ -59,6 +59,6 @@ describe('Validate Testify Tests', () => {
 
   it('Detects console errors', () => {
     cy.ttSetupConsoleErrorListener()
-    cy.visit('/console-errors/')
+    cy.visit('/')
   })
 })

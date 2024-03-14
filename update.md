@@ -1,9 +1,15 @@
 # Update md file
-2.1.31
-Updated cy.ttValidateLanguageTag command to use 'de' as default language
 
-2.1.30
-Adds type checking in ttThreshold function to optimize performance measurement
+2.1.32
+
+- Console error collector now uses a more robust error detection mechanism: The console error collector now uses a more robust error detection mechanism to capture and record any console errors that occur during the execution of tests. This ensures that any unexpected errors are caught and logged, allowing for quick identification and resolution of issues.
+- Update npm dependencies: The npm dependencies have been updated to ensure compatibility with the latest versions of the packages used in the project. This ensures that the project remains up-to-date and benefits from the latest features and improvements.
+
+  2.1.31
+  Updated cy.ttValidateLanguageTag command to use 'de' as default language
+
+  2.1.30
+  Adds type checking in ttThreshold function to optimize performance measurement
 
 A type check has been added in the ttThreshold function to ensure that the 'encodedBodySize' property is only accessed when the PerformanceEntry object is indeed an instance of PerformanceResourceTiming. This prevents runtime errors and improves the accuracy of the performance measurement.
 
