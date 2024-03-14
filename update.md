@@ -1,6 +1,10 @@
 # Update md file
 
-2.1.32
+2.1.33
+
+- Fix path in validate test file for console error detection.
+
+  2.1.32
 
 - Console error collector now uses a more robust error detection mechanism: The console error collector now uses a more robust error detection mechanism to capture and record any console errors that occur during the execution of tests. This ensures that any unexpected errors are caught and logged, allowing for quick identification and resolution of issues.
 - Update npm dependencies: The npm dependencies have been updated to ensure compatibility with the latest versions of the packages used in the project. This ensures that the project remains up-to-date and benefits from the latest features and improvements.
