@@ -1,6 +1,10 @@
 # Update md file
 
-2.1.33
+2.1.34
+
+- Make better console error detection with a reload of the page.
+
+  2.1.33
 
 - Fix path in validate test file for console error detection.
 
