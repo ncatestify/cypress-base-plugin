@@ -11,5 +11,9 @@ export const isInternal = (url: string): boolean => {
   const baseUrl = new URL(baseUrlString)
   const urlToCheck = new URL(url, baseUrl.href)
 
-  return urlToCheck.origin === baseUrl.origin
+  // Protokolle von den Ursprüngen entfernen
+  const baseOriginNoProtocol = baseUrl.origin.replace(/^https?:\/\//, '')
+  const urlOriginNoProtocol = urlToCheck.origin.replace(/^https?:\/\//, '')
+
+  return urlOriginNoProtocol === baseOriginNoProtocol
 }
