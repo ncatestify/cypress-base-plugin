@@ -1,6 +1,11 @@
 # Update md file
 
-2.1.36
+2.1.37
+
+- Fix http protocol spacial case in base url to get internal links from docker environment pages
+- Update nmp dependencies
+
+  2.1.36
 
 - Fix specual case for a hrefs that only have the base url like a logo
 
