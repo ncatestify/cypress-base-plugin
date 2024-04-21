@@ -1,4 +1,8 @@
 # Update md file
+2.1.38
+
+- Improve threshold test with better overview for all filetypes
+- Do a reload to avoid redirect 0 bytes issue
 
 2.1.37
 
