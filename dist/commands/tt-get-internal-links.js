@@ -8,7 +8,7 @@ const ttGetInternalLinks = () => {
     return cy.get('a').then((anchorElements) => {
         const processLink = (index) => {
             if (index >= anchorElements.length) {
-                return listOfResults; // Alle Links wurden verarbeitet
+                return listOfResults;
             }
             const href = anchorElements[index].getAttribute('href');
             if (href &&
