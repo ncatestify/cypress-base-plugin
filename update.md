@@ -1,4 +1,8 @@
 # Update md file
+2.1.39
+
+- Update npm dependencies und use ^ carets in dev dependencies
+
 2.1.38
 
 - Improve threshold test with better overview for all filetypes
