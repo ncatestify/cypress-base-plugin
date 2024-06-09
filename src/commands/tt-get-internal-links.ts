@@ -1,16 +1,17 @@
 import { isInternal } from './../utils/isInternal'
 
-export const ttGetInternalLinks = (): Cypress.Chainable<string[]> => {
+export const ttGetInternalLinks = (
+  linkSelector: string = ''
+): Cypress.Chainable<string[]> => {
   cy.log('ttGetInternalLinks - NCA TESTIFY')
-  const listOfResults: string[] = []
 
-  return cy.get('a').then((anchorElements) => {
-    const processLink = (index) => {
-      if (index >= anchorElements.length) {
-        return listOfResults
-      }
+  return cy.get(`${linkSelector} a`).then(($links) => {
+    const baseUrl = Cypress.config('baseUrl')
+    const internalLinks: string[] = []
 
-      const href = anchorElements[index].getAttribute('href')
+    $links.each((index, link) => {
+      const href = link.getAttribute('href')
+
       if (
         href &&
         href.trim() !== '' &&
@@ -19,24 +20,21 @@ export const ttGetInternalLinks = (): Cypress.Chainable<string[]> => {
         !href.includes('tel') &&
         !href.includes('#')
       ) {
-        const baseUrl = Cypress.config('baseUrl')
         const singleResult = href.replace(baseUrl, '')
         if (
           singleResult &&
           singleResult.trim() !== '' &&
-          !listOfResults.includes(singleResult)
+          !internalLinks.includes(singleResult)
         ) {
-          listOfResults.push(singleResult)
+          internalLinks.push(singleResult)
         }
       } else if (href) {
         cy.log('Filtered URL: ' + href)
       } else {
         cy.log('Empty or null URL')
       }
+    })
 
-      return cy.then(() => processLink(index + 1))
-    }
-
-    return processLink(0)
+    return cy.wrap(internalLinks)
   })
 }

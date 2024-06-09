@@ -1,63 +1,83 @@
 describe('Validate Testify Tests', () => {
   beforeEach(() => {
-    cy.visit('/')
+    cy.visit('/de/nca-glossar-barrierefreiheit')
   })
 
-  it('Alles akzeptieren', () => {
+  it('Accept all cookies on "alles" page', () => {
     cy.visit('/alles/')
     cy.ttCookieAllAcceptClick()
   })
 
-  it('Alle akzeptieren', () => {
+  it('Accept all cookies on "alle" page', () => {
     cy.visit('/alle/')
     cy.ttCookieAllAcceptClick()
   })
 
-  it('Accessibility test', () => {
+  it('Run accessibility tests', () => {
     cy.ttAccessibility()
   })
 
-  it('Imprint', () => {
-    cy.ttValidateImprintClickable()
+  it('Detect HTTP connections', () => {
+    cy.ttDetectHttp()
   })
 
-  it('Detect google services', () => {
-    cy.ttValidateNoGoogleServices()
+  it('Check if elements exist', () => {
+    cy.ttElementExists('.example-element')
   })
 
-  it('More than one img with status ok', () => {
-    cy.ttValidateAllImagesResponseStatusOk()
-  })
-
-  it('More than 2 internal links for each are ok', () => {
-    cy.ttEveryInternalLinkStatusOk()
-  })
-
-  it('All subpages are loading', () => {
+  it('All internal links are loading', () => {
     cy.ttEveryInternalLinkIsLoading()
   })
 
-  it('Only one h1', () => {
-    cy.ttOnlyOneH1()
+  it('All internal links have OK status', () => {
+    cy.ttEveryInternalLinkStatusOk()
+  })
+
+  it('Retrieve all internal links', () => {
+    cy.ttGetInternalLinks()
   })
 
   it('Invalid path returns 404', () => {
     cy.ttInvalidPath404()
   })
 
-  it('Validates language tag', () => {
-    cy.ttValidateLanguageTag()
+  it('Imprint link is clickable', () => {
+    cy.ttValidateImprintClickable()
   })
 
-  it('Detects http', () => {
-    cy.ttDetectHttp()
+  it('Only one H1 element exists', () => {
+    cy.ttOnlyOneH1()
   })
 
-  it('Detects treshold', () => {
-    cy.ttThreshold()
+  it('Run base tests', () => {
+    cy.ttRunTestifyBaseTests()
   })
 
-  it('Detects console errors', () => {
+  it('Set up console error listener', () => {
     cy.ttSetupConsoleErrorListener()
+  })
+
+  it('Images have OK response status', () => {
+    cy.ttValidateAllImagesResponseStatusOk()
+  })
+
+  it('Language tag is valid', () => {
+    cy.ttValidateLanguageTag('en')
+  })
+
+  it('No Google services detected', () => {
+    cy.ttValidateNoGoogleServices()
+  })
+
+  it('Validate page content', () => {
+    cy.ttValidatePageContent()
+  })
+
+  it.only('Validate subpages and images', () => {
+    cy.ttValidateSubpagesAndImages()
+  })
+
+  it('Check threshold', () => {
+    cy.ttThreshold()
   })
 })
