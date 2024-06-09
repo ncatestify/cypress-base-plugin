@@ -210,6 +210,12 @@ cy.ttDetectHttp()
 cy.ttNoConsoleErrors()
 ```
 
+### Validate subpages and images
+
+```js
+cy.ttValidateSubpagesAndImages()
+```
+
 Open
 http://localhost:8090
 
