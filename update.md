@@ -1,5 +1,8 @@
 # Update md file
 
+  2.1.43
+- Add ttValidateSubpagesAndImages to src/index.d.ts file  
+
   2.1.41
 
 - Add new test ttValidateSubpagesAndImages
