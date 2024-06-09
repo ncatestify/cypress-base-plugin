@@ -2,6 +2,7 @@ declare namespace Cypress {
   interface Chainable<Subject = any> {
     ttGetInternalLinks(excludeSelector?: string): Chainable<string[]>
     ttValidateImprintClickable(): void
+    ttValidateSubpagesAndImages(limit?: number, linkSelector?: string): void
     ttEveryInternalLinkStatusOk(): void
     ttEveryInternalLinkIsLoading(): void
     ttValidateNoGoogleServices(): void

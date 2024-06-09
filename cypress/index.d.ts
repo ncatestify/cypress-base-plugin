@@ -14,7 +14,7 @@ declare namespace Cypress {
     ttValidateImprintClickable(): void
     ttValidateLanguageTag(language: string): void
     ttValidateNoGoogleServices(): void
-    ttValidateSubpagesAndImages(limit?: number): void
+    ttValidateSubpagesAndImages(limit?: number, linkSelector?: string): void
     ttValidatePageContent(): void
   }
 }
