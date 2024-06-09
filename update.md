@@ -1,14 +1,21 @@
 # Update md file
-2.1.39
+
+2.1.40
+
+- Add new test ttValidateSubpagesAndImages
+- Order type definitions and validation tests by method names
+- Fix prettier
+
+  2.1.39
 
 - Update npm dependencies und use ^ carets in dev dependencies
 
-2.1.38
+  2.1.38
 
 - Improve threshold test with better overview for all filetypes
 - Do a reload to avoid redirect 0 bytes issue
 
-2.1.37
+  2.1.37
 
 - Fix http protocol spacial case in base url to get internal links from docker environment pages
 - Update nmp dependencies
