@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 // @ts-nocheck
 import { ttAccessibility } from './commands/tt-accessibility'
+import { ttClickIfElementExist } from './commands/tt-click-if-eement-exist'
 import { ttCookieAllAcceptClick } from './commands/tt-cookie-all-accept'
 import { ttDetectHttp } from './commands/tt-detect-http'
 import { ttElementExists } from './commands/tt-element-exists'
@@ -21,6 +22,7 @@ import { ttValidatePageContent } from './commands/tt-validate-page-content'
 import { ttValidateSubpagesAndImages } from './commands/tt-validate-subpages-and-images'
 
 Cypress.Commands.add('ttAccessibility', ttAccessibility)
+Cypress.Commands.add('ttClickIfElementExist', ttClickIfElementExist)
 Cypress.Commands.add('ttCookieAllAcceptClick', ttCookieAllAcceptClick)
 Cypress.Commands.add('ttDetectHttp', ttDetectHttp)
 Cypress.Commands.add('ttElementExists', ttElementExists)

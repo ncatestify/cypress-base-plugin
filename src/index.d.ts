@@ -1,5 +1,6 @@
 declare namespace Cypress {
   interface Chainable<Subject = any> {
+    ttClickIfElementExist(selector: string): Chainable<any>;
     ttGetInternalLinks(excludeSelector?: string): Chainable<string[]>
     ttValidateImprintClickable(): void
     ttValidateSubpagesAndImages(limit?: number, linkSelector?: string): void

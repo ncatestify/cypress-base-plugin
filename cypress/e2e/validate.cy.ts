@@ -1,6 +1,6 @@
 describe('Validate Testify Tests', () => {
   beforeEach(() => {
-    cy.visit('/de/nca-glossar-barrierefreiheit')
+    cy.visit('/')
   })
 
   it('Accept all cookies on "alles" page', () => {
@@ -73,11 +73,17 @@ describe('Validate Testify Tests', () => {
     cy.ttValidatePageContent()
   })
 
-  it.only('Validate subpages and images', () => {
+  it('Validate subpages and images', () => {
     cy.ttValidateSubpagesAndImages()
   })
 
   it('Check threshold', () => {
     cy.ttThreshold()
+  })
+
+  it('Example for click and not click optional css selector', () => {
+    cy.visit('/alles');
+    cy.ttClickIfElementExist('.example-element')
+    cy.ttClickIfElementExist('.button')
   })
 })
