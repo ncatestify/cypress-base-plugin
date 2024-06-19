@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 // @ts-nocheck
 import { ttAccessibility } from './commands/tt-accessibility'
-import { ttClickIfElementExist } from './commands/tt-click-if-eement-exist'
+import { ttClickIfElementExist } from './commands/tt-click-if-element-exist'
 import { ttCookieAllAcceptClick } from './commands/tt-cookie-all-accept'
 import { ttDetectHttp } from './commands/tt-detect-http'
 import { ttElementExists } from './commands/tt-element-exists'

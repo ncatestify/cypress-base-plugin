@@ -216,6 +216,11 @@ cy.ttNoConsoleErrors()
 cy.ttValidateSubpagesAndImages()
 ```
 
+### Click if element element exits
+```js
+cy.ttClickIfElementExist()
+```
+
 Open
 http://localhost:8090
 

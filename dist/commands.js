@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /// <reference types="cypress" />
 // @ts-nocheck
 const tt_accessibility_1 = require("./commands/tt-accessibility");
-const tt_click_if_eement_exist_1 = require("./commands/tt-click-if-eement-exist");
+const tt_click_if_element_exist_1 = require("./commands/tt-click-if-element-exist");
 const tt_cookie_all_accept_1 = require("./commands/tt-cookie-all-accept");
 const tt_detect_http_1 = require("./commands/tt-detect-http");
 const tt_element_exists_1 = require("./commands/tt-element-exists");
@@ -23,7 +23,7 @@ const tt_validate_no_google_services_1 = require("./commands/tt-validate-no-goog
 const tt_validate_page_content_1 = require("./commands/tt-validate-page-content");
 const tt_validate_subpages_and_images_1 = require("./commands/tt-validate-subpages-and-images");
 Cypress.Commands.add('ttAccessibility', tt_accessibility_1.ttAccessibility);
-Cypress.Commands.add('ttClickIfElementExist', tt_click_if_eement_exist_1.ttClickIfElementExist);
+Cypress.Commands.add('ttClickIfElementExist', tt_click_if_element_exist_1.ttClickIfElementExist);
 Cypress.Commands.add('ttCookieAllAcceptClick', tt_cookie_all_accept_1.ttCookieAllAcceptClick);
 Cypress.Commands.add('ttDetectHttp', tt_detect_http_1.ttDetectHttp);
 Cypress.Commands.add('ttElementExists', tt_element_exists_1.ttElementExists);
