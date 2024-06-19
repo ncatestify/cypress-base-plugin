@@ -1,48 +1,51 @@
 # Update md file
+2.1.44
+- Add feature ttClickIfElementExist
+- Update npm dependencies
 
-  2.1.43
+2.1.43
 - Add ttValidateSubpagesAndImages to src/index.d.ts file  
 
-  2.1.41
+2.1.41
 
 - Add new test ttValidateSubpagesAndImages
 - Order type definitions and validation tests by method names
 - Fix prettier
 
-  2.1.39
+2.1.39
 
 - Update npm dependencies und use ^ carets in dev dependencies
 
-  2.1.38
+2.1.38
 
 - Improve threshold test with better overview for all filetypes
 - Do a reload to avoid redirect 0 bytes issue
 
-  2.1.37
+2.1.37
 
 - Fix http protocol spacial case in base url to get internal links from docker environment pages
 - Update nmp dependencies
 
-  2.1.36
+2.1.36
 
 - Fix specual case for a hrefs that only have the base url like a logo
 
-  2.1.35
+2.1.35
 
 - Set detault value for get internal links to 10.
 - Filter anchor links in get internal links.
 
-  2.1.34
+2.1.34
 
-  2.1.34
+2.1.34
 
 - Make better console error detection with a reload of the page.
 
-  2.1.33
+2.1.33
 
 - Fix path in validate test file for console error detection.
 
-  2.1.32
+2.1.32
 
 - Console error collector now uses a more robust error detection mechanism: The console error collector now uses a more robust error detection mechanism to capture and record any console errors that occur during the execution of tests. This ensures that any unexpected errors are caught and logged, allowing for quick identification and resolution of issues.
 - Update npm dependencies: The npm dependencies have been updated to ensure compatibility with the latest versions of the packages used in the project. This ensures that the project remains up-to-date and benefits from the latest features and improvements.
