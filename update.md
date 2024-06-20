@@ -1,4 +1,7 @@
 # Update md file
+2.1.45
+- Fix file name for ttClickIfElementExist
+
 2.1.44
 - Add feature ttClickIfElementExist
 - Update npm dependencies
