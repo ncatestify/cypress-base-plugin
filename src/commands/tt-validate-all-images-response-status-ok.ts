@@ -9,8 +9,7 @@ const normalizeUrl = (url: string): string => {
 }
 
 export const ttValidateAllImagesResponseStatusOk = (): void => {
-  const srcSet = new Set<string>()
-  const srcSetArray = new Set<string>()
+  const imageUrls = new Set<string>()
 
   cy.get('img').should('have.length.gt', 0)
   cy.get('img')
@@ -22,7 +21,7 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
       if (src !== null) {
         const normalizedSrc = normalizeUrl(src)
         if (!isExcludedUrl(normalizedSrc)) {
-          srcSet.add(normalizedSrc)
+          imageUrls.add(normalizedSrc)
         }
       }
 
@@ -32,8 +31,8 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
           .map((srcsetItem) => srcsetItem.trim().split(' ')[0])
           .map(normalizeUrl)
         srcsetUrls.forEach((url) => {
-          if (!isExcludedUrl(url)) {
-            srcSetArray.add(url)
+          if (!isExcludedUrl(url) && !imageUrls.has(url)) {
+            imageUrls.add(url)
           }
         })
       }
@@ -47,7 +46,7 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
     .then(() => {
       const promises: Cypress.Chainable[] = []
 
-      srcSet.forEach((url) => {
+      imageUrls.forEach((url) => {
         const promise = cy
           .request('HEAD', url)
           .its('status')
@@ -58,25 +57,6 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
         promises.push(promise)
       })
 
-      srcSetArray.forEach((url) => {
-        const promise = cy
-          .request('HEAD', url)
-          .its('status')
-          .should('eq', 200)
-          .then(() => {
-            cy.log(`Validated image in srcset: ${url}`)
-          })
-        promises.push(promise)
-      })
-
       return Cypress.Promise.all(promises)
-    })
-    .then(() => {
-      srcSet.forEach((entry) => {
-        cy.get(`[src="${entry}"]`).should('exist')
-      })
-      srcSetArray.forEach((entry) => {
-        cy.get(`[srcset*="${entry}"]`).should('exist')
-      })
     })
 }

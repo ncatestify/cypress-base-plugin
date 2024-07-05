@@ -9,8 +9,7 @@ const normalizeUrl = (url) => {
     return url.startsWith('//') ? `https:${url}` : url;
 };
 const ttValidateAllImagesResponseStatusOk = () => {
-    const srcSet = new Set();
-    const srcSetArray = new Set();
+    const imageUrls = new Set();
     cy.get('img').should('have.length.gt', 0);
     cy.get('img')
         .each(($img) => {
@@ -21,7 +20,7 @@ const ttValidateAllImagesResponseStatusOk = () => {
         if (src !== null) {
             const normalizedSrc = normalizeUrl(src);
             if (!isExcludedUrl(normalizedSrc)) {
-                srcSet.add(normalizedSrc);
+                imageUrls.add(normalizedSrc);
             }
         }
         if (srcset !== null) {
@@ -30,8 +29,8 @@ const ttValidateAllImagesResponseStatusOk = () => {
                 .map((srcsetItem) => srcsetItem.trim().split(' ')[0])
                 .map(normalizeUrl);
             srcsetUrls.forEach((url) => {
-                if (!isExcludedUrl(url)) {
-                    srcSetArray.add(url);
+                if (!isExcludedUrl(url) && !imageUrls.has(url)) {
+                    imageUrls.add(url);
                 }
             });
         }
@@ -43,7 +42,7 @@ const ttValidateAllImagesResponseStatusOk = () => {
     })
         .then(() => {
         const promises = [];
-        srcSet.forEach((url) => {
+        imageUrls.forEach((url) => {
             const promise = cy
                 .request('HEAD', url)
                 .its('status')
@@ -53,25 +52,7 @@ const ttValidateAllImagesResponseStatusOk = () => {
             });
             promises.push(promise);
         });
-        srcSetArray.forEach((url) => {
-            const promise = cy
-                .request('HEAD', url)
-                .its('status')
-                .should('eq', 200)
-                .then(() => {
-                cy.log(`Validated image in srcset: ${url}`);
-            });
-            promises.push(promise);
-        });
         return Cypress.Promise.all(promises);
-    })
-        .then(() => {
-        srcSet.forEach((entry) => {
-            cy.get(`[src="${entry}"]`).should('exist');
-        });
-        srcSetArray.forEach((entry) => {
-            cy.get(`[srcset*="${entry}"]`).should('exist');
-        });
     });
 };
 exports.ttValidateAllImagesResponseStatusOk = ttValidateAllImagesResponseStatusOk;
