@@ -18,7 +18,7 @@ declare namespace Cypress {
     ttDetectHttp(): void
     ttCookieAllAcceptClick(): void
     ttThreshold(): void
-    ttConsoleErrors(): void
+    ttSetupConsoleErrorListener(): void
     ttPageLoaded(): void
   }
 }
