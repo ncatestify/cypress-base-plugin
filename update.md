@@ -1,9 +1,13 @@
 # Update md file
+2.1.48
+- Error console detection now can detect missing CSS files as collection
+
 2.1.47
+
 - Improve image validation with better collector
 - Use status instead of exist validation for images
 
-2.1.46
+  2.1.46
 
 - Update npm dependencies
 

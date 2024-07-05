@@ -7,5 +7,6 @@
   { "url": "/alle/", "label": "Alle" },
   { "url": "/alles/", "label": "Alles" },
   { "url": "/performance/", "label": "Performance" },
-  { "url": "console-errors", "label": "Console errors" }
+  { "url": "/console-errors/", "label": "Console errors" },
+  { "url": "/css-file-not-loading/", "label": "CSS file not loading" }
 ]

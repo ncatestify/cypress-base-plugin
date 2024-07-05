@@ -1,23 +1,38 @@
-let errors = []
+let errors: string[] = []
 
 export const ttSetupConsoleErrorListener = () => {
-  cy.log('ttSetupConsoleErrorListener - Setup console error listener')
+  cy.log('ttSetupConsoleErrorListener - Setting up error listener')
+
+  // Clear previous errors
+  errors = []
+
+  // Attach error event listener to the window object
+  cy.window().then((win) => {
+    win.addEventListener('error', (event) => {
+      errors.push(`Console error: ${event.message}`)
+    })
+  })
 
   // Intercept network requests
   cy.intercept('*', (req) => {
     req.continue((res) => {
       // Check for network errors
-
       if (res.statusCode >= 400) {
-        // This is for network request errors like 404, 500, etc.
-        errors.push(`Network request failed: ${res.statusCode} on ${req.url}`)
+        errors.push(`Network error: ${res.statusCode} - ${req.url}`)
       }
-      // Check for console errors
     })
-    if (errors.length) {
-      throw new Error(errors.join('\n'))
-    }
-  }).as('anyRequest')
+  }).as('networkRequests')
 
+  // Reload the page
   cy.reload()
+
+  // Wait for the page to load and stabilize
+  cy.window().should('exist')
+
+  // Check for errors after the page load
+  cy.then(() => {
+    if (errors.length) {
+      throw new Error(`Errors detected:\n${errors.join('\n')}`)
+    }
+  })
 }

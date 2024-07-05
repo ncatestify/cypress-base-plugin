@@ -1,3 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-require("./commands");
+'use strict'
+Object.defineProperty(exports, '__esModule', { value: true })
+require('./commands')
