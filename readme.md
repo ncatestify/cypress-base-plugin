@@ -50,6 +50,12 @@ npx cypress open --config-file config.cypress.ts/js
 export CYPRESS_BASE_URL=https://nevercodealone.de && npx cypress open --config-file config.cypress.ts/js
 ```
 
+Run s specific file
+
+```bash
+export CYPRESS_BASE_URL=https://nevercodealone.de && npx cypress run --config-file cypress.config.ts --spec "cypress/e2e/validate.cy.ts"
+```
+
 ### Static file CMS
 
 cd eleventy-page && npx eleventy --serve
@@ -217,6 +223,7 @@ cy.ttValidateSubpagesAndImages()
 ```
 
 ### Click if element element exits
+
 ```js
 cy.ttClickIfElementExist()
 ```

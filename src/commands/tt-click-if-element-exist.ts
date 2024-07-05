@@ -2,14 +2,14 @@
 export const ttClickIfElementExist = (
   selector: string
 ): Cypress.Chainable<any> => {
-  cy.log(`ttClickIfElementExist - Checking if element exists: ${selector}`);
+  cy.log(`ttClickIfElementExist - Checking if element exists: ${selector}`)
 
   return cy.get('body').then(($body) => {
     if ($body.find(selector).length > 0) {
-      cy.log(`Element found: ${selector}. Clicking...`);
-      cy.get(selector).click();
+      cy.log(`Element found: ${selector}. Clicking...`)
+      cy.get(selector).click()
     } else {
-      cy.log(`Element not found: ${selector}. Skipping click.`);
+      cy.log(`Element not found: ${selector}. Skipping click.`)
     }
-  });
-};
+  })
+}

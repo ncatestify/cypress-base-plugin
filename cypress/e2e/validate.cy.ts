@@ -82,7 +82,7 @@ describe('Validate Testify Tests', () => {
   })
 
   it('Example for click and not click optional css selector', () => {
-    cy.visit('/alles');
+    cy.visit('/alles')
     cy.ttClickIfElementExist('.example-element')
     cy.ttClickIfElementExist('.button')
   })
