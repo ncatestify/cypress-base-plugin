@@ -13,11 +13,10 @@
     "lib": ["esnext", "dom"],
     "types": ["cypress", "node"],
     "allowSyntheticDefaultImports": true,
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": ["node_modules/@types", "./src"],
     "outDir": "./dist",
-    "rootDir": "./src",
-
+    "rootDir": ".",
     "declaration": false
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "cypress/**/*.ts"]
 }

@@ -6,6 +6,7 @@ export const ttEveryInternalLinkIsLoading = (limit: number = 10): void => {
       if (!url.includes('.pdf')) {
         cy.visit(url)
         cy.get('a').should('be.visible')
+        cy.ttValidateAllImagesResponseStatusOk()
       } else {
         cy.log('PDF detected' + url)
       }

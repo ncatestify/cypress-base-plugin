@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 declare namespace Cypress {
   interface Chainable<Subject = any> {
     ttClickIfElementExist(selector: string): Chainable<any>
@@ -9,7 +11,7 @@ declare namespace Cypress {
     ttValidateNoGoogleServices(): void
     ttElementExists(element: string): boolean
     ttRunTestifyBaseTests(): void
-    ttValidateAllImagesResponseStatusOk(): void
+    ttValidateAllImagesResponseStatusOk(): Chainable<void>
     ttAccessibility(context?: any, options?: any): Chainable<Subject>
     ttValidatePageContent(): void
     ttOnlyOneH1(): void
@@ -22,3 +24,5 @@ declare namespace Cypress {
     ttPageLoaded(): void
   }
 }
+
+export {}
