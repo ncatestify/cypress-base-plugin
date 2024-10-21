@@ -7,7 +7,7 @@ export const isInternal = (url: string): boolean => {
     // Jest context
     baseUrlString = process.env.BASE_URL || 'http://localhost:3000'
   }
-
+  
   const baseUrl = new URL(baseUrlString)
   const urlToCheck = new URL(url, baseUrl.href)
 

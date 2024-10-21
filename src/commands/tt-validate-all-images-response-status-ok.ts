@@ -11,6 +11,8 @@ const normalizeUrl = (url: string): string => {
 export const ttValidateAllImagesResponseStatusOk = (): void => {
   const imageUrls = new Set<string>()
 
+  cy.log('More then 0 images found')
+  cy.get('img').should('be.visible')
   cy.get('img').should('have.length.gt', 0)
   cy.get('img')
     .each(($img) => {
