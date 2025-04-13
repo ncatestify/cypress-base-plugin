@@ -1,6 +1,6 @@
 # Cypress.IO plugin by NCA TESTIFY
 
-Basis tests for every website testing project.
+Basis tests for every website testing project. Now compatible with Cypress 14 and TypeScript 5.x!
 
 ## Usage:
 
@@ -10,12 +10,29 @@ Add following line in your cypress/support/e2e.js|.ts file
 
 in your cypress.config.js|.ts file the key baseUrl must be set
 
+### TypeScript (recommended)
+```ts
+import { defineConfig } from 'cypress'
+
+export default defineConfig({
+  e2e: {
+    baseUrl: 'https://testify.team/de',
+    setupNodeEvents(on, config) {
+      return config
+    }
+  }
+})
+```
+
+### JavaScript
 ```js
+const { defineConfig } = require('cypress')
+
 module.exports = defineConfig({
   e2e: {
     baseUrl: 'https://testify.team/de',
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      return config
     }
   }
 })
@@ -210,10 +227,10 @@ cy.ttValidateLanguageTag(language: string)
 cy.ttDetectHttp()
 ```
 
-#### Detect console errors
+#### Setup console error listener
 
 ```js
-cy.ttNoConsoleErrors()
+cy.ttSetupConsoleErrorListener()
 ```
 
 ### Validate subpages and images
@@ -222,17 +239,36 @@ cy.ttNoConsoleErrors()
 cy.ttValidateSubpagesAndImages()
 ```
 
-### Click if element element exits
+### Click if element exists
 
 ```js
-cy.ttClickIfElementExist()
+cy.ttClickIfElementExist('selector')
 ```
 
 Open
 http://localhost:8090
+
+### Page loaded verification
+
+```js
+cy.ttPageLoaded()
+```
+
+### Performance measurement with threshold
+
+```js
+cy.ttThreshold(2) // Set threshold to 2MB
+```
 
 ## Websites being tested with this plugin
 
 https://www.auto-hortz.de
 https://www.discounto.de
 https://nevercodealone.de
+
+## Compatibility
+
+This plugin is compatible with:
+- Cypress 14.x
+- TypeScript 5.x
+- Node.js 18+
