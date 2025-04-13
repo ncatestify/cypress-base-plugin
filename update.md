@@ -1,5 +1,17 @@
 # Update md file
 
+2.1.56
+
+- Updated Cypress to version 14.0.0
+- Updated TypeScript to version 5.3.3 (from 4.9.5)
+- Fixed dependency conflict between TypeScript versions
+- Updated all npm dependencies to their latest versions
+- Updated cypress.config.js and cypress.config.ts for Cypress 14 compatibility
+- Improved type definitions for all custom commands
+- Added skipLibCheck option to tsconfig.json
+- Added 'v14' to APIVersion enum
+- Added CLAUDE.md with build, lint and test commands
+
 2.1.55
 2.1.54
 2.1.53
