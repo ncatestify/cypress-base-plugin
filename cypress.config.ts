@@ -1,10 +1,12 @@
-const { defineConfig } = require('cypress')
+import { defineConfig } from 'cypress'
 
-module.exports = defineConfig({
+export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:8080',
     supportFile: 'cypress/support/e2e.ts',
-    setupNodeEvents(on, config) {}
+    setupNodeEvents(on, config) {
+      return config
+    }
   },
   viewportWidth: 1200
 })
