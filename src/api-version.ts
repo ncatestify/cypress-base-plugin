@@ -1,4 +1,5 @@
 export enum APIVersion {
   'latest' = 'latest',
-  'default' = 'default'
+  'default' = 'default',
+  'v14' = 'v14'
 }

@@ -5,4 +5,5 @@ var APIVersion;
 (function (APIVersion) {
     APIVersion["latest"] = "latest";
     APIVersion["default"] = "default";
-})(APIVersion = exports.APIVersion || (exports.APIVersion = {}));
+    APIVersion["v14"] = "v14";
+})(APIVersion || (exports.APIVersion = APIVersion = {}));
