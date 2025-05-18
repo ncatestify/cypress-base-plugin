@@ -1,5 +1,24 @@
 # Update md file
 
+2.1.57
+
+- Added HTTP Basic Authentication support for internal link and image validation
+- Created extractAuth utility to extract authentication credentials from baseUrl
+- Updated ttEveryInternalLinkStatusOk command to handle authentication in requests
+- Updated ttValidateAllImagesResponseStatusOk command to handle authentication in image requests
+- Updated ttInvalidPath404 command to handle authentication
+- Enhanced ttGetInternalLinks command to properly construct URLs with authentication
+- Improved isInternal function to correctly handle URLs with authentication credentials
+- Fixed handling of baseUrls like "https://username:password@domain.com" in all validation commands
+- Updated npm dependencies:
+  - @types/jest: ^29.5.12 → ^29.5.14
+  - cypress: ^14.0.0 → ^14.3.3
+  - eslint-plugin-import: ^2.29.1 → ^2.31.0
+  - prettier: ^3.2.5 → ^3.5.3
+  - rimraf: ^5.0.5 → ^6.0.1
+  - ts-jest: ^29.1.2 → ^29.3.4
+  - typescript: ^5.3.3 → ^5.8.3
+
 2.1.56
 
 - Updated Cypress to version 14.0.0
