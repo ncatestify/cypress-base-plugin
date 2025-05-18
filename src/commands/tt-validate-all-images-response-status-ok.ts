@@ -1,3 +1,5 @@
+import { extractAuth } from './../utils/extractAuth'
+
 const excludedUrlPrefixes = ['data:']
 
 const isExcludedUrl = (url: string): boolean => {
@@ -47,10 +49,24 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
     })
     .then(() => {
       const promises: Cypress.Chainable[] = []
+      const baseUrl = Cypress.config('baseUrl')
+      const auth = extractAuth(baseUrl)
 
       imageUrls.forEach((url) => {
+        const requestOptions: any = {
+          method: 'HEAD',
+          url: url
+        }
+        
+        if (auth) {
+          requestOptions.auth = {
+            username: auth.username,
+            password: auth.password
+          }
+        }
+        
         const promise = cy
-          .request('HEAD', url)
+          .request(requestOptions)
           .its('status')
           .should('eq', 200)
           .then(() => {

@@ -1,4 +1,5 @@
 import { isInternal } from './../utils/isInternal'
+import { extractAuth, applyAuth } from './../utils/extractAuth'
 
 export const ttGetInternalLinks = (
   linkSelector: string = ''
@@ -7,6 +8,7 @@ export const ttGetInternalLinks = (
 
   return cy.get(`${linkSelector} a`).then(($links) => {
     const baseUrl = Cypress.config('baseUrl')
+    const auth = extractAuth(baseUrl)
     const internalLinks: string[] = []
 
     $links.each((index, link) => {
@@ -20,7 +22,29 @@ export const ttGetInternalLinks = (
         !href.includes('tel') &&
         !href.includes('#')
       ) {
-        const singleResult = href.replace(baseUrl, '')
+        // Construct the full URL properly
+        let fullUrl: string
+        if (href.startsWith('http')) {
+          // Already a full URL
+          fullUrl = href
+        } else if (href.startsWith('/')) {
+          // Absolute path - combine with baseUrl
+          const urlObj = new URL(baseUrl)
+          fullUrl = `${urlObj.protocol}//${urlObj.host}${href}`
+        } else {
+          // Relative path - use URL constructor
+          fullUrl = new URL(href, baseUrl).toString()
+        }
+        
+        // Apply auth if needed
+        if (auth) {
+          fullUrl = applyAuth(fullUrl, auth)
+        }
+        
+        // Remove the baseUrl to get relative path
+        const cleanBase = baseUrl.replace(/\/$/, '') // Remove trailing slash
+        const singleResult = fullUrl.replace(cleanBase, '')
+        
         if (
           singleResult &&
           singleResult.trim() !== '' &&
