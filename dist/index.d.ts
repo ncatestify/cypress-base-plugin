@@ -2,26 +2,26 @@
 
 declare namespace Cypress {
   interface Chainable<Subject = any> {
-    ttClickIfElementExist(selector: string): Chainable<any>
-    ttGetInternalLinks(excludeSelector?: string): Chainable<string[]>
-    ttValidateImprintClickable(): void
-    ttValidateSubpagesAndImages(limit?: number, linkSelector?: string): void
-    ttEveryInternalLinkStatusOk(): void
-    ttEveryInternalLinkIsLoading(): void
-    ttValidateNoGoogleServices(): void
-    ttElementExists(element: string): boolean
-    ttRunTestifyBaseTests(): void
-    ttValidateAllImagesResponseStatusOk(): Chainable<void>
     ttAccessibility(context?: any, options?: any): Chainable<Subject>
-    ttValidatePageContent(): void
-    ttOnlyOneH1(): void
-    ttInvalidPath404(): void
-    ttValidateLanguageTag(language?: string): void
-    ttDetectHttp(): void
-    ttCookieAllAcceptClick(): void
-    ttThreshold(): void
-    ttSetupConsoleErrorListener(): void
-    ttPageLoaded(): void
+    ttClickIfElementExist(element: string): Chainable<Subject>
+    ttCookieAllAcceptClick(): Chainable<Subject>
+    ttDetectHttp(): Chainable<Subject>
+    ttElementExists(element: string): Chainable<boolean>
+    ttEveryInternalLinkIsLoading(): Chainable<Subject>
+    ttEveryInternalLinkStatusOk(): Chainable<Subject>
+    ttGetInternalLinks(linkSelector?: string): Chainable<string[]>
+    ttInvalidPath404(): Chainable<Subject>
+    ttOnlyOneH1(): Chainable<Subject>
+    ttPageLoaded(): Chainable<Subject>
+    ttRunTestifyBaseTests(): Chainable<Subject>
+    ttSetupConsoleErrorListener(): Chainable<Subject>
+    ttThreshold(threshold?: number): Chainable<Subject>
+    ttValidateAllImagesResponseStatusOk(): Chainable<Subject>
+    ttValidateImprintClickable(): Chainable<Subject>
+    ttValidateLanguageTag(language: string): Chainable<Subject>
+    ttValidateNoGoogleServices(): Chainable<Subject>
+    ttValidatePageContent(): Chainable<Subject>
+    ttValidateSubpagesAndImages(limit?: number, linkSelector?: string): Chainable<Subject>
   }
 }
 
