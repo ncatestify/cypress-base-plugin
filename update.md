@@ -1,5 +1,11 @@
 # Update md file
 
+2.1.59
+
+- Fixed dist file compilation error by removing stale tt-run-testify-base-tests import
+- Rebuilt project to properly sync source files with distribution files
+- Resolved build errors caused by outdated references in compiled JavaScript files
+
 2.1.58
 
 - Fixed ttEveryInternalLinkIsLoading command to handle anchor and non-requestable links
