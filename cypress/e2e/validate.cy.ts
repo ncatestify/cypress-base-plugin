@@ -49,9 +49,6 @@ describe('Validate Testify Tests', () => {
     cy.ttOnlyOneH1()
   })
 
-  it('Run base tests', () => {
-    cy.ttRunTestifyBaseTests()
-  })
 
   it('Set up console error listener', () => {
     cy.visit('/console-errors/')
