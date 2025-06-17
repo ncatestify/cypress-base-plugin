@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /// <reference types="cypress" />
-// @ts-nocheck
+// @ts-nocheck - Cypress commands registration bypasses TypeScript checking
 const tt_accessibility_1 = require("./commands/tt-accessibility");
 const tt_click_if_element_exist_1 = require("./commands/tt-click-if-element-exist");
 const tt_cookie_all_accept_1 = require("./commands/tt-cookie-all-accept");

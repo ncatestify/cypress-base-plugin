@@ -1,9 +1,21 @@
 import { isInternal } from './../utils/isInternal'
 import { extractAuth, applyAuth } from './../utils/extractAuth'
+import { DomainMappingConfig, shouldIncludeUrl } from './../utils/domainMapping'
 
 export const ttGetInternalLinks = (
-  linkSelector: string = ''
+  linkSelectorOrConfig: string | DomainMappingConfig = '',
+  legacyConfig?: DomainMappingConfig
 ): Cypress.Chainable<string[]> => {
+  // Handle backwards compatibility
+  let linkSelector = ''
+  let config: DomainMappingConfig = {}
+  
+  if (typeof linkSelectorOrConfig === 'string') {
+    linkSelector = linkSelectorOrConfig
+    config = legacyConfig || {}
+  } else {
+    config = linkSelectorOrConfig
+  }
   cy.log('ttGetInternalLinks - NCA TESTIFY')
 
   return cy.get(`${linkSelector} a`).then(($links) => {
@@ -17,40 +29,42 @@ export const ttGetInternalLinks = (
       if (
         href &&
         href.trim() !== '' &&
-        isInternal(href) &&
         !href.includes('mailto') &&
         !href.includes('tel') &&
-        !href.includes('#')
+        !href.includes('#') &&
+        !href.startsWith('javascript:') &&
+        (isInternal(href) || shouldIncludeUrl(href, config, baseUrl))
       ) {
-        // Construct the full URL properly
-        let fullUrl: string
+        // Handle both internal and external URLs
+        let urlToStore: string
+        
         if (href.startsWith('http')) {
-          // Already a full URL
-          fullUrl = href
+          // Already a full URL (could be external)
+          urlToStore = href
         } else if (href.startsWith('/')) {
-          // Absolute path - combine with baseUrl
-          const urlObj = new URL(baseUrl)
-          fullUrl = `${urlObj.protocol}//${urlObj.host}${href}`
+          // Absolute path - combine with baseUrl to create relative path
+          urlToStore = href
         } else {
-          // Relative path - use URL constructor
-          fullUrl = new URL(href, baseUrl).toString()
+          // Relative path - convert to absolute path
+          const fullUrl = new URL(href, baseUrl).toString()
+          const cleanBase = baseUrl.replace(/\/$/, '')
+          urlToStore = fullUrl.replace(cleanBase, '')
         }
         
-        // Apply auth if needed
-        if (auth) {
-          fullUrl = applyAuth(fullUrl, auth)
+        // Apply auth if needed for internal URLs
+        if (auth && !urlToStore.startsWith('http')) {
+          const fullUrl = urlToStore.startsWith('/') ? baseUrl + urlToStore : urlToStore
+          const authUrl = applyAuth(fullUrl, auth)
+          const cleanBase = baseUrl.replace(/\/$/, '')
+          urlToStore = authUrl.replace(cleanBase, '')
         }
-        
-        // Remove the baseUrl to get relative path
-        const cleanBase = baseUrl.replace(/\/$/, '') // Remove trailing slash
-        const singleResult = fullUrl.replace(cleanBase, '')
         
         if (
-          singleResult &&
-          singleResult.trim() !== '' &&
-          !internalLinks.includes(singleResult)
+          urlToStore &&
+          urlToStore.trim() !== '' &&
+          !internalLinks.includes(urlToStore)
         ) {
-          internalLinks.push(singleResult)
+          internalLinks.push(urlToStore)
         }
       } else if (href) {
         cy.log('Filtered URL: ' + href)

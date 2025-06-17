@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 /// <reference path="../index.d.ts" />
 
+import { DomainMappingConfig, applyDomainMapping } from './../utils/domainMapping'
+
 interface LinkToValidate {
   href: string
   element: HTMLAnchorElement
@@ -42,19 +44,27 @@ const normalizeUrl = (href: string, baseUrl: string, currentUrl: string): string
   return new URL(href, currentUrl).toString()
 }
 
-const validateLink = (link: LinkToValidate): void => {
+const validateLink = (link: LinkToValidate, config: DomainMappingConfig, baseUrl: string): void => {
   const { href } = link
   
-  if (href.includes('.pdf')) {
-    cy.log(`Validating PDF: ${href}`)
+  // Apply domain mapping
+  const mappedHref = applyDomainMapping(href, config, baseUrl)
+  const wasMapped = mappedHref !== href
+  
+  if (wasMapped) {
+    cy.log(`🔄 Mapped ${href} → ${mappedHref}`)
+  }
+  
+  if (mappedHref.includes('.pdf')) {
+    cy.log(`Validating PDF: ${mappedHref}`)
     cy.request({
-      url: href,
+      url: mappedHref,
       failOnStatusCode: false
     }).then((response) => {
       expect(response.status).to.be.oneOf([200, 301, 302, 307, 308])
     })
   } else {
-    cy.visit(href)
+    cy.visit(mappedHref)
     cy.get('a').should('be.visible')
     //@ts-ignore - Custom command type not available in build context
     cy.ttValidateAllImagesResponseStatusOk()
@@ -63,8 +73,23 @@ const validateLink = (link: LinkToValidate): void => {
   cy.clearAllLocalStorage()
 }
 
-export const ttEveryInternalLinkIsLoading = (limit: number = 10): void => {
+export const ttEveryInternalLinkIsLoading = (
+  limitOrConfig: number | DomainMappingConfig = 10,
+  legacyConfig?: DomainMappingConfig
+): void => {
   cy.log('everyInternalLinkIsLoading - NCA TESTIFY')
+  
+  // Handle backwards compatibility
+  let limit = 10
+  let config: DomainMappingConfig = {}
+  
+  if (typeof limitOrConfig === 'number') {
+    limit = limitOrConfig
+    config = legacyConfig || {}
+  } else {
+    config = limitOrConfig
+    limit = config.minLinksRequired || 10
+  }
   
   const baseUrl = Cypress.config('baseUrl')
   
@@ -110,7 +135,7 @@ export const ttEveryInternalLinkIsLoading = (limit: number = 10): void => {
       
       cy.log(`Found ${uniqueLinks.size} unique internal links, validating ${linksToValidate.length}`)
       
-      linksToValidate.forEach(validateLink)
+      linksToValidate.forEach(link => validateLink(link, config, baseUrl))
     })
   })
 }
