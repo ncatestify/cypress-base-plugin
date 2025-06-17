@@ -22,7 +22,7 @@ describe('Validate Testify Tests', () => {
     it('All internal links are loading', () => {
         cy.ttEveryInternalLinkIsLoading();
     });
-    it.only('All internal links have OK status', () => {
+    it('All internal links have OK status', () => {
         cy.ttEveryInternalLinkStatusOk();
     });
     it('Retrieve all internal links', () => {
@@ -36,9 +36,6 @@ describe('Validate Testify Tests', () => {
     });
     it('Only one H1 element exists', () => {
         cy.ttOnlyOneH1();
-    });
-    it('Run base tests', () => {
-        cy.ttRunTestifyBaseTests();
     });
     it('Set up console error listener', () => {
         cy.visit('/console-errors/');

@@ -11,7 +11,6 @@ import { ttGetInternalLinks } from './commands/tt-get-internal-links'
 import { ttInvalidPath404 } from './commands/tt-invalid-path-404'
 import { ttOnlyOneH1 } from './commands/tt-only-one-h1'
 import { ttPageLoaded } from './commands/tt-page-loaded'
-import { ttRunTestifyBaseTests } from './commands/tt-run-testify-base-tests'
 import { ttSetupConsoleErrorListener } from './commands/tt-setup-console-error-listener'
 import { ttThreshold } from './commands/tt-threshold'
 import { ttValidateAllImagesResponseStatusOk } from './commands/tt-validate-all-images-response-status-ok'
@@ -35,7 +34,6 @@ Cypress.Commands.add('ttGetInternalLinks', ttGetInternalLinks)
 Cypress.Commands.add('ttInvalidPath404', ttInvalidPath404)
 Cypress.Commands.add('ttOnlyOneH1', ttOnlyOneH1)
 Cypress.Commands.add('ttPageLoaded', ttPageLoaded)
-Cypress.Commands.add('ttRunTestifyBaseTests', ttRunTestifyBaseTests)
 Cypress.Commands.add('ttSetupConsoleErrorListener', ttSetupConsoleErrorListener)
 Cypress.Commands.add('ttThreshold', ttThreshold)
 Cypress.Commands.add(
