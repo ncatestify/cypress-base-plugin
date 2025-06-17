@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anchor Links Test Page</title>
+</head>
+<body>
+    <h1>Test Page for Anchor and Special Links</h1>
+    
+    <nav>
+        <h2>Navigation with Various Link Types</h2>
+        <ul>
+            <li><a href="#">Empty anchor link</a></li>
+            <li><a href="#section1">Fragment link to section 1</a></li>
+            <li><a href="#section2">Fragment link to section 2</a></li>
+            <li><a href="javascript:void(0)">JavaScript void link</a></li>
+            <li><a href="javascript:alert('test')">JavaScript alert link</a></li>
+            <li><a href="mailto:test@example.com">Email link</a></li>
+            <li><a href="tel:+1234567890">Phone link</a></li>
+            <li><a href="data:text/plain;base64,SGVsbG8sIFdvcmxkIQ==">Data URL link</a></li>
+            <li><a href="/blog">Internal absolute path</a></li>
+            <li><a href="blog">Internal relative path</a></li>
+            <li><a href="http://localhost:8080/imprint">Internal full URL</a></li>
+            <li><a href="https://www.google.com">External link</a></li>
+            <li><a href="/test.pdf">PDF link</a></li>
+            <li><a href="">Empty href</a></li>
+            <li><a>No href attribute</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section id="section1">
+            <h2>Section 1</h2>
+            <p>This is section 1 content.</p>
+            <a href="#top">Back to top</a>
+        </section>
+        
+        <section id="section2">
+            <h2>Section 2</h2>
+            <p>This is section 2 content.</p>
+            <a href="#section1">Go to section 1</a>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Test page for cypress-ncatestify-plugin anchor link handling</p>
+    </footer>
+</body>
+</html>

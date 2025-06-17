@@ -42,9 +42,19 @@ Then in your Testfile
 
 ```js
 describe('Validate Testify Tests', () => {
-  it('Runs Testify base tests', () => {
+  it('Accessibility test', () => {
     cy.visit('/')
-    cy.ttRunTestifyBaseTests()
+    cy.ttAccessibility()
+  })
+  
+  it('Check internal links', () => {
+    cy.visit('/')
+    cy.ttEveryInternalLinkIsLoading()
+  })
+  
+  it('Validate images', () => {
+    cy.visit('/')
+    cy.ttValidateAllImagesResponseStatusOk()
   })
 })
 ```
@@ -164,11 +174,21 @@ cy.ttEveryInternalLinkStatusOk()
 ```
 
 #### Validate all internal links are loading
-Visits each internal link to verify they load correctly.
+Visits each internal link to verify they load correctly. Automatically skips non-requestable links like anchors, fragments, javascript:, mailto:, tel:, and data: URLs.
 
 ```js
-cy.ttEveryInternalLinkIsLoading()
+cy.ttEveryInternalLinkIsLoading()       // Validate up to 10 links (default)
+cy.ttEveryInternalLinkIsLoading(20)     // Validate up to 20 links
 ```
+
+**Note:** This command intelligently handles special link types:
+- Anchor links (`href="#"`, `href="#section"`) are skipped
+- JavaScript links (`href="javascript:void(0)"`) are skipped
+- Email links (`href="mailto:..."`) are skipped
+- Phone links (`href="tel:..."`) are skipped
+- Data URLs (`href="data:..."`) are skipped
+- External links are automatically filtered out
+- PDF files are validated with a request instead of visiting
 
 #### Get all internal links as array
 Returns an array of all internal links found on the page.

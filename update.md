@@ -1,5 +1,36 @@
 # Update md file
 
+2.1.58
+
+- Fixed ttEveryInternalLinkIsLoading command to handle anchor and non-requestable links
+- Refactored command to directly scan page links instead of relying on ttGetInternalLinks
+- Added intelligent filtering for non-requestable link types:
+  - Anchor links (href="#" and href="#section")
+  - JavaScript links (href="javascript:void(0)", etc.)
+  - Email links (href="mailto:...")
+  - Phone links (href="tel:...")
+  - Data URLs (href="data:...")
+- Improved code organization with clean helper functions
+- Added comprehensive test coverage for anchor link handling
+- Updated TypeScript definitions to include optional limit parameter
+- Enhanced documentation with examples and notes about special link handling
+- Updated npm dependencies to latest versions:
+  - @types/jest: ^29.5.14 → ^30.0.0
+  - @typescript-eslint/eslint-plugin: ^6.4.0 → ^8.18.2
+  - @typescript-eslint/parser: Added ^8.18.2
+  - cypress: ^14.3.3 → ^14.4.1
+  - eslint: ^8.57.1 → ^9.17.0
+  - eslint-plugin-cypress: ^2.15.2 → ^5.1.0
+  - eslint-plugin-n: ^16.6.2 → ^17.15.1
+  - eslint-plugin-promise: ^6.6.0 → ^7.2.1
+  - jest: ^29.7.0 → ^30.0.0
+  - ts-jest: ^29.3.4 → ^29.4.0
+  - Added @eslint/js: ^9.17.0
+  - Added globals: ^16.2.0
+- Migrated from eslint-config-standard-with-typescript to ESLint 9.x flat config
+- Created comprehensive ESLint configuration supporting TypeScript, Cypress, and Jest environments
+- Removed ttRunTestifyBaseTests command and updated documentation with individual command examples
+
 2.1.57
 
 - Added HTTP Basic Authentication support for internal link and image validation
