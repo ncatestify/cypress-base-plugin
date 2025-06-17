@@ -13,9 +13,9 @@ const isInternal = (url) => {
     }
     const baseUrl = new URL(baseUrlString);
     const urlToCheck = new URL(url, baseUrl.href);
-    // Protokolle von den Ursprüngen entfernen
-    const baseOriginNoProtocol = baseUrl.origin.replace(/^https?:\/\//, '');
-    const urlOriginNoProtocol = urlToCheck.origin.replace(/^https?:\/\//, '');
-    return urlOriginNoProtocol === baseOriginNoProtocol;
+    // Compare hostnames (ignoring auth credentials)
+    const baseHost = baseUrl.hostname + (baseUrl.port ? `:${baseUrl.port}` : '');
+    const urlHost = urlToCheck.hostname + (urlToCheck.port ? `:${urlToCheck.port}` : '');
+    return baseHost === urlHost;
 };
 exports.isInternal = isInternal;

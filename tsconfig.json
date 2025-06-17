@@ -15,9 +15,10 @@
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["node_modules/@types", "./src"],
     "outDir": "./dist",
-    "rootDir": ".",
+    "rootDir": "./src",
     "declaration": false,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "cypress/**/*.ts"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "cypress"]
 }

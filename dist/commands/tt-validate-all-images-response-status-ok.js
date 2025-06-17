@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttValidateAllImagesResponseStatusOk = void 0;
+const extractAuth_1 = require("./../utils/extractAuth");
 const excludedUrlPrefixes = ['data:'];
 const isExcludedUrl = (url) => {
     return excludedUrlPrefixes.some((prefix) => url.startsWith(prefix));
@@ -10,6 +11,8 @@ const normalizeUrl = (url) => {
 };
 const ttValidateAllImagesResponseStatusOk = () => {
     const imageUrls = new Set();
+    cy.log('More then 0 images found');
+    cy.get('img').should('be.visible');
     cy.get('img').should('have.length.gt', 0);
     cy.get('img')
         .each(($img) => {
@@ -42,9 +45,21 @@ const ttValidateAllImagesResponseStatusOk = () => {
     })
         .then(() => {
         const promises = [];
+        const baseUrl = Cypress.config('baseUrl');
+        const auth = (0, extractAuth_1.extractAuth)(baseUrl);
         imageUrls.forEach((url) => {
+            const requestOptions = {
+                method: 'HEAD',
+                url: url
+            };
+            if (auth) {
+                requestOptions.auth = {
+                    username: auth.username,
+                    password: auth.password
+                };
+            }
             const promise = cy
-                .request('HEAD', url)
+                .request(requestOptions)
                 .its('status')
                 .should('eq', 200)
                 .then(() => {
