@@ -3,6 +3,7 @@
 /// <reference path="../index.d.ts" />
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttEveryInternalLinkIsLoading = void 0;
+const domainMapping_1 = require("./../utils/domainMapping");
 const isNonRequestableLink = (href) => {
     const nonRequestablePatterns = [
         '#',
@@ -32,27 +33,44 @@ const normalizeUrl = (href, baseUrl, currentUrl) => {
     }
     return new URL(href, currentUrl).toString();
 };
-const validateLink = (link) => {
+const validateLink = (link, config, baseUrl) => {
     const { href } = link;
-    if (href.includes('.pdf')) {
-        cy.log(`Validating PDF: ${href}`);
+    // Apply domain mapping
+    const mappedHref = (0, domainMapping_1.applyDomainMapping)(href, config, baseUrl);
+    const wasMapped = mappedHref !== href;
+    if (wasMapped) {
+        cy.log(`🔄 Mapped ${href} → ${mappedHref}`);
+    }
+    if (mappedHref.includes('.pdf')) {
+        cy.log(`Validating PDF: ${mappedHref}`);
         cy.request({
-            url: href,
+            url: mappedHref,
             failOnStatusCode: false
         }).then((response) => {
             expect(response.status).to.be.oneOf([200, 301, 302, 307, 308]);
         });
     }
     else {
-        cy.visit(href);
+        cy.visit(mappedHref);
         cy.get('a').should('be.visible');
-        //@ts-ignore
+        //@ts-ignore - Custom command type not available in build context
         cy.ttValidateAllImagesResponseStatusOk();
     }
     cy.clearAllLocalStorage();
 };
-const ttEveryInternalLinkIsLoading = (limit = 10) => {
+const ttEveryInternalLinkIsLoading = (limitOrConfig = 10, legacyConfig) => {
     cy.log('everyInternalLinkIsLoading - NCA TESTIFY');
+    // Handle backwards compatibility
+    let limit = 10;
+    let config = {};
+    if (typeof limitOrConfig === 'number') {
+        limit = limitOrConfig;
+        config = legacyConfig || {};
+    }
+    else {
+        config = limitOrConfig;
+        limit = config.minLinksRequired || 10;
+    }
     const baseUrl = Cypress.config('baseUrl');
     cy.url().then((currentUrl) => {
         cy.get('a[href]').then(($links) => {
@@ -88,7 +106,7 @@ const ttEveryInternalLinkIsLoading = (limit = 10) => {
             // Validate links up to the limit
             const linksToValidate = Array.from(uniqueLinks.values()).slice(0, limit);
             cy.log(`Found ${uniqueLinks.size} unique internal links, validating ${linksToValidate.length}`);
-            linksToValidate.forEach(validateLink);
+            linksToValidate.forEach(link => validateLink(link, config, baseUrl));
         });
     });
 };

@@ -1,5 +1,19 @@
 # Update md file
 
+2.1.61
+
+- Added universal domain mapping for staging environments
+- Enhanced tt-every-internal-link-status-ok command with configurable domain mappings
+- Enhanced tt-every-internal-link-is-loading command with configurable domain mappings  
+- Enhanced tt-get-internal-links command with cross-domain link detection
+- Added automatic staging pattern detection (staging., test., dev., qa. subdomains)
+- Introduced configurable minimum links requirement (default: 1, removing hardcoded >2 limit)
+- Added new DomainMappingConfig interface with mappings, autoDetectFromBaseUrl, includedDomains options
+- Created domainMapping utility with comprehensive unit tests (18 test cases)
+- Maintained full backwards compatibility with existing API
+- Added support for external domain inclusion in link detection
+- Enhanced logging for better debugging of domain mapping process
+
 2.1.60
 
 - Fixed TypeScript build configuration to output files to correct dist structure
