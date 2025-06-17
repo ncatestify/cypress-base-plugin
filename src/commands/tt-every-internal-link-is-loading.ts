@@ -1,3 +1,6 @@
+/// <reference types="cypress" />
+/// <reference path="../index.d.ts" />
+
 interface LinkToValidate {
   href: string
   element: HTMLAnchorElement
@@ -53,6 +56,7 @@ const validateLink = (link: LinkToValidate): void => {
   } else {
     cy.visit(href)
     cy.get('a').should('be.visible')
+    //@ts-ignore - Custom command type not available in build context
     cy.ttValidateAllImagesResponseStatusOk()
   }
   

@@ -1,4 +1,6 @@
 "use strict";
+/// <reference types="cypress" />
+/// <reference path="../index.d.ts" />
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttEveryInternalLinkIsLoading = void 0;
 const isNonRequestableLink = (href) => {
@@ -44,6 +46,7 @@ const validateLink = (link) => {
     else {
         cy.visit(href);
         cy.get('a').should('be.visible');
+        //@ts-ignore
         cy.ttValidateAllImagesResponseStatusOk();
     }
     cy.clearAllLocalStorage();

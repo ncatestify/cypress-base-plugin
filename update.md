@@ -1,5 +1,13 @@
 # Update md file
 
+2.1.60
+
+- Fixed TypeScript build configuration to output files to correct dist structure
+- Updated tsconfig.json rootDir from "." to "./src" to prevent dist/src/ nesting
+- Fixed package structure issue where main: "dist/index.js" expected files at dist/ but TypeScript built to dist/src/
+- Resolved module import failures when plugin is installed via npm
+- Added @ts-ignore for internal command type references in tt-every-internal-link-is-loading.ts
+
 2.1.59
 
 - Fixed dist file compilation error by removing stale tt-run-testify-base-tests import
