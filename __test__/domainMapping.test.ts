@@ -1,5 +1,5 @@
+import { describe, it, expect } from 'vitest'
 import { autoDetectDomainMapping, applyDomainMapping, shouldIncludeUrl } from '../src/utils/domainMapping'
-import { expect } from '@jest/globals'
 
 describe('domainMapping', () => {
   describe('autoDetectDomainMapping', () => {

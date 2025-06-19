@@ -1,5 +1,5 @@
+import { describe, test, expect, beforeEach, afterEach } from 'vitest'
 import { isInternal } from '../src/utils/isInternal'
-import { expect } from '@jest/globals'
 
 describe('isInternal', () => {
   beforeEach(() => {
