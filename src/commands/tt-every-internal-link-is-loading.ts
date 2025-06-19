@@ -55,6 +55,12 @@ const validateLink = (link: LinkToValidate, config: DomainMappingConfig, baseUrl
     cy.log(`🔄 Mapped ${href} → ${mappedHref}`)
   }
   
+  // Validate that we have a proper URL before making requests
+  if (!mappedHref || mappedHref.trim() === '') {
+    cy.log(`⚠️ Skipping empty URL after mapping: ${href} → ${mappedHref}`)
+    return
+  }
+  
   if (mappedHref.includes('.pdf')) {
     cy.log(`Validating PDF: ${mappedHref}`)
     cy.request({
