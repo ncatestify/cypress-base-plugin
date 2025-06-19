@@ -1,5 +1,11 @@
 # Update md file
 
+2.1.63
+
+- Fix cy.request() empty URL error in ttEveryInternalLinkIsLoading command
+- Add validation to prevent Cypress request failures when domain mapping results in empty URLs
+- Improve error handling and logging for URL validation in link testing
+
 2.1.62
 
 - Simplified isInternal function logic to fix staging/production URL detection bug
