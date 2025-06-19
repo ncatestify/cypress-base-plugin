@@ -2,20 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isInternal = void 0;
 const isInternal = (url) => {
-    let baseUrlString;
-    if (typeof Cypress !== 'undefined') {
-        // Cypress context
-        baseUrlString = Cypress.config('baseUrl');
+    // Starts with / = internal
+    if (url.startsWith('/')) {
+        return true;
     }
-    else {
-        // Jest context
-        baseUrlString = process.env.BASE_URL || 'http://localhost:3000';
+    // No protocol = relative = internal
+    if (!url.includes('://')) {
+        return true;
     }
-    const baseUrl = new URL(baseUrlString);
-    const urlToCheck = new URL(url, baseUrl.href);
-    // Compare hostnames (ignoring auth credentials)
-    const baseHost = baseUrl.hostname + (baseUrl.port ? `:${baseUrl.port}` : '');
-    const urlHost = urlToCheck.hostname + (urlToCheck.port ? `:${urlToCheck.port}` : '');
-    return baseHost === urlHost;
+    // Has protocol = check if same domain as baseUrl
+    const baseUrl = typeof Cypress !== 'undefined'
+        ? Cypress.config('baseUrl')
+        : process.env.BASE_URL || 'https://localhost:3000';
+    return url.startsWith(baseUrl);
 };
 exports.isInternal = isInternal;

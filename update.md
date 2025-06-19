@@ -1,5 +1,22 @@
 # Update md file
 
+2.1.63
+
+- Fix cy.request() empty URL error in ttEveryInternalLinkIsLoading command
+- Add validation to prevent Cypress request failures when domain mapping results in empty URLs
+- Improve error handling and logging for URL validation in link testing
+
+2.1.62
+
+- Simplified isInternal function logic to fix staging/production URL detection bug
+- Removed complex domain mapping system that caused incorrect URL identification
+- Fixed issue where production URLs were incorrectly identified as internal on staging environments
+- Simplified ttGetInternalLinks command by removing unnecessary URL manipulation and auth handling
+- Replaced Jest with Vitest for better performance and modern testing experience
+- Updated all unit tests to use Vitest syntax and configuration
+- Improved internal link detection with simple logic: absolute paths (/), relative paths, and baseUrl matching
+- Enhanced test coverage for staging vs production URL scenarios
+
 2.1.61
 
 - Added universal domain mapping for staging environments
