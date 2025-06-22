@@ -2,6 +2,7 @@
 /// <reference path="../index.d.ts" />
 
 import { DomainMappingConfig, applyDomainMapping } from './../utils/domainMapping'
+import { addCredentialsToInternalLinks } from './../utils/extractAuth'
 
 interface LinkToValidate {
   href: string
@@ -131,7 +132,7 @@ export const ttEveryInternalLinkIsLoading = (
               element: element as HTMLAnchorElement
             })
           }
-        } catch (error) {
+        } catch {
           cy.log(`Error processing URL: ${href}`)
         }
       })
@@ -139,9 +140,21 @@ export const ttEveryInternalLinkIsLoading = (
       // Validate links up to the limit
       const linksToValidate = Array.from(uniqueLinks.values()).slice(0, limit)
       
-      cy.log(`Found ${uniqueLinks.size} unique internal links, validating ${linksToValidate.length}`)
+      // Add credentials to internal links if baseUrl has them
+      const linksWithCredentials = addCredentialsToInternalLinks(
+        linksToValidate.map(link => link.href), 
+        baseUrl
+      )
       
-      linksToValidate.forEach(link => validateLink(link, config, baseUrl))
+      // Update links with credentials
+      const authenticatedLinks = linksToValidate.map((link, index) => ({
+        ...link,
+        href: linksWithCredentials[index]
+      }))
+      
+      cy.log(`Found ${uniqueLinks.size} unique internal links, validating ${authenticatedLinks.length}`)
+      
+      authenticatedLinks.forEach(link => validateLink(link, config, baseUrl))
     })
   })
 }

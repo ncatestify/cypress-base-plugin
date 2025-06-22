@@ -5,8 +5,8 @@ const extractAuth_1 = require("./../utils/extractAuth");
 const domainMapping_1 = require("./../utils/domainMapping");
 const ttEveryInternalLinkStatusOk = (config = {}) => {
     const { minLinksRequired = 1 } = config;
-    //@ts-ignore
-    return cy.ttGetInternalLinks(config).then((urls) => {
+    //@ts-ignore - Custom command type not available in build context
+    return cy.ttGetInternalLinks().then((urls) => {
         cy.log('everyInternalLinkStatusOk - NCA TESTIFY');
         cy.wrap(urls).its('length').should('be.gte', minLinksRequired);
         const baseUrl = Cypress.config('baseUrl');

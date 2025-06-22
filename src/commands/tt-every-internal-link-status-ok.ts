@@ -6,8 +6,8 @@ export const ttEveryInternalLinkStatusOk = (
 ): Cypress.Chainable<any> => {
   const { minLinksRequired = 1 } = config
   
-  //@ts-ignore
-  return cy.ttGetInternalLinks(config).then((urls: string[]) => {
+  //@ts-ignore - Custom command type not available in build context
+  return cy.ttGetInternalLinks().then((urls: string[]) => {
     cy.log('everyInternalLinkStatusOk - NCA TESTIFY')
     cy.wrap(urls).its('length').should('be.gte', minLinksRequired)
     

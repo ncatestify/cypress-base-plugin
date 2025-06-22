@@ -4,6 +4,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttEveryInternalLinkIsLoading = void 0;
 const domainMapping_1 = require("./../utils/domainMapping");
+const extractAuth_1 = require("./../utils/extractAuth");
 const isNonRequestableLink = (href) => {
     const nonRequestablePatterns = [
         '#',
@@ -104,14 +105,21 @@ const ttEveryInternalLinkIsLoading = (limitOrConfig = 10, legacyConfig) => {
                         });
                     }
                 }
-                catch (error) {
+                catch {
                     cy.log(`Error processing URL: ${href}`);
                 }
             });
             // Validate links up to the limit
             const linksToValidate = Array.from(uniqueLinks.values()).slice(0, limit);
-            cy.log(`Found ${uniqueLinks.size} unique internal links, validating ${linksToValidate.length}`);
-            linksToValidate.forEach(link => validateLink(link, config, baseUrl));
+            // Add credentials to internal links if baseUrl has them
+            const linksWithCredentials = (0, extractAuth_1.addCredentialsToInternalLinks)(linksToValidate.map(link => link.href), baseUrl);
+            // Update links with credentials
+            const authenticatedLinks = linksToValidate.map((link, index) => ({
+                ...link,
+                href: linksWithCredentials[index]
+            }));
+            cy.log(`Found ${uniqueLinks.size} unique internal links, validating ${authenticatedLinks.length}`);
+            authenticatedLinks.forEach(link => validateLink(link, config, baseUrl));
         });
     });
 };

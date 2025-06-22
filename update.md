@@ -1,5 +1,14 @@
 # Update md file
 
+2.1.64
+
+- Add automatic credential propagation for internal links when baseUrl contains Basic Auth
+- Implement addCredentialsToInternalLinks utility function using simple @ split approach
+- Update ttGetInternalLinks and ttEveryInternalLinkIsLoading to handle authenticated URLs
+- Fix CSS selector error in ttEveryInternalLinkStatusOk command
+- Clean up test duplication by consolidating duplicate validate.cy.js file and refactoring test patterns
+- Add comprehensive test coverage for credential handling functionality
+
 2.1.63
 
 - Fix cy.request() empty URL error in ttEveryInternalLinkIsLoading command

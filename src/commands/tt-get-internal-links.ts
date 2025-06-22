@@ -1,4 +1,5 @@
 import { isInternal } from './../utils/isInternal'
+import { addCredentialsToInternalLinks } from './../utils/extractAuth'
 
 export const ttGetInternalLinks = (
   linkSelector: string = ''
@@ -26,6 +27,7 @@ export const ttGetInternalLinks = (
       }
     })
 
-    return cy.wrap(internalLinks)
+    const linksWithCredentials = addCredentialsToInternalLinks(internalLinks)
+    return cy.wrap(linksWithCredentials)
   })
 }
