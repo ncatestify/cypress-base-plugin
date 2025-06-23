@@ -1,5 +1,12 @@
 # Update md file
 
+2.1.65
+
+- Refactor ttEveryInternalLinkIsLoading and ttEveryInternalLinkStatusOk to use ttGetInternalLinks exclusively
+- Remove domain mapping logic from individual commands - now handled centrally in ttGetInternalLinks
+- Simplify command signatures by removing DomainMappingConfig parameter
+- Clean up code duplication and improve command architecture
+
 2.1.64
 
 - Add automatic credential propagation for internal links when baseUrl contains Basic Auth
