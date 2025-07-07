@@ -1,5 +1,13 @@
 # Update md file
 
+2.1.66
+
+- Remove insecure HTTP protocol support from ttGetInternalLinks command
+- Add special case handling for projects.nevercodealone.de domains to support HTTP/HTTPS mixed environments
+- Update normalizeUrl function to accept HTTP URLs only for nevercodealone.de project domains
+- Enhance isInternal utility to handle protocol mismatches for special domains
+- Improve security by defaulting to HTTPS-only for all other domains
+
 2.1.65
 
 - Refactor ttEveryInternalLinkIsLoading and ttEveryInternalLinkStatusOk to use ttGetInternalLinks exclusively

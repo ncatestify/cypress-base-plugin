@@ -13,8 +13,15 @@ const isNonRequestableLink = (href) => {
     ];
     return nonRequestablePatterns.some(pattern => href === pattern || href.startsWith(pattern));
 };
+const isNeverCodeAloneDomain = (url) => {
+    return url.includes('projects.nevercodealone.de');
+};
 const normalizeUrl = (href, baseUrl, currentUrl) => {
-    if (href.startsWith('http://') || href.startsWith('https://')) {
+    // Special case for projects.nevercodealone.de - accept both HTTP and HTTPS
+    if (isNeverCodeAloneDomain(baseUrl) && href.startsWith('http://')) {
+        return href;
+    }
+    if (href.startsWith('https://')) {
         return href;
     }
     if (href.startsWith('/')) {

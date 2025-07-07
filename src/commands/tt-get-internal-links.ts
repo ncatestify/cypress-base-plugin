@@ -15,8 +15,17 @@ const isNonRequestableLink = (href: string): boolean => {
   )
 }
 
+const isNeverCodeAloneDomain = (url: string): boolean => {
+  return url.includes('projects.nevercodealone.de')
+}
+
 const normalizeUrl = (href: string, baseUrl: string, currentUrl: string): string => {
-  if (href.startsWith('http://') || href.startsWith('https://')) {
+  // Special case for projects.nevercodealone.de - accept both HTTP and HTTPS
+  if (isNeverCodeAloneDomain(baseUrl) && href.startsWith('http://')) {
+    return href
+  }
+  
+  if (href.startsWith('https://')) {
     return href
   }
   
