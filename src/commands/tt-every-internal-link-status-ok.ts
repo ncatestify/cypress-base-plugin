@@ -15,7 +15,8 @@ export const ttEveryInternalLinkStatusOk = (
       
       cy.request(requestOptions).then((resp) => {
         if (resp.headers['content-type']?.includes('text/html')) {
-          const success = resp.status === 200
+          const validStatuses = [200, 301, 302]
+          const success = validStatuses.includes(resp.status)
           allLinksOk = allLinksOk && success
           cy.log(`${success ? '✅' : '❌'} Testing ${url}: ${resp.status}`)
           

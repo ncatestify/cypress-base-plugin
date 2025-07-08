@@ -15,7 +15,8 @@ const ttEveryInternalLinkStatusOk = (minLinksRequired = 1) => {
             cy.request(requestOptions).then((resp) => {
                 var _a;
                 if ((_a = resp.headers['content-type']) === null || _a === void 0 ? void 0 : _a.includes('text/html')) {
-                    const success = resp.status === 200;
+                    const validStatuses = [200, 301, 302];
+                    const success = validStatuses.includes(resp.status);
                     allLinksOk = allLinksOk && success;
                     cy.log(`${success ? '✅' : '❌'} Testing ${url}: ${resp.status}`);
                     if (!success) {

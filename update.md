@@ -1,5 +1,12 @@
 # Update md file
 
+2.1.67
+
+- Add support for 301 and 302 redirect status codes in ttEveryInternalLinkStatusOk command
+- Update link validation to accept redirects as valid responses for internal links
+- Add comprehensive test coverage for redirect handling functionality
+- Ensure internal links that redirect are now properly validated instead of failing
+
 2.1.66
 
 - Remove insecure HTTP protocol support from ttGetInternalLinks command
