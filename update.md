@@ -1,5 +1,15 @@
 # Update md file
 
+2.1.68
+
+- Add HTTP/HTTPS protocol handling for Never Code Alone domains based on IP detection (213.203.219.157)
+- Refactor isInternal utility to enterprise TypeScript standards with clean code principles
+- Implement type-safe URL validation with proper interfaces and type definitions
+- Extract configuration constants for NCA domains into immutable structures
+- Add support for DSV98.de and other NCA domains with mixed HTTP/HTTPS environments
+- Improve code maintainability with single-responsibility pure functions
+- Enhance domain comparison logic to handle protocol mismatches intelligently
+
 2.1.67
 
 - Add support for 301 and 302 redirect status codes in ttEveryInternalLinkStatusOk command
