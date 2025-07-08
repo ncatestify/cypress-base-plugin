@@ -1,5 +1,36 @@
 # Update md file
 
+2.1.67
+
+- Add support for 301 and 302 redirect status codes in ttEveryInternalLinkStatusOk command
+- Update link validation to accept redirects as valid responses for internal links
+- Add comprehensive test coverage for redirect handling functionality
+- Ensure internal links that redirect are now properly validated instead of failing
+
+2.1.66
+
+- Remove insecure HTTP protocol support from ttGetInternalLinks command
+- Add special case handling for projects.nevercodealone.de domains to support HTTP/HTTPS mixed environments
+- Update normalizeUrl function to accept HTTP URLs only for nevercodealone.de project domains
+- Enhance isInternal utility to handle protocol mismatches for special domains
+- Improve security by defaulting to HTTPS-only for all other domains
+
+2.1.65
+
+- Refactor ttEveryInternalLinkIsLoading and ttEveryInternalLinkStatusOk to use ttGetInternalLinks exclusively
+- Remove domain mapping logic from individual commands - now handled centrally in ttGetInternalLinks
+- Simplify command signatures by removing DomainMappingConfig parameter
+- Clean up code duplication and improve command architecture
+
+2.1.64
+
+- Add automatic credential propagation for internal links when baseUrl contains Basic Auth
+- Implement addCredentialsToInternalLinks utility function using simple @ split approach
+- Update ttGetInternalLinks and ttEveryInternalLinkIsLoading to handle authenticated URLs
+- Fix CSS selector error in ttEveryInternalLinkStatusOk command
+- Clean up test duplication by consolidating duplicate validate.cy.js file and refactoring test patterns
+- Add comprehensive test coverage for credential handling functionality
+
 2.1.63
 
 - Fix cy.request() empty URL error in ttEveryInternalLinkIsLoading command

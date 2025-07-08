@@ -33,10 +33,6 @@ describe('Validate Testify Tests', () => {
     cy.ttEveryInternalLinkStatusOk()
   })
 
-  it('Retrieve all internal links', () => {
-    cy.ttGetInternalLinks()
-  })
-
   it('Invalid path returns 404', () => {
     cy.ttInvalidPath404()
   })
@@ -48,7 +44,6 @@ describe('Validate Testify Tests', () => {
   it('Only one H1 element exists', () => {
     cy.ttOnlyOneH1()
   })
-
 
   it('Set up console error listener', () => {
     cy.visit('/console-errors/')

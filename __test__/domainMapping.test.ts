@@ -3,66 +3,74 @@ import { autoDetectDomainMapping, applyDomainMapping, shouldIncludeUrl } from '.
 
 describe('domainMapping', () => {
   describe('autoDetectDomainMapping', () => {
-    it('should detect nevercodealone staging pattern', () => {
-      const result = autoDetectDomainMapping('https://testingcrud.testify.projects.nevercodealone.de')
-      expect(result).toEqual({
-        'nevercodealone.de': 'testingcrud.testify.projects.nevercodealone.de'
-      })
-    })
+    const testCases = [
+      {
+        name: 'should detect nevercodealone staging pattern',
+        input: 'https://testingcrud.testify.projects.nevercodealone.de',
+        expected: { 'nevercodealone.de': 'testingcrud.testify.projects.nevercodealone.de' }
+      },
+      {
+        name: 'should detect common staging patterns',
+        input: 'https://staging.example.com',
+        expected: { 'example.com': 'staging.example.com' }
+      },
+      {
+        name: 'should detect test subdomain patterns',
+        input: 'https://test.mysite.org',
+        expected: { 'mysite.org': 'test.mysite.org' }
+      },
+      {
+        name: 'should return empty for production URLs',
+        input: 'https://example.com',
+        expected: {}
+      }
+    ]
 
-    it('should detect common staging patterns', () => {
-      const result = autoDetectDomainMapping('https://staging.example.com')
-      expect(result).toEqual({
-        'example.com': 'staging.example.com'
+    testCases.forEach(({ name, input, expected }) => {
+      it(name, () => {
+        const result = autoDetectDomainMapping(input)
+        expect(result).toEqual(expected)
       })
-    })
-
-    it('should detect test subdomain patterns', () => {
-      const result = autoDetectDomainMapping('https://test.mysite.org')
-      expect(result).toEqual({
-        'mysite.org': 'test.mysite.org'
-      })
-    })
-
-    it('should return empty for production URLs', () => {
-      const result = autoDetectDomainMapping('https://example.com')
-      expect(result).toEqual({})
     })
   })
 
   describe('applyDomainMapping', () => {
-    it('should apply manual domain mapping', () => {
-      const config = {
-        mappings: { 'example.com': 'staging.example.com' },
-        autoDetectFromBaseUrl: false
+    const testCases = [
+      {
+        name: 'should apply manual domain mapping',
+        url: 'https://example.com/page',
+        config: { mappings: { 'example.com': 'staging.example.com' }, autoDetectFromBaseUrl: false },
+        baseUrl: 'https://staging.example.com',
+        expected: 'https://staging.example.com/page'
+      },
+      {
+        name: 'should apply auto-detected mapping',
+        url: 'https://nevercodealone.de/page',
+        config: { autoDetectFromBaseUrl: true },
+        baseUrl: 'https://testingcrud.testify.projects.nevercodealone.de',
+        expected: 'https://testingcrud.testify.projects.nevercodealone.de/page'
+      },
+      {
+        name: 'should not modify URLs that do not match mappings',
+        url: 'https://other.com/page',
+        config: { mappings: { 'example.com': 'staging.example.com' } },
+        baseUrl: 'https://staging.example.com',
+        expected: 'https://other.com/page'
+      },
+      {
+        name: 'should prioritize manual mappings over auto-detection',
+        url: 'https://example.com/page',
+        config: { mappings: { 'example.com': 'custom.example.com' }, autoDetectFromBaseUrl: true },
+        baseUrl: 'https://staging.example.com',
+        expected: 'https://custom.example.com/page'
       }
-      const result = applyDomainMapping('https://example.com/page', config, 'https://staging.example.com')
-      expect(result).toBe('https://staging.example.com/page')
-    })
+    ]
 
-    it('should apply auto-detected mapping', () => {
-      const config = {
-        autoDetectFromBaseUrl: true
-      }
-      const result = applyDomainMapping('https://nevercodealone.de/page', config, 'https://testingcrud.testify.projects.nevercodealone.de')
-      expect(result).toBe('https://testingcrud.testify.projects.nevercodealone.de/page')
-    })
-
-    it('should not modify URLs that do not match mappings', () => {
-      const config = {
-        mappings: { 'example.com': 'staging.example.com' }
-      }
-      const result = applyDomainMapping('https://other.com/page', config, 'https://staging.example.com')
-      expect(result).toBe('https://other.com/page')
-    })
-
-    it('should prioritize manual mappings over auto-detection', () => {
-      const config = {
-        mappings: { 'example.com': 'custom.example.com' },
-        autoDetectFromBaseUrl: true
-      }
-      const result = applyDomainMapping('https://example.com/page', config, 'https://staging.example.com')
-      expect(result).toBe('https://custom.example.com/page')
+    testCases.forEach(({ name, url, config, baseUrl, expected }) => {
+      it(name, () => {
+        const result = applyDomainMapping(url, config, baseUrl)
+        expect(result).toBe(expected)
+      })
     })
   })
 
