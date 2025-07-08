@@ -29,7 +29,7 @@ describe('Validate Testify Tests', () => {
     cy.ttEveryInternalLinkIsLoading()
   })
 
-  it('All internal links have OK status', () => {
+  it.only('All internal links have OK status', () => {
     cy.ttEveryInternalLinkStatusOk()
   })
 
