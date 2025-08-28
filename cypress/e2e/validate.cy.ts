@@ -25,11 +25,11 @@ describe('Validate Testify Tests', () => {
     cy.ttElementExists('.example-element')
   })
 
-  it('All internal links are loading', () => {
+  it.only('All internal links are loading', () => {
     cy.ttEveryInternalLinkIsLoading()
   })
 
-  it.only('All internal links have OK status', () => {
+  it('All internal links have OK status', () => {
     cy.ttEveryInternalLinkStatusOk()
   })
 
