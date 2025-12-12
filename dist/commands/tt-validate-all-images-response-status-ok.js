@@ -9,12 +9,32 @@ const isExcludedUrl = (url) => {
 const normalizeUrl = (url) => {
     return url.startsWith('//') ? `https:${url}` : url;
 };
+const buildImageSourceInfo = (img, index, type, pageUrl) => {
+    var _a;
+    const alt = (_a = img.getAttribute('alt')) !== null && _a !== void 0 ? _a : 'no alt';
+    const id = img.getAttribute('id') ? `#${img.getAttribute('id')}` : '';
+    const classes = img.className ? `.${Array.from(img.classList).join('.')}` : '';
+    const parent = img.parentElement;
+    const parentInfo = parent
+        ? ` in ${parent.tagName.toLowerCase()}${parent.id ? '#' + parent.id : ''}${parent.className ? '.' + Array.from(parent.classList).join('.') : ''}`
+        : '';
+    const suffix = type === 'srcset' ? ' srcset' : '';
+    return `IMG${id}${classes}${suffix} (alt: "${alt}", element ${index + 1}${parentInfo} on page ${pageUrl})`;
+};
 const extractCssImageUrls = () => {
     const cssImageUrls = [];
     const excludedUrlPrefixes = ['data:', 'blob:', 'javascript:', 'about:'];
     const isExcludedUrl = (url) => {
         return excludedUrlPrefixes.some((prefix) => url.startsWith(prefix));
     };
+    // Get all CSS files loaded on the page
+    const cssFiles = [];
+    Array.from(document.styleSheets).forEach(sheet => {
+        if (sheet.href) {
+            cssFiles.push(sheet.href);
+        }
+    });
+    const cssFilesList = cssFiles.length > 0 ? ` (CSS files: ${cssFiles.join(', ')})` : ' (inline styles)';
     const allElements = document.querySelectorAll('*');
     Array.from(allElements).forEach((element, index) => {
         const computedStyle = window.getComputedStyle(element);
@@ -30,7 +50,31 @@ const extractCssImageUrls = () => {
                             (element.id ? `#${element.id}` : '') +
                             (element.className ? `.${Array.from(element.classList).join('.')}` : '') +
                             ` (element ${index + 1})`;
-                        cssImageUrls.push({ url, source: `CSS background on ${elementInfo}` });
+                        // Try to find which CSS rule applies
+                        let cssRuleInfo = '';
+                        try {
+                            for (let i = 0; i < document.styleSheets.length; i++) {
+                                const sheet = document.styleSheets[i];
+                                if (sheet.href && sheet.cssRules) {
+                                    for (let j = 0; j < sheet.cssRules.length; j++) {
+                                        const rule = sheet.cssRules[j];
+                                        if (rule.selectorText && element.matches && element.matches(rule.selectorText)) {
+                                            if (rule.style.backgroundImage && rule.style.backgroundImage.includes(url)) {
+                                                cssRuleInfo = ` from rule "${rule.selectorText}" in ${sheet.href}`;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (cssRuleInfo)
+                                        break;
+                                }
+                            }
+                        }
+                        catch {
+                            // Cross-origin or other CSS access issues
+                            cssRuleInfo = ' (CSS rule details unavailable due to CORS)';
+                        }
+                        cssImageUrls.push({ url, source: `CSS background on ${elementInfo}${cssRuleInfo}${cssFilesList}` });
                     }
                 });
             }
@@ -61,16 +105,16 @@ const ttValidateAllImagesResponseStatusOk = () => {
         const imgElements = $body.find('img');
         if (imgElements.length > 0) {
             cy.log(`Found ${imgElements.length} <img> elements`);
-            cy.get('img').each(($img) => {
-                var _a, _b;
+            const pageUrl = window.location.href;
+            cy.get('img').each(($img, index) => {
+                var _a;
                 const img = $img[0];
                 const src = img.getAttribute('src');
                 const srcset = img.getAttribute('srcset');
                 if (src !== null) {
                     const normalizedSrc = normalizeUrl(src);
                     if (!isExcludedUrl(normalizedSrc)) {
-                        const alt = (_a = img.getAttribute('alt')) !== null && _a !== void 0 ? _a : 'no alt';
-                        const imgSource = `IMG element (alt: "${alt}")`;
+                        const imgSource = buildImageSourceInfo(img, index, 'src', pageUrl);
                         imageMap.set(normalizedSrc, imgSource);
                         cy.log(`📍 ${imgSource}: ${src}`);
                     }
@@ -81,17 +125,15 @@ const ttValidateAllImagesResponseStatusOk = () => {
                         .map((srcsetItem) => srcsetItem.trim().split(' ')[0])
                         .map(normalizeUrl);
                     srcsetUrls.forEach((url) => {
-                        var _a;
                         if (!isExcludedUrl(url)) {
-                            const alt = (_a = img.getAttribute('alt')) !== null && _a !== void 0 ? _a : 'no alt';
-                            const srcsetSource = `IMG srcset (alt: "${alt}")`;
+                            const srcsetSource = buildImageSourceInfo(img, index, 'srcset', pageUrl);
                             imageMap.set(url, srcsetSource);
                             cy.log(`📍 ${srcsetSource}: ${url}`);
                         }
                     });
                 }
                 if (src === null && srcset === null) {
-                    const alt = (_b = img.getAttribute('alt')) !== null && _b !== void 0 ? _b : '';
+                    const alt = (_a = img.getAttribute('alt')) !== null && _a !== void 0 ? _a : '';
                     cy.log(`⚠️ Image ${alt} has neither src nor srcset attribute`);
                 }
             });
@@ -108,7 +150,6 @@ const ttValidateAllImagesResponseStatusOk = () => {
             return;
         }
         cy.log(`🔍 Validating ${totalImages} total images (IMG + CSS)`);
-        const promises = [];
         const baseUrl = Cypress.config('baseUrl');
         const auth = (0, extractAuth_1.extractAuth)(baseUrl);
         Array.from(imageMap.entries()).forEach(([url, source]) => {
@@ -123,7 +164,7 @@ const ttValidateAllImagesResponseStatusOk = () => {
                     password: auth.password
                 };
             }
-            const promise = cy.request(requestOptions).then((response) => {
+            cy.request(requestOptions).then((response) => {
                 if (response.status === 200) {
                     cy.log(`✅ ${url}`);
                 }
@@ -132,9 +173,7 @@ const ttValidateAllImagesResponseStatusOk = () => {
                     throw new Error(`Image validation failed: ${url} returned ${response.status}. Source: ${source}`);
                 }
             });
-            promises.push(promise);
         });
-        return Cypress.Promise.all(promises);
     });
 };
 exports.ttValidateAllImagesResponseStatusOk = ttValidateAllImagesResponseStatusOk;

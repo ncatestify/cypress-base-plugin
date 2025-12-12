@@ -10,12 +10,39 @@ const normalizeUrl = (url: string): string => {
   return url.startsWith('//') ? `https:${url}` : url
 }
 
+const buildImageSourceInfo = (
+  img: HTMLImageElement,
+  index: number,
+  type: 'src' | 'srcset',
+  pageUrl: string
+): string => {
+  const alt = img.getAttribute('alt') ?? 'no alt'
+  const id = img.getAttribute('id') ? `#${img.getAttribute('id')}` : ''
+  const classes = img.className ? `.${Array.from(img.classList).join('.')}` : ''
+  const parent = img.parentElement
+  const parentInfo = parent
+    ? ` in ${parent.tagName.toLowerCase()}${parent.id ? '#' + parent.id : ''}${parent.className ? '.' + Array.from(parent.classList).join('.') : ''}`
+    : ''
+  const suffix = type === 'srcset' ? ' srcset' : ''
+  return `IMG${id}${classes}${suffix} (alt: "${alt}", element ${index + 1}${parentInfo} on page ${pageUrl})`
+}
+
 const extractCssImageUrls = (): Array<{url: string, source: string}> => {
   const cssImageUrls: Array<{url: string, source: string}> = []
   const excludedUrlPrefixes = ['data:', 'blob:', 'javascript:', 'about:']
   const isExcludedUrl = (url: string): boolean => {
     return excludedUrlPrefixes.some((prefix) => url.startsWith(prefix))
   }
+  
+  // Get all CSS files loaded on the page
+  const cssFiles: string[] = []
+  Array.from(document.styleSheets).forEach(sheet => {
+    if (sheet.href) {
+      cssFiles.push(sheet.href)
+    }
+  })
+  const cssFilesList = cssFiles.length > 0 ? ` (CSS files: ${cssFiles.join(', ')})` : ' (inline styles)'
+  
   const allElements = document.querySelectorAll('*')
 
   Array.from(allElements).forEach((element, index) => {
@@ -33,7 +60,31 @@ const extractCssImageUrls = (): Array<{url: string, source: string}> => {
               (element.id ? `#${element.id}` : '') + 
               (element.className ? `.${Array.from(element.classList).join('.')}` : '') +
               ` (element ${index + 1})`
-            cssImageUrls.push({url, source: `CSS background on ${elementInfo}`})
+            
+            // Try to find which CSS rule applies
+            let cssRuleInfo = ''
+            try {
+              for (let i = 0; i < document.styleSheets.length; i++) {
+                const sheet = document.styleSheets[i]
+                if (sheet.href && sheet.cssRules) {
+                  for (let j = 0; j < sheet.cssRules.length; j++) {
+                    const rule = sheet.cssRules[j] as CSSStyleRule
+                    if (rule.selectorText && element.matches && element.matches(rule.selectorText)) {
+                      if (rule.style.backgroundImage && rule.style.backgroundImage.includes(url)) {
+                        cssRuleInfo = ` from rule "${rule.selectorText}" in ${sheet.href}`
+                        break
+                      }
+                    }
+                  }
+                  if (cssRuleInfo) break
+                }
+              }
+            } catch {
+              // Cross-origin or other CSS access issues
+              cssRuleInfo = ' (CSS rule details unavailable due to CORS)'
+            }
+            
+            cssImageUrls.push({url, source: `CSS background on ${elementInfo}${cssRuleInfo}${cssFilesList}`})
           }
         })
       }
@@ -71,7 +122,8 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
 
       if (imgElements.length > 0) {
         cy.log(`Found ${imgElements.length} <img> elements`)
-        cy.get('img').each(($img) => {
+        const pageUrl = window.location.href
+        cy.get('img').each(($img, index) => {
           const img = $img[0] as HTMLImageElement
           const src = img.getAttribute('src')
           const srcset = img.getAttribute('srcset')
@@ -79,8 +131,7 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
           if (src !== null) {
             const normalizedSrc = normalizeUrl(src)
             if (!isExcludedUrl(normalizedSrc)) {
-              const alt = img.getAttribute('alt') ?? 'no alt'
-              const imgSource = `IMG element (alt: "${alt}")`
+              const imgSource = buildImageSourceInfo(img, index, 'src', pageUrl)
               imageMap.set(normalizedSrc, imgSource)
               cy.log(`📍 ${imgSource}: ${src}`)
             }
@@ -93,8 +144,7 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
               .map(normalizeUrl)
             srcsetUrls.forEach((url) => {
               if (!isExcludedUrl(url)) {
-                const alt = img.getAttribute('alt') ?? 'no alt'
-                const srcsetSource = `IMG srcset (alt: "${alt}")`
+                const srcsetSource = buildImageSourceInfo(img, index, 'srcset', pageUrl)
                 imageMap.set(url, srcsetSource)
                 cy.log(`📍 ${srcsetSource}: ${url}`)
               }
@@ -121,12 +171,11 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
 
       cy.log(`🔍 Validating ${totalImages} total images (IMG + CSS)`)
 
-      const promises: Cypress.Chainable[] = []
       const baseUrl = Cypress.config('baseUrl')
       const auth = extractAuth(baseUrl)
 
       Array.from(imageMap.entries()).forEach(([url, source]) => {
-        const requestOptions: any = {
+        const requestOptions: Partial<Cypress.RequestOptions> = {
           method: 'HEAD',
           url: url,
           failOnStatusCode: false
@@ -139,7 +188,7 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
           }
         }
 
-        const promise = cy.request(requestOptions).then((response) => {
+        cy.request(requestOptions).then((response) => {
           if (response.status === 200) {
             cy.log(`✅ ${url}`)
           } else {
@@ -149,9 +198,6 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
             )
           }
         })
-        promises.push(promise)
       })
-
-      return Cypress.Promise.all(promises)
     })
 }
