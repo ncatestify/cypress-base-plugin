@@ -61,9 +61,9 @@ const isSpecialDomain = (url, config) => {
         config.domains.some(domain => url.includes(domain));
 };
 /**
- * Checks if domains match, optionally ignoring protocol
+ * Checks if domains match
  */
-const doDomainsMatch = (urlDomain, baseUrlDomain, ignoreProtocol = false) => {
+const doDomainsMatch = (urlDomain, baseUrlDomain) => {
     return urlDomain === baseUrlDomain;
 };
 /**
@@ -94,7 +94,7 @@ const isInternal = (url) => {
     const isNCABaseUrl = isSpecialDomain(baseUrl, NCA_CONFIG);
     const isNCAUrl = isSpecialDomain(url, NCA_CONFIG);
     if (isNCABaseUrl && isNCAUrl) {
-        return doDomainsMatch(parsed.domain, baseUrlParsed.domain, true);
+        return doDomainsMatch(parsed.domain, baseUrlParsed.domain);
     }
     // Standard check: URL must start with base URL
     return url.startsWith(baseUrl);

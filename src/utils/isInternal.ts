@@ -92,13 +92,9 @@ const isSpecialDomain = (url: URLString, config: SpecialDomainConfig): boolean =
 }
 
 /**
- * Checks if domains match, optionally ignoring protocol
+ * Checks if domains match
  */
-const doDomainsMatch = (
-  urlDomain: Domain, 
-  baseUrlDomain: Domain, 
-  ignoreProtocol: boolean = false
-): boolean => {
+const doDomainsMatch = (urlDomain: Domain, baseUrlDomain: Domain): boolean => {
   return urlDomain === baseUrlDomain
 }
 
@@ -135,7 +131,7 @@ export const isInternal = (url: URLString): boolean => {
   const isNCAUrl = isSpecialDomain(url, NCA_CONFIG)
   
   if (isNCABaseUrl && isNCAUrl) {
-    return doDomainsMatch(parsed.domain, baseUrlParsed.domain, true)
+    return doDomainsMatch(parsed.domain, baseUrlParsed.domain)
   }
   
   // Standard check: URL must start with base URL
