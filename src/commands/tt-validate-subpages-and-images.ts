@@ -16,5 +16,6 @@ export const ttValidateSubpagesAndImages = (
       }
       cy.clearAllLocalStorage()
     })
+    return null
   })
 }
