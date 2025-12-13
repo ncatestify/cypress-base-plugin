@@ -9,7 +9,7 @@ const ttEveryInternalLinkIsLoading = (limit = 10) => {
     cy.ttGetInternalLinks().then((internalLinks) => {
         const linksToValidate = internalLinks.slice(0, limit);
         cy.log(`Found ${internalLinks.length} unique internal links, validating ${linksToValidate.length}`);
-        linksToValidate.forEach(href => {
+        linksToValidate.forEach((href) => {
             if (href.includes('.pdf')) {
                 cy.log(`Validating PDF: ${href}`);
                 cy.request({

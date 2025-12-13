@@ -11,11 +11,20 @@ const autoDetectDomainMapping = (baseUrl) => {
         const hostname = baseUrlObj.hostname;
         // Common staging patterns
         const stagingPatterns = [
-            'staging', 'test', 'testing', 'dev', 'development',
-            'demo', 'qa', 'uat', 'preview', 'beta', 'testingcrud'
+            'staging',
+            'test',
+            'testing',
+            'dev',
+            'development',
+            'demo',
+            'qa',
+            'uat',
+            'preview',
+            'beta',
+            'testingcrud'
         ];
         // Check if this looks like a staging domain
-        const looksLikeStaging = stagingPatterns.some(pattern => hostname.toLowerCase().includes(pattern.toLowerCase()));
+        const looksLikeStaging = stagingPatterns.some((pattern) => hostname.toLowerCase().includes(pattern.toLowerCase()));
         if (looksLikeStaging) {
             // Special handling for complex patterns like "testingcrud.testify.projects.nevercodealone.de"
             if (hostname.includes('testingcrud.testify.projects.nevercodealone.de')) {
@@ -25,7 +34,7 @@ const autoDetectDomainMapping = (baseUrl) => {
             else {
                 let prodDomain = hostname;
                 // Remove common staging prefixes/subdomains
-                stagingPatterns.forEach(pattern => {
+                stagingPatterns.forEach((pattern) => {
                     prodDomain = prodDomain
                         .replace(new RegExp(`^${pattern}\\.`, 'i'), '')
                         .replace(new RegExp(`\\.${pattern}\\.`, 'i'), '.')
@@ -62,7 +71,7 @@ const applyDomainMapping = (url, config, baseUrl) => {
         : {};
     const allMappings = { ...autoMappings, ...config.mappings };
     // Apply domain mappings
-    Object.keys(allMappings).forEach(prodDomain => {
+    Object.keys(allMappings).forEach((prodDomain) => {
         const stagingDomain = allMappings[prodDomain];
         if (url.includes(prodDomain) && !url.includes(stagingDomain)) {
             mappedUrl = url.replace(prodDomain, stagingDomain);
@@ -81,7 +90,7 @@ const shouldIncludeUrl = (href, config, baseUrl) => {
         return true;
     }
     // Include specifically configured domains
-    if ((_a = config.includedDomains) === null || _a === void 0 ? void 0 : _a.some(domain => href.includes(domain))) {
+    if ((_a = config.includedDomains) === null || _a === void 0 ? void 0 : _a.some((domain) => href.includes(domain))) {
         return true;
     }
     // Include domains from mappings (both manual and auto-detected)
@@ -89,6 +98,6 @@ const shouldIncludeUrl = (href, config, baseUrl) => {
         ? (0, exports.autoDetectDomainMapping)(baseUrl)
         : {};
     const allMappings = { ...autoMappings, ...config.mappings };
-    return Object.keys(allMappings).some(prodDomain => href.includes(prodDomain));
+    return Object.keys(allMappings).some((prodDomain) => href.includes(prodDomain));
 };
 exports.shouldIncludeUrl = shouldIncludeUrl;

@@ -6,7 +6,11 @@ exports.isInternal = void 0;
  */
 const NCA_CONFIG = {
     ip: '213.203.219.157',
-    domains: ['nevercodealone.de', 'dsv98.de', 'projects.nevercodealone.de']
+    domains: [
+        'nevercodealone.de',
+        'dsv98.de',
+        'projects.nevercodealone.de'
+    ]
 };
 /**
  * Default base URL fallback
@@ -45,8 +49,11 @@ const parseUrl = (url) => {
             isRelative: true
         };
     }
-    const protocol = url.startsWith('https://') ? 'https' :
-        url.startsWith('http://') ? 'http' : null;
+    const protocol = url.startsWith('https://')
+        ? 'https'
+        : url.startsWith('http://')
+            ? 'http'
+            : null;
     return {
         domain: extractDomain(url),
         protocol,
@@ -57,8 +64,8 @@ const parseUrl = (url) => {
  * Checks if URL belongs to special NCA domain
  */
 const isSpecialDomain = (url, config) => {
-    return url.includes(config.ip) ||
-        config.domains.some(domain => url.includes(domain));
+    return (url.includes(config.ip) ||
+        config.domains.some((domain) => url.includes(domain)));
 };
 /**
  * Checks if domains match

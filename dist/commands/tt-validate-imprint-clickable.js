@@ -4,7 +4,7 @@ exports.ttValidateImprintClickable = void 0;
 const chai_1 = require("chai");
 const ttValidateImprintClickable = () => {
     cy.get('a')
-        .each(($el, index, $list) => {
+        .each(($el, _index, _$list) => {
         if ($el.text().toLowerCase().includes('impressum')) {
             const element = $el.get(0);
             const rect = element.getBoundingClientRect();

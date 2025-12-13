@@ -50,14 +50,15 @@ exports.applyAuth = applyAuth;
  */
 const addCredentialsToInternalLinks = (links, baseUrl) => {
     if (!baseUrl) {
-        baseUrl = typeof Cypress !== 'undefined' ? Cypress.config('baseUrl') : undefined;
+        baseUrl =
+            typeof Cypress !== 'undefined' ? Cypress.config('baseUrl') : undefined;
     }
     // Return original links if no baseUrl or no credentials
     if (!baseUrl || !baseUrl.includes('@'))
         return links;
     // Extract credential part (everything before @)
     const credentialPart = baseUrl.split('@')[0]; // e.g., "https://nca:nca"
-    return links.map(link => {
+    return links.map((link) => {
         // Skip if link already has credentials
         if (link.includes('@'))
             return link;

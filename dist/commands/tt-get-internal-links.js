@@ -27,9 +27,7 @@ const ttGetInternalLinks = (linkSelector = '') => {
     const baseUrl = Cypress.config('baseUrl');
     return cy.url().then((currentUrl) => {
         const selector = linkSelector ? `${linkSelector} a[href]` : 'a[href]';
-        return cy
-            .get(selector)
-            .then(($links) => {
+        return cy.get(selector).then(($links) => {
             const uniqueLinks = new Set();
             $links.each((_, element) => {
                 const href = element.getAttribute('href');

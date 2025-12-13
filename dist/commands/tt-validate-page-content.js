@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttValidatePageContent = void 0;
-//@ts-nocheck
+// @ts-nocheck - Cypress custom commands are dynamically registered
 const ttValidatePageContent = () => {
     cy.ttAccessibility();
     cy.ttValidateNoGoogleServices();

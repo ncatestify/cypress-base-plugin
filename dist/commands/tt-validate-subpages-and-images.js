@@ -5,7 +5,7 @@ const tt_get_internal_links_1 = require("./tt-get-internal-links");
 const tt_validate_all_images_response_status_ok_1 = require("./tt-validate-all-images-response-status-ok");
 const ttValidateSubpagesAndImages = (limit = 20, linkSelector) => {
     cy.log('ttValidateSubpagesAndImages - NCA TESTIFY');
-    (0, tt_get_internal_links_1.ttGetInternalLinks)(linkSelector).then((urls) => {
+    return (0, tt_get_internal_links_1.ttGetInternalLinks)(linkSelector).then((urls) => {
         urls.slice(0, limit).forEach((url) => {
             if (!url.includes('.pdf')) {
                 cy.visit(url);
@@ -16,6 +16,7 @@ const ttValidateSubpagesAndImages = (limit = 20, linkSelector) => {
             }
             cy.clearAllLocalStorage();
         });
+        return null;
     });
 };
 exports.ttValidateSubpagesAndImages = ttValidateSubpagesAndImages;

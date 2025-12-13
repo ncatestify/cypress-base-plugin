@@ -29,12 +29,14 @@ const extractCssImageUrls = () => {
     };
     // Get all CSS files loaded on the page
     const cssFiles = [];
-    Array.from(document.styleSheets).forEach(sheet => {
+    Array.from(document.styleSheets).forEach((sheet) => {
         if (sheet.href) {
             cssFiles.push(sheet.href);
         }
     });
-    const cssFilesList = cssFiles.length > 0 ? ` (CSS files: ${cssFiles.join(', ')})` : ' (inline styles)';
+    const cssFilesList = cssFiles.length > 0
+        ? ` (CSS files: ${cssFiles.join(', ')})`
+        : ' (inline styles)';
     const allElements = document.querySelectorAll('*');
     Array.from(allElements).forEach((element, index) => {
         const computedStyle = window.getComputedStyle(element);
@@ -48,7 +50,9 @@ const extractCssImageUrls = () => {
                     if (url && !isExcludedUrl(url)) {
                         const elementInfo = element.tagName.toLowerCase() +
                             (element.id ? `#${element.id}` : '') +
-                            (element.className ? `.${Array.from(element.classList).join('.')}` : '') +
+                            (element.className
+                                ? `.${Array.from(element.classList).join('.')}`
+                                : '') +
                             ` (element ${index + 1})`;
                         // Try to find which CSS rule applies
                         let cssRuleInfo = '';
@@ -58,8 +62,11 @@ const extractCssImageUrls = () => {
                                 if (sheet.href && sheet.cssRules) {
                                     for (let j = 0; j < sheet.cssRules.length; j++) {
                                         const rule = sheet.cssRules[j];
-                                        if (rule.selectorText && element.matches && element.matches(rule.selectorText)) {
-                                            if (rule.style.backgroundImage && rule.style.backgroundImage.includes(url)) {
+                                        if (rule.selectorText &&
+                                            element.matches &&
+                                            element.matches(rule.selectorText)) {
+                                            if (rule.style.backgroundImage &&
+                                                rule.style.backgroundImage.includes(url)) {
                                                 cssRuleInfo = ` from rule "${rule.selectorText}" in ${sheet.href}`;
                                                 break;
                                             }
@@ -74,7 +81,10 @@ const extractCssImageUrls = () => {
                             // Cross-origin or other CSS access issues
                             cssRuleInfo = ' (CSS rule details unavailable due to CORS)';
                         }
-                        cssImageUrls.push({ url, source: `CSS background on ${elementInfo}${cssRuleInfo}${cssFilesList}` });
+                        cssImageUrls.push({
+                            url,
+                            source: `CSS background on ${elementInfo}${cssRuleInfo}${cssFilesList}`
+                        });
                     }
                 });
             }
@@ -141,6 +151,7 @@ const ttValidateAllImagesResponseStatusOk = () => {
         else {
             cy.log('No <img> elements found');
         }
+        return null;
     })
         .then(() => {
         // Validate all collected images

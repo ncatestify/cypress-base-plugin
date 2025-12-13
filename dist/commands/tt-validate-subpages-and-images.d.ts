@@ -1,1 +1,1 @@
-export declare const ttValidateSubpagesAndImages: (limit?: number, linkSelector?: string) => void;
+export declare const ttValidateSubpagesAndImages: (limit?: number, linkSelector?: string) => Cypress.Chainable<any>;

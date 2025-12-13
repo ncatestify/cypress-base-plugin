@@ -7,6 +7,7 @@ interface DomainMappingConfig {
   minLinksRequired?: number
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare namespace Cypress {
   interface Chainable<Subject = any> {
     ttAccessibility(context?: any, options?: any): Chainable<Subject>
@@ -14,9 +15,17 @@ declare namespace Cypress {
     ttCookieAllAcceptClick(): Chainable<Subject>
     ttDetectHttp(): Chainable<Subject>
     ttElementExists(element: string): Chainable<boolean>
-    ttEveryInternalLinkIsLoading(limitOrConfig?: number | DomainMappingConfig, legacyConfig?: DomainMappingConfig): Chainable<Subject>
-    ttEveryInternalLinkStatusOk(config?: DomainMappingConfig): Chainable<Subject>
-    ttGetInternalLinks(linkSelectorOrConfig?: string | DomainMappingConfig, legacyConfig?: DomainMappingConfig): Chainable<string[]>
+    ttEveryInternalLinkIsLoading(
+      limitOrConfig?: number | DomainMappingConfig,
+      legacyConfig?: DomainMappingConfig
+    ): Chainable<Subject>
+    ttEveryInternalLinkStatusOk(
+      config?: DomainMappingConfig
+    ): Chainable<Subject>
+    ttGetInternalLinks(
+      linkSelectorOrConfig?: string | DomainMappingConfig,
+      legacyConfig?: DomainMappingConfig
+    ): Chainable<string[]>
     ttInvalidPath404(): Chainable<Subject>
     ttOnlyOneH1(): Chainable<Subject>
     ttPageLoaded(): Chainable<Subject>
@@ -27,7 +36,10 @@ declare namespace Cypress {
     ttValidateLanguageTag(language: string): Chainable<Subject>
     ttValidateNoGoogleServices(): Chainable<Subject>
     ttValidatePageContent(): Chainable<Subject>
-    ttValidateSubpagesAndImages(limit?: number, linkSelector?: string): Chainable<Subject>
+    ttValidateSubpagesAndImages(
+      limit?: number,
+      linkSelector?: string
+    ): Chainable<Subject>
   }
 }
 
