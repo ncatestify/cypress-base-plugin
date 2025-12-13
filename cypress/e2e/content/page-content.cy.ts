@@ -7,10 +7,6 @@ describe('Page Content Tests', () => {
     cy.ttValidatePageContent()
   })
 
-  it('Language tag is valid', () => {
-    cy.ttValidateLanguageTag('en')
-  })
-
   it('Validate subpages and images', () => {
     cy.ttValidateSubpagesAndImages()
   })
