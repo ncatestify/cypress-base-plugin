@@ -27,22 +27,25 @@ const buildImageSourceInfo = (
   return `IMG${id}${classes}${suffix} (alt: "${alt}", element ${index + 1}${parentInfo} on page ${pageUrl})`
 }
 
-const extractCssImageUrls = (): Array<{url: string, source: string}> => {
-  const cssImageUrls: Array<{url: string, source: string}> = []
+const extractCssImageUrls = (): Array<{ url: string; source: string }> => {
+  const cssImageUrls: Array<{ url: string; source: string }> = []
   const excludedUrlPrefixes = ['data:', 'blob:', 'javascript:', 'about:']
   const isExcludedUrl = (url: string): boolean => {
     return excludedUrlPrefixes.some((prefix) => url.startsWith(prefix))
   }
-  
+
   // Get all CSS files loaded on the page
   const cssFiles: string[] = []
-  Array.from(document.styleSheets).forEach(sheet => {
+  Array.from(document.styleSheets).forEach((sheet) => {
     if (sheet.href) {
       cssFiles.push(sheet.href)
     }
   })
-  const cssFilesList = cssFiles.length > 0 ? ` (CSS files: ${cssFiles.join(', ')})` : ' (inline styles)'
-  
+  const cssFilesList =
+    cssFiles.length > 0
+      ? ` (CSS files: ${cssFiles.join(', ')})`
+      : ' (inline styles)'
+
   const allElements = document.querySelectorAll('*')
 
   Array.from(allElements).forEach((element, index) => {
@@ -56,11 +59,14 @@ const extractCssImageUrls = (): Array<{url: string, source: string}> => {
         urlMatches.forEach((match) => {
           const url = match.replace(/url\(['"]?([^'")]+)['"]?\)/, '$1')
           if (url && !isExcludedUrl(url)) {
-            const elementInfo = element.tagName.toLowerCase() + 
-              (element.id ? `#${element.id}` : '') + 
-              (element.className ? `.${Array.from(element.classList).join('.')}` : '') +
+            const elementInfo =
+              element.tagName.toLowerCase() +
+              (element.id ? `#${element.id}` : '') +
+              (element.className
+                ? `.${Array.from(element.classList).join('.')}`
+                : '') +
               ` (element ${index + 1})`
-            
+
             // Try to find which CSS rule applies
             let cssRuleInfo = ''
             try {
@@ -69,8 +75,15 @@ const extractCssImageUrls = (): Array<{url: string, source: string}> => {
                 if (sheet.href && sheet.cssRules) {
                   for (let j = 0; j < sheet.cssRules.length; j++) {
                     const rule = sheet.cssRules[j] as CSSStyleRule
-                    if (rule.selectorText && element.matches && element.matches(rule.selectorText)) {
-                      if (rule.style.backgroundImage && rule.style.backgroundImage.includes(url)) {
+                    if (
+                      rule.selectorText &&
+                      element.matches &&
+                      element.matches(rule.selectorText)
+                    ) {
+                      if (
+                        rule.style.backgroundImage &&
+                        rule.style.backgroundImage.includes(url)
+                      ) {
                         cssRuleInfo = ` from rule "${rule.selectorText}" in ${sheet.href}`
                         break
                       }
@@ -83,8 +96,11 @@ const extractCssImageUrls = (): Array<{url: string, source: string}> => {
               // Cross-origin or other CSS access issues
               cssRuleInfo = ' (CSS rule details unavailable due to CORS)'
             }
-            
-            cssImageUrls.push({url, source: `CSS background on ${elementInfo}${cssRuleInfo}${cssFilesList}`})
+
+            cssImageUrls.push({
+              url,
+              source: `CSS background on ${elementInfo}${cssRuleInfo}${cssFilesList}`
+            })
           }
         })
       }
@@ -102,7 +118,7 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
   // First, collect CSS background images
   cy.window().then((win) => {
     const cssImages = win.eval(`(${extractCssImageUrls.toString()})()`)
-    cssImages.forEach((item: {url: string, source: string}) => {
+    cssImages.forEach((item: { url: string; source: string }) => {
       const normalizedUrl = normalizeUrl(item.url)
       if (!isExcludedUrl(normalizedUrl)) {
         imageMap.set(normalizedUrl, item.source)
@@ -144,7 +160,12 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
               .map(normalizeUrl)
             srcsetUrls.forEach((url) => {
               if (!isExcludedUrl(url)) {
-                const srcsetSource = buildImageSourceInfo(img, index, 'srcset', pageUrl)
+                const srcsetSource = buildImageSourceInfo(
+                  img,
+                  index,
+                  'srcset',
+                  pageUrl
+                )
                 imageMap.set(url, srcsetSource)
                 cy.log(`📍 ${srcsetSource}: ${url}`)
               }
@@ -159,6 +180,7 @@ export const ttValidateAllImagesResponseStatusOk = (): void => {
       } else {
         cy.log('No <img> elements found')
       }
+      return null
     })
     .then(() => {
       // Validate all collected images
