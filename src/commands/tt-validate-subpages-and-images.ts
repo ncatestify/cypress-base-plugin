@@ -6,7 +6,7 @@ export const ttValidateSubpagesAndImages = (
   linkSelector?: string
 ) => {
   cy.log('ttValidateSubpagesAndImages - NCA TESTIFY')
-  ttGetInternalLinks(linkSelector).then((urls: string[]) => {
+  return ttGetInternalLinks(linkSelector).then((urls: string[]) => {
     urls.slice(0, limit).forEach((url) => {
       if (!url.includes('.pdf')) {
         cy.visit(url)
