@@ -40,40 +40,38 @@ export const ttGetInternalLinks = (
 
   return cy.url().then((currentUrl) => {
     const selector = linkSelector ? `${linkSelector} a[href]` : 'a[href]'
-    return cy
-      .get(selector)
-      .then(($links) => {
-        const uniqueLinks = new Set<string>()
+    return cy.get(selector).then(($links) => {
+      const uniqueLinks = new Set<string>()
 
-        $links.each((_, element) => {
-          const href = element.getAttribute('href')
+      $links.each((_, element) => {
+        const href = element.getAttribute('href')
 
-          if (!href || !href.trim()) {
-            return
+        if (!href || !href.trim()) {
+          return
+        }
+
+        if (isNonRequestableLink(href)) {
+          return
+        }
+
+        try {
+          const normalizedUrl = normalizeUrl(href, baseUrl, currentUrl)
+          const urlWithoutFragment = normalizedUrl.split('#')[0]
+
+          if (isInternal(urlWithoutFragment)) {
+            uniqueLinks.add(urlWithoutFragment)
           }
-
-          if (isNonRequestableLink(href)) {
-            return
-          }
-
-          try {
-            const normalizedUrl = normalizeUrl(href, baseUrl, currentUrl)
-            const urlWithoutFragment = normalizedUrl.split('#')[0]
-
-            if (isInternal(urlWithoutFragment)) {
-              uniqueLinks.add(urlWithoutFragment)
-            }
-          } catch {
-            cy.log(`Error processing URL: ${href}`)
-          }
-        })
-
-        const internalLinks = Array.from(uniqueLinks)
-        const linksWithCredentials = addCredentialsToInternalLinks(
-          internalLinks,
-          baseUrl
-        )
-        return cy.wrap(linksWithCredentials)
+        } catch {
+          cy.log(`Error processing URL: ${href}`)
+        }
       })
+
+      const internalLinks = Array.from(uniqueLinks)
+      const linksWithCredentials = addCredentialsToInternalLinks(
+        internalLinks,
+        baseUrl
+      )
+      return cy.wrap(linksWithCredentials)
+    })
   })
 }

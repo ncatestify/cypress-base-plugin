@@ -27,7 +27,11 @@ interface URLValidationResult {
  */
 const NCA_CONFIG: SpecialDomainConfig = {
   ip: '213.203.219.157',
-  domains: ['nevercodealone.de', 'dsv98.de', 'projects.nevercodealone.de'] as const
+  domains: [
+    'nevercodealone.de',
+    'dsv98.de',
+    'projects.nevercodealone.de'
+  ] as const
 } as const
 
 /**
@@ -64,7 +68,7 @@ const getBaseUrl = (): URLString => {
  */
 const parseUrl = (url: URLString): URLValidationResult => {
   const isRelative = isRelativePath(url)
-  
+
   if (isRelative) {
     return {
       domain: '',
@@ -72,10 +76,13 @@ const parseUrl = (url: URLString): URLValidationResult => {
       isRelative: true
     }
   }
-  
-  const protocol = url.startsWith('https://') ? 'https' : 
-                   url.startsWith('http://') ? 'http' : null
-  
+
+  const protocol = url.startsWith('https://')
+    ? 'https'
+    : url.startsWith('http://')
+      ? 'http'
+      : null
+
   return {
     domain: extractDomain(url),
     protocol,
@@ -86,9 +93,14 @@ const parseUrl = (url: URLString): URLValidationResult => {
 /**
  * Checks if URL belongs to special NCA domain
  */
-const isSpecialDomain = (url: URLString, config: SpecialDomainConfig): boolean => {
-  return url.includes(config.ip) || 
-         config.domains.some(domain => url.includes(domain))
+const isSpecialDomain = (
+  url: URLString,
+  config: SpecialDomainConfig
+): boolean => {
+  return (
+    url.includes(config.ip) ||
+    config.domains.some((domain) => url.includes(domain))
+  )
 }
 
 /**
@@ -100,10 +112,10 @@ const doDomainsMatch = (urlDomain: Domain, baseUrlDomain: Domain): boolean => {
 
 /**
  * Validates if URL is internal relative to base URL
- * 
+ *
  * @param url - The URL to validate
  * @returns true if URL is internal, false otherwise
- * 
+ *
  * @example
  * isInternal('/path') // true - relative path
  * isInternal('page.html') // true - relative without protocol
@@ -112,28 +124,28 @@ const doDomainsMatch = (urlDomain: Domain, baseUrlDomain: Domain): boolean => {
  */
 export const isInternal = (url: URLString): boolean => {
   const parsed = parseUrl(url)
-  
+
   // Relative paths are always internal
   if (parsed.isRelative) {
     return true
   }
-  
+
   const baseUrl = getBaseUrl()
   const baseUrlParsed = parseUrl(baseUrl)
-  
+
   // Same domain check (protocol-aware by default)
   if (parsed.domain === baseUrlParsed.domain) {
     return true
   }
-  
+
   // Special handling for NCA domains with protocol mismatch
   const isNCABaseUrl = isSpecialDomain(baseUrl, NCA_CONFIG)
   const isNCAUrl = isSpecialDomain(url, NCA_CONFIG)
-  
+
   if (isNCABaseUrl && isNCAUrl) {
     return doDomainsMatch(parsed.domain, baseUrlParsed.domain)
   }
-  
+
   // Standard check: URL must start with base URL
   return url.startsWith(baseUrl)
 }
