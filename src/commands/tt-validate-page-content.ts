@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck - Cypress custom commands are dynamically registered
 export const ttValidatePageContent = (): void => {
   cy.ttAccessibility()
   cy.ttValidateNoGoogleServices()
