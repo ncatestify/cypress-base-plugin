@@ -1,5 +1,16 @@
 # Update md file
 
+2.1.69
+
+- Restructure Cypress tests from monolithic validate.cy.ts to feature-based directories
+- Split language tests into separate file with functional ISO format validation
+- Add negative assertion test pattern using cy.on('fail') for parameter verification
+- Refactor tt-get-internal-links: remove broken async function, use Set instead of Map
+- Refactor tt-validate-all-images: extract helper function, fix Promise pattern
+- Add project configuration: .nvmrc (Node 20), .editorconfig, engines field
+- Update dependencies: vitest 3.x, cypress 15.x, typescript 5.9.x
+- Enable TypeScript declarations in tsconfig.json
+
 2.1.68
 
 - Add HTTP/HTTPS protocol handling for Never Code Alone domains based on IP detection (213.203.219.157)
