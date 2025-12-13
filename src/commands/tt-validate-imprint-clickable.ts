@@ -2,7 +2,7 @@ import { expect } from 'chai'
 
 export const ttValidateImprintClickable = (): void => {
   cy.get('a')
-    .each(($el, index, $list) => {
+    .each(($el, _index, _$list) => {
       if ($el.text().toLowerCase().includes('impressum')) {
         const element = $el.get(0)
         const rect = element.getBoundingClientRect()
