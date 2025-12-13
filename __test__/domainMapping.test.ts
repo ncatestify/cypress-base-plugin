@@ -1,5 +1,9 @@
 import { describe, it, expect } from 'vitest'
-import { autoDetectDomainMapping, applyDomainMapping, shouldIncludeUrl } from '../src/utils/domainMapping'
+import {
+  autoDetectDomainMapping,
+  applyDomainMapping,
+  shouldIncludeUrl
+} from '../src/utils/domainMapping'
 
 describe('domainMapping', () => {
   describe('autoDetectDomainMapping', () => {
@@ -7,7 +11,9 @@ describe('domainMapping', () => {
       {
         name: 'should detect nevercodealone staging pattern',
         input: 'https://testingcrud.testify.projects.nevercodealone.de',
-        expected: { 'nevercodealone.de': 'testingcrud.testify.projects.nevercodealone.de' }
+        expected: {
+          'nevercodealone.de': 'testingcrud.testify.projects.nevercodealone.de'
+        }
       },
       {
         name: 'should detect common staging patterns',
@@ -39,7 +45,10 @@ describe('domainMapping', () => {
       {
         name: 'should apply manual domain mapping',
         url: 'https://example.com/page',
-        config: { mappings: { 'example.com': 'staging.example.com' }, autoDetectFromBaseUrl: false },
+        config: {
+          mappings: { 'example.com': 'staging.example.com' },
+          autoDetectFromBaseUrl: false
+        },
         baseUrl: 'https://staging.example.com',
         expected: 'https://staging.example.com/page'
       },
@@ -60,7 +69,10 @@ describe('domainMapping', () => {
       {
         name: 'should prioritize manual mappings over auto-detection',
         url: 'https://example.com/page',
-        config: { mappings: { 'example.com': 'custom.example.com' }, autoDetectFromBaseUrl: true },
+        config: {
+          mappings: { 'example.com': 'custom.example.com' },
+          autoDetectFromBaseUrl: true
+        },
         baseUrl: 'https://staging.example.com',
         expected: 'https://custom.example.com/page'
       }
@@ -77,7 +89,11 @@ describe('domainMapping', () => {
   describe('shouldIncludeUrl', () => {
     it('should include internal URLs', () => {
       const config = {}
-      const result = shouldIncludeUrl('/internal-page', config, 'https://example.com')
+      const result = shouldIncludeUrl(
+        '/internal-page',
+        config,
+        'https://example.com'
+      )
       expect(result).toBe(true)
     })
 
@@ -85,7 +101,11 @@ describe('domainMapping', () => {
       const config = {
         includedDomains: ['api.example.com']
       }
-      const result = shouldIncludeUrl('https://api.example.com/endpoint', config, 'https://example.com')
+      const result = shouldIncludeUrl(
+        'https://api.example.com/endpoint',
+        config,
+        'https://example.com'
+      )
       expect(result).toBe(true)
     })
 
@@ -93,7 +113,11 @@ describe('domainMapping', () => {
       const config = {
         mappings: { 'production.com': 'staging.production.com' }
       }
-      const result = shouldIncludeUrl('https://production.com/page', config, 'https://staging.production.com')
+      const result = shouldIncludeUrl(
+        'https://production.com/page',
+        config,
+        'https://staging.production.com'
+      )
       expect(result).toBe(true)
     })
 
@@ -101,13 +125,21 @@ describe('domainMapping', () => {
       const config = {
         autoDetectFromBaseUrl: true
       }
-      const result = shouldIncludeUrl('https://nevercodealone.de/page', config, 'https://testingcrud.testify.projects.nevercodealone.de')
+      const result = shouldIncludeUrl(
+        'https://nevercodealone.de/page',
+        config,
+        'https://testingcrud.testify.projects.nevercodealone.de'
+      )
       expect(result).toBe(true)
     })
 
     it('should exclude unrelated external URLs', () => {
       const config = {}
-      const result = shouldIncludeUrl('https://external.com/page', config, 'https://example.com')
+      const result = shouldIncludeUrl(
+        'https://external.com/page',
+        config,
+        'https://example.com'
+      )
       expect(result).toBe(false)
     })
   })
