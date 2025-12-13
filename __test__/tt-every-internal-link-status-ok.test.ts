@@ -31,9 +31,12 @@ describe('ttEveryInternalLinkStatusOk', () => {
       { url: 'https://example.com/found', status: 302 }
     ]
 
-    const urls = testCases.map(tc => tc.url)
+    const urls = testCases.map((tc) => tc.url)
     const responses = Object.fromEntries(
-      testCases.map(tc => [tc.url, { status: tc.status, headers: { 'content-type': 'text/html' } }])
+      testCases.map((tc) => [
+        tc.url,
+        { status: tc.status, headers: { 'content-type': 'text/html' } }
+      ])
     )
 
     setupTest(urls, responses)
@@ -51,8 +54,12 @@ describe('ttEveryInternalLinkStatusOk', () => {
 
     ttEveryInternalLinkStatusOk()
 
-    expect(cy.log).toHaveBeenCalledWith('❌ Testing https://example.com/404: 404')
-    expect(cy.log).toHaveBeenCalledWith('⚠️ Link validation failed: https://example.com/404 returned 404')
+    expect(cy.log).toHaveBeenCalledWith(
+      '❌ Testing https://example.com/404: 404'
+    )
+    expect(cy.log).toHaveBeenCalledWith(
+      '⚠️ Link validation failed: https://example.com/404 returned 404'
+    )
   })
 
   test('skips non-HTML content', () => {
@@ -62,14 +69,16 @@ describe('ttEveryInternalLinkStatusOk', () => {
 
     ttEveryInternalLinkStatusOk()
 
-    expect(cy.log).toHaveBeenCalledWith('⏭️ Testing https://example.com/file.pdf: Skipped (content-type: application/pdf)')
+    expect(cy.log).toHaveBeenCalledWith(
+      '⏭️ Testing https://example.com/file.pdf: Skipped (content-type: application/pdf)'
+    )
   })
 
   test('enforces minimum links requirement', () => {
     setupTest(['url1', 'url2'], {
       default: { status: 200, headers: { 'content-type': 'text/html' } }
     })
-    
+
     cy.wrap.mockImplementation((value) => ({
       its: vi.fn(() => ({
         should: vi.fn((assertion, expected) => {

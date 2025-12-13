@@ -49,45 +49,61 @@ module.exports = [
     },
     plugins: {
       '@typescript-eslint': typescript,
-      'cypress': cypress,
-      'import': importPlugin,
-      'n': n,
-      'promise': promise
+      cypress: cypress,
+      import: importPlugin,
+      n: n,
+      promise: promise
     },
     rules: {
       // TypeScript rules
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' }
+      ],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/ban-ts-comment': ['error', {
-        'ts-ignore': 'allow-with-description',
-        'ts-nocheck': 'allow-with-description',
-        'minimumDescriptionLength': 10
-      }],
-      
+      '@typescript-eslint/ban-ts-comment': [
+        'error',
+        {
+          'ts-ignore': 'allow-with-description',
+          'ts-nocheck': 'allow-with-description',
+          minimumDescriptionLength: 10
+        }
+      ],
+
       // Standard JS rules
       'no-unused-vars': 'off', // Use TypeScript's version
       'no-undef': 'off', // TypeScript handles this
       'no-redeclare': 'off', // TypeScript handles this
-      
+
       // Import rules
-      'import/order': ['error', {
-        'groups': ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-        'newlines-between': 'never'
-      }],
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index'
+          ],
+          'newlines-between': 'never'
+        }
+      ],
       'import/no-duplicates': 'error',
-      
+
       // Promise rules - adjusted for Cypress
       'promise/always-return': ['error', { ignoreLastCallback: true }],
       'promise/no-return-wrap': 'error',
       'promise/param-names': 'error',
       'promise/catch-or-return': ['error', { allowFinally: true }],
-      
+
       // Node rules
       'n/no-unsupported-features/es-syntax': 'off',
       'n/no-missing-import': 'off', // TypeScript handles this
-      
+
       // Cypress rules
       'cypress/no-assigning-return-values': 'error',
       'cypress/no-unnecessary-waiting': 'warn', // Changed to warn
@@ -119,7 +135,9 @@ module.exports = [
       'cypress.config.ts',
       'jest.config.js',
       'jest.config.ts',
+      'vitest.config.ts',
       'eleventy-page/**',
+      '__test__/**',
       '*.d.ts' // Ignore type definition files
     ]
   }

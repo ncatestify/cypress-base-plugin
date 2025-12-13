@@ -7,10 +7,11 @@ const ttClickIfElementExist = (selector) => {
     return cy.get('body').then(($body) => {
         if ($body.find(selector).length > 0) {
             cy.log(`Element found: ${selector}. Clicking...`);
-            cy.get(selector).click();
+            return cy.get(selector).click();
         }
         else {
             cy.log(`Element not found: ${selector}. Skipping click.`);
+            return null;
         }
     });
 };

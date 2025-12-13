@@ -15,7 +15,7 @@ const ttCookieAllAcceptClick = (cookieButtonStrings = ['alle akzeptieren', 'alle
         }
         if (!found) {
             // Usercentrics special case
-            cy.window().then((win) => {
+            return cy.window().then((win) => {
                 const shadowHost = win.document.querySelector('#usercentrics-root');
                 if (shadowHost !== null) {
                     const shadowRoot = shadowHost.shadowRoot;
@@ -32,8 +32,10 @@ const ttCookieAllAcceptClick = (cookieButtonStrings = ['alle akzeptieren', 'alle
                     cy.log('No matching string found. Please open an issue at https://github.com/ncatestify/cypress-base-plugin/issues');
                     throw new Error('No matching string found. Please open an issue at https://github.com/ncatestify/cypress-base-plugin/issues');
                 }
+                return null;
             });
         }
+        return null;
     });
 };
 exports.ttCookieAllAcceptClick = ttCookieAllAcceptClick;

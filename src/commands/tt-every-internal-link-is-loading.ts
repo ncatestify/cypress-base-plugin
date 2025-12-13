@@ -1,18 +1,18 @@
 /// <reference types="cypress" />
 /// <reference path="../index.d.ts" />
 
-export const ttEveryInternalLinkIsLoading = (
-  limit: number = 10
-): void => {
+export const ttEveryInternalLinkIsLoading = (limit: number = 10): void => {
   cy.log('everyInternalLinkIsLoading - NCA TESTIFY')
-  
+
   //@ts-ignore - Custom command type not available in build context
   cy.ttGetInternalLinks().then((internalLinks: string[]) => {
     const linksToValidate = internalLinks.slice(0, limit)
-    
-    cy.log(`Found ${internalLinks.length} unique internal links, validating ${linksToValidate.length}`)
-    
-    linksToValidate.forEach(href => {
+
+    cy.log(
+      `Found ${internalLinks.length} unique internal links, validating ${linksToValidate.length}`
+    )
+
+    linksToValidate.forEach((href) => {
       if (href.includes('.pdf')) {
         cy.log(`Validating PDF: ${href}`)
         cy.request({
@@ -27,7 +27,7 @@ export const ttEveryInternalLinkIsLoading = (
         //@ts-ignore - Custom command type not available in build context
         cy.ttValidateAllImagesResponseStatusOk()
       }
-      
+
       cy.clearAllLocalStorage()
     })
   })

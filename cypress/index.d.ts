@@ -18,6 +18,9 @@ declare namespace Cypress {
     ttValidateLanguageTag(language: string): Chainable<Subject>
     ttValidateNoGoogleServices(): Chainable<Subject>
     ttValidatePageContent(): Chainable<Subject>
-    ttValidateSubpagesAndImages(limit?: number, linkSelector?: string): Chainable<Subject>
+    ttValidateSubpagesAndImages(
+      limit?: number,
+      linkSelector?: string
+    ): Chainable<Subject>
   }
 }
