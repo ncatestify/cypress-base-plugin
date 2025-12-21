@@ -76,32 +76,41 @@ That's it! You now have professional website tests.
 
 ---
 
+## Semantic Element Logging
+
+### The Problem
+
+Cypress logs show CSS selectors which are hard to understand:
+
+```
+cy.get('#ext-comp-1234')   // What element is this?
+cy.get('.btn-primary')     // Which button?
+```
+
+### The Solution: cy.ttEl
+
+Use `cy.ttEl(selector, name)` for readable logs:
+
+```ts
+cy.ttEl('#ext-comp-1234', 'usernameInput')  // Logs: usernameInput
+cy.ttEl('.btn-primary', 'submitButton')     // Logs: submitButton
+```
+
+Now your test logs show meaningful names instead of selectors.
+
+---
+
 ## Page Object Model with BasePage
 
-For larger projects, organize your tests using the **Page Object Model**. This makes tests more readable and maintainable.
+For larger projects, use the **Page Object Model** pattern with `BasePage`.
 
-### Why use BasePage?
-
-Instead of seeing cryptic CSS selectors in your test logs:
-```
-cy.get('#ext-comp-1234')  // What is this?
-```
-
-You see meaningful names:
-```
-usernameInput  // Much clearer!
-```
-
-### How to use BasePage
-
-**1. Create a Page class:**
+The getter name automatically becomes the log name:
 
 ```ts
 // cypress/pages/LoginPage.ts
 import { BasePage } from 'cypress-ncatestify-plugin'
 
 export class LoginPage extends BasePage {
-  // Define your page elements as getters
   get usernameInput() {
     return this.el('#username')  // Logs: usernameInput
   }
@@ -111,10 +120,9 @@ export class LoginPage extends BasePage {
   }
 
   get submitButton() {
-    return this.elContains('Login')  // Logs: submitButton
+    return this.el('button[type="submit"]')  // Logs: submitButton
   }
 
-  // Create reusable actions
   login(user: string, pass: string) {
     this.usernameInput.type(user)
     this.passwordInput.type(pass)
@@ -123,10 +131,9 @@ export class LoginPage extends BasePage {
 }
 ```
 
-**2. Use in your tests:**
+**Use in tests:**
 
 ```ts
-// cypress/e2e/login.cy.ts
 import { LoginPage } from '../pages/LoginPage'
 
 const loginPage = new LoginPage()
@@ -135,23 +142,21 @@ describe('Login', () => {
   it('logs in successfully', () => {
     cy.visit('/login')
     loginPage.login('admin', 'secret')
-    cy.url().should('include', '/dashboard')
   })
 })
 ```
 
-### BasePage Methods
-
-| Method | Description | Example |
-|--------|-------------|---------|
-| `this.el(selector)` | Find element by CSS selector | `this.el('#email')` |
-| `this.el(selector, name)` | Find element with custom log name | `this.el('#x1', 'email')` |
-| `this.elContains(text)` | Find element containing text | `this.elContains('Submit')` |
-| `this.elContains(text, name)` | Find by text with custom log name | `this.elContains('OK', 'confirm')` |
-
 ---
 
 ## All Commands Reference
+
+### Element Selection
+
+```ts
+// Select element with semantic logging
+cy.ttEl('#username', 'usernameInput')  // Logs: usernameInput
+cy.ttEl('h1')                          // Logs: h1
+```
 
 ### Link Validation
 
