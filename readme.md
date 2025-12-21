@@ -1,398 +1,356 @@
-# Cypress.IO plugin by NCA TESTIFY
+# Cypress.IO Plugin by NCA TESTIFY
 
-Basis tests for every website testing project. Now compatible with Cypress 14 and TypeScript 5.x!
+Ready-to-use tests for any website. No testing experience required.
 
-## Usage:
+## What is this?
 
-Add following line in your cypress/support/e2e.js|.ts file
+This plugin gives you **pre-built tests** that check if your website works correctly:
+- Are all links working?
+- Do all images load?
+- Is the site accessible?
+- Is the SEO structure correct?
 
-`import 'cypress-ncatestify-plugin'`
+You don't need to write complex test code - just call our simple commands.
 
-in your cypress.config.js|.ts file the key baseUrl must be set
+## Quick Start (5 minutes)
 
-### TypeScript (recommended)
+### 1. Install the plugin
+
+```bash
+npm install cypress-ncatestify-plugin --save-dev
+```
+
+### 2. Import in your Cypress support file
+
+Add this line to `cypress/support/e2e.ts` (or `.js`):
+
+```ts
+import 'cypress-ncatestify-plugin'
+```
+
+### 3. Set your website URL
+
+In `cypress.config.ts`:
+
 ```ts
 import { defineConfig } from 'cypress'
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'https://testify.team/de',
-    setupNodeEvents(on, config) {
-      return config
-    }
+    baseUrl: 'https://your-website.com'
   }
 })
 ```
 
-### JavaScript
-```js
-const { defineConfig } = require('cypress')
+### 4. Create your first test
 
-module.exports = defineConfig({
-  e2e: {
-    baseUrl: 'https://testify.team/de',
-    setupNodeEvents(on, config) {
-      return config
-    }
-  }
-})
-```
+Create `cypress/e2e/my-first-test.cy.ts`:
 
-Then in your Testfile
-
-```js
-describe('Validate Testify Tests', () => {
-  it('Accessibility test', () => {
+```ts
+describe('My Website Tests', () => {
+  beforeEach(() => {
     cy.visit('/')
-    cy.ttAccessibility()
   })
-  
-  it('Check internal links', () => {
-    cy.visit('/')
-    cy.ttEveryInternalLinkIsLoading()
+
+  it('all links work', () => {
+    cy.ttEveryInternalLinkStatusOk()
   })
-  
-  it('Validate images', () => {
-    cy.visit('/')
+
+  it('all images load', () => {
     cy.ttValidateAllImagesResponseStatusOk()
   })
+
+  it('site is accessible', () => {
+    cy.ttAccessibility()
+  })
 })
 ```
 
-## Run commands
+### 5. Run your tests
 
 ```bash
-npm run typecheck
+npx cypress open
 ```
 
-```bash
-npm run build
+That's it! You now have professional website tests.
+
+---
+
+## Page Object Model with BasePage
+
+For larger projects, organize your tests using the **Page Object Model**. This makes tests more readable and maintainable.
+
+### Why use BasePage?
+
+Instead of seeing cryptic CSS selectors in your test logs:
+```
+cy.get('#ext-comp-1234')  // What is this?
 ```
 
-```bash
-npx cypress open --config-file config.cypress.ts/js
+You see meaningful names:
+```
+usernameInput  // Much clearer!
 ```
 
-```bash
-export CYPRESS_BASE_URL=https://nevercodealone.de && npx cypress open --config-file config.cypress.ts/js
+### How to use BasePage
+
+**1. Create a Page class:**
+
+```ts
+// cypress/pages/LoginPage.ts
+import { BasePage } from 'cypress-ncatestify-plugin'
+
+export class LoginPage extends BasePage {
+  // Define your page elements as getters
+  get usernameInput() {
+    return this.el('#username')  // Logs: usernameInput
+  }
+
+  get passwordInput() {
+    return this.el('#password')  // Logs: passwordInput
+  }
+
+  get submitButton() {
+    return this.elContains('Login')  // Logs: submitButton
+  }
+
+  // Create reusable actions
+  login(user: string, pass: string) {
+    this.usernameInput.type(user)
+    this.passwordInput.type(pass)
+    this.submitButton.click()
+  }
+}
 ```
 
-Run s specific file
+**2. Use in your tests:**
 
-```bash
-export CYPRESS_BASE_URL=https://nevercodealone.de && npx cypress run --config-file cypress.config.ts --spec "cypress/e2e/validate.cy.ts"
+```ts
+// cypress/e2e/login.cy.ts
+import { LoginPage } from '../pages/LoginPage'
+
+const loginPage = new LoginPage()
+
+describe('Login', () => {
+  it('logs in successfully', () => {
+    cy.visit('/login')
+    loginPage.login('admin', 'secret')
+    cy.url().should('include', '/dashboard')
+  })
+})
 ```
 
-### Static file CMS
+### BasePage Methods
 
-cd eleventy-page && npx eleventy --serve
+| Method | Description | Example |
+|--------|-------------|---------|
+| `this.el(selector)` | Find element by CSS selector | `this.el('#email')` |
+| `this.el(selector, name)` | Find element with custom log name | `this.el('#x1', 'email')` |
+| `this.elContains(text)` | Find element containing text | `this.elContains('Submit')` |
+| `this.elContains(text, name)` | Find by text with custom log name | `this.elContains('OK', 'confirm')` |
 
-### Build
+---
 
-npx eleventy
-
-### Browser
-
-http://localhost:8080
-
-For contributing remove local `.js` files
-
-```bash
-rm -rf **/*.js
-```
-
-Validate types with no generating
-
-```bash
-npm run typecheck
-```
-
-Build js files
-
-```bash
-npm run build
-```
-
-## Docker command for local host on port 8090
-
-docker run -p 8090:80 -v $(pwd)/src:/app --entrypoint python3 python:3.9-alpine -m http.server --directory /app 80
-
-## Testing and Code Quality
-
-### Running Tests
-
-To run the test suite, execute the following command:
-
-```bash
-npx jest --config jest.config.ts
-```
-
-This will run all Jest tests located in the `__tests__` directory.
-
-### Type Checking
-
-To perform TypeScript type checking, run:
-
-```bash
-npm run typecheck
-```
-
-This ensures that the code adheres to the TypeScript configurations and catches potential type errors.
-
-### Code Formatting
-
-To auto-format the codebase, run:
-
-```bash
-npm run prettier
-```
-
-This will format the code according to the rules specified in the `.prettierrc` file.
-
-### CI/CD Pipeline
-
-All of these checks are automatically run in our GitHub Actions CI/CD pipeline on every push and pull request to the `main` branch. This ensures that all merged code is properly tested, type-checked, and formatted.
-
-## Commands
-
-### Cookie Management
-
-#### Click accept all cookies
-Automatically clicks cookie acceptance buttons for various cookie consent providers.
-
-```js
-cy.ttCookieAllAcceptClick()
-```
+## All Commands Reference
 
 ### Link Validation
 
-#### Validate all internal links return OK status (200)
-Checks that all internal links return a 200 status code. Supports HTTP Basic Authentication when baseUrl contains credentials.
-
-```js
+```ts
+// Check all internal links return 200 status
 cy.ttEveryInternalLinkStatusOk()
-```
 
-#### Validate all internal links are loading
-Visits each internal link to verify they load correctly. Automatically skips non-requestable links like anchors, fragments, javascript:, mailto:, tel:, and data: URLs.
+// Visit each internal link to verify it loads
+cy.ttEveryInternalLinkIsLoading()      // Default: 10 links
+cy.ttEveryInternalLinkIsLoading(20)    // Check 20 links
 
-```js
-cy.ttEveryInternalLinkIsLoading()       // Validate up to 10 links (default)
-cy.ttEveryInternalLinkIsLoading(20)     // Validate up to 20 links
-```
-
-**Note:** This command intelligently handles special link types:
-- Anchor links (`href="#"`, `href="#section"`) are skipped
-- JavaScript links (`href="javascript:void(0)"`) are skipped
-- Email links (`href="mailto:..."`) are skipped
-- Phone links (`href="tel:..."`) are skipped
-- Data URLs (`href="data:..."`) are skipped
-- External links are automatically filtered out
-- PDF files are validated with a request instead of visiting
-
-#### Get all internal links as array
-Returns an array of all internal links found on the page.
-
-```js
+// Get all internal links as array
 cy.ttGetInternalLinks()
-cy.ttGetInternalLinks('.content') // Optional: specify a container selector
+cy.ttGetInternalLinks('.content')      // From specific container
 ```
 
 ### Image Validation
 
-#### Validate all images return status code 200
-Verifies that all images (src and srcset) return a 200 status code. Supports HTTP Basic Authentication.
-
-```js
+```ts
+// Check all images load successfully
 cy.ttValidateAllImagesResponseStatusOk()
-```
-
-### SEO & Meta Validation
-
-#### Validate imprint/legal page is clickable
-Ensures legal/imprint links are present and clickable.
-
-```js
-cy.ttValidateImprintClickable()
-```
-
-#### Validate no Google services are being loaded
-Checks that no Google services (analytics, fonts, etc.) are loaded on the page.
-
-```js
-cy.ttValidateNoGoogleServices()
-```
-
-#### Validate page has only one H1 headline
-Ensures proper SEO structure with a single H1 tag.
-
-```js
-cy.ttOnlyOneH1()
-```
-
-#### Validate page has language tag
-Verifies the HTML lang attribute matches the expected language.
-
-```js
-cy.ttValidateLanguageTag('de')  // For German
-cy.ttValidateLanguageTag('en')  // For English
-```
-
-### Security & Protocol Validation
-
-#### Detect HTTP links
-Finds any non-HTTPS links on the page.
-
-```js
-cy.ttDetectHttp()
-```
-
-### Error Handling
-
-#### Setup console error listener
-Monitors for JavaScript console errors during test execution.
-
-```js
-cy.ttSetupConsoleErrorListener()
-```
-
-#### Validate invalid paths return 404
-Verifies that non-existent URLs properly return a 404 status.
-
-```js
-cy.ttInvalidPath404()
 ```
 
 ### Accessibility
 
-#### Check for accessibility issues
-Runs automated accessibility tests using axe-core.
-
-```js
+```ts
+// Run accessibility tests (uses axe-core)
 cy.ttAccessibility()
-cy.ttAccessibility('.main-content')  // Optional: test specific context
-cy.ttAccessibility(null, { runOnly: ['wcag2a', 'wcag2aa'] })  // Optional: axe options
+cy.ttAccessibility('.main-content')    // Test specific area
+```
+
+### SEO Checks
+
+```ts
+// Verify only one H1 tag exists
+cy.ttOnlyOneH1()
+
+// Check language tag
+cy.ttValidateLanguageTag('de')         // German
+cy.ttValidateLanguageTag('en')         // English
+
+// Check imprint/legal link exists
+cy.ttValidateImprintClickable()
+```
+
+### Security
+
+```ts
+// Find any non-HTTPS links
+cy.ttDetectHttp()
+
+// Check no Google services loaded
+cy.ttValidateNoGoogleServices()
+```
+
+### Error Handling
+
+```ts
+// Verify 404 pages work correctly
+cy.ttInvalidPath404()
+
+// Monitor console errors
+cy.ttSetupConsoleErrorListener()
+```
+
+### Cookie Management
+
+```ts
+// Accept cookies (supports various providers)
+cy.ttCookieAllAcceptClick()
 ```
 
 ### Performance
 
-#### Performance measurement with threshold
-Measures total page load size against a threshold.
+```ts
+// Check page size threshold (MB)
+cy.ttThreshold()       // Default threshold
+cy.ttThreshold(2)      // 2MB limit
 
-```js
-cy.ttThreshold()     // Default threshold
-cy.ttThreshold(2)    // Set threshold to 2MB
-```
-
-#### Page loaded verification
-Verifies the page has fully loaded.
-
-```js
+// Verify page loaded completely
 cy.ttPageLoaded()
-```
-
-### Content Validation
-
-#### Run all page content validation tests
-Executes a suite of content validation tests.
-
-```js
-cy.ttValidatePageContent()
-```
-
-#### Validate subpages and images
-Validates multiple subpages and their images.
-
-```js
-cy.ttValidateSubpagesAndImages()
-cy.ttValidateSubpagesAndImages(5)  // Test only first 5 pages
-cy.ttValidateSubpagesAndImages(10, '.nav')  // Test 10 pages from nav links
 ```
 
 ### Utility Commands
 
-#### Click element if it exists
-Conditionally clicks an element only if it exists on the page.
+```ts
+// Click element only if it exists
+cy.ttClickIfElementExist('.cookie-banner')
 
-```js
-cy.ttClickIfElementExist('.cookie-accept')
-cy.ttClickIfElementExist('#modal-close')
-```
-
-#### Check if element exists
-Returns a boolean indicating whether an element exists.
-
-```js
-cy.ttElementExists('.banner').then(exists => {
+// Check if element exists (returns boolean)
+cy.ttElementExists('.modal').then(exists => {
   if (exists) {
-    // Element exists
+    // do something
   }
 })
 ```
 
-### Comprehensive Testing
+### Run All Tests
 
-#### Run all TESTIFY base tests
-Executes the complete suite of TESTIFY validation tests.
-
-```js
+```ts
+// Execute complete test suite
 cy.ttRunTestifyBaseTests()
 ```
 
-This runs:
-- Internal link status validation
-- Image response validation  
-- Google services check
-- Imprint clickability
-- Internal link loading
-- Accessibility tests
-- H1 validation
-- 404 error handling
-- Language tag validation (defaults to 'de')
-- HTTP link detection
+---
 
-## HTTP Basic Authentication Support
+## HTTP Basic Authentication
 
-This plugin supports HTTP Basic Authentication for websites that require credentials. When your `baseUrl` contains authentication credentials, all link and image validation commands will automatically use these credentials.
+For password-protected staging sites:
 
-### Setup
-
-Configure your Cypress baseUrl with credentials:
-
-```js
-// cypress.config.js
+```ts
+// cypress.config.ts
 export default defineConfig({
   e2e: {
-    baseUrl: 'https://username:password@example.dev',
-    // ... other config
+    baseUrl: 'https://user:password@staging.example.com'
   }
 })
 ```
 
-Or set via environment variable:
+Or via environment variable:
 
 ```bash
-export CYPRESS_BASE_URL=https://username:password@example.dev
+export CYPRESS_BASE_URL=https://user:password@staging.example.com
 npx cypress run
 ```
 
-### Supported Commands
+---
 
-The following commands automatically handle HTTP Basic Authentication:
-- `ttEveryInternalLinkStatusOk()` - Validates internal link status codes
-- `ttValidateAllImagesResponseStatusOk()` - Validates image response codes
-- `ttInvalidPath404()` - Validates 404 error pages
-- All other commands that use `cy.visit()` inherit authentication from the baseUrl
+## Common Issues
 
-## Websites being tested with this plugin
+### "baseUrl must be set"
 
-https://www.auto-hortz.de
-https://www.discounto.de
-https://nevercodealone.de
+Add `baseUrl` to your `cypress.config.ts`:
+
+```ts
+export default defineConfig({
+  e2e: {
+    baseUrl: 'https://your-site.com'
+  }
+})
+```
+
+### Tests timing out
+
+Increase the timeout in your config:
+
+```ts
+export default defineConfig({
+  e2e: {
+    baseUrl: 'https://your-site.com',
+    defaultCommandTimeout: 10000  // 10 seconds
+  }
+})
+```
+
+### Links failing that should pass
+
+Some links like `mailto:`, `tel:`, `javascript:` are automatically skipped. External links are also filtered out.
+
+---
+
+## Development
+
+### Run tests
+
+```bash
+npm test              # Unit tests
+npm run cy:run        # Cypress tests
+npm run typecheck     # Type checking
+npm run lint          # ESLint
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+### Local test server
+
+```bash
+cd eleventy-page && npx @11ty/eleventy --serve
+# Open http://localhost:8080
+```
+
+---
 
 ## Compatibility
 
-This plugin is compatible with:
-- Cypress 14.x
+- Cypress 14.x / 15.x
 - TypeScript 5.x
 - Node.js 18+
+
+## Sites using this plugin
+
+- https://www.auto-hortz.de
+- https://www.discounto.de
+- https://nevercodealone.de
+
+---
+
+Made with care by [NCA TESTIFY](https://testify.team)
