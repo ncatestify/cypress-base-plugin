@@ -9,6 +9,7 @@ interface DomainMappingConfig {
 
 declare namespace Cypress {
   interface Chainable<Subject = any> {
+    ttEl(selector: string, name?: string): Chainable<JQuery<HTMLElement>>
     ttAccessibility(context?: any, options?: any): Chainable<Subject>
     ttClickIfElementExist(element: string): Chainable<Subject>
     ttCookieAllAcceptClick(): Chainable<Subject>
@@ -45,10 +46,6 @@ declare namespace Cypress {
 export abstract class BasePage {
   protected el(
     selector: string,
-    name?: string
-  ): Cypress.Chainable<JQuery<HTMLElement>>
-  protected elContains(
-    text: string,
     name?: string
   ): Cypress.Chainable<JQuery<HTMLElement>>
 }

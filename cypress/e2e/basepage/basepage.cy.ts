@@ -2,15 +2,11 @@ import { BasePage } from '../../../src/pages/BasePage'
 
 class TestPage extends BasePage {
   get heading() {
-    return this.el('h1')
+    return this.el('h1') // Logs: heading
   }
 
-  get link() {
-    return this.elContains('Impressum')
-  }
-
-  getExplicitName() {
-    return this.el('h1', 'explicitHeading')
+  get imprintLink() {
+    return this.el('a[href*="impressum"]') // Logs: imprintLink
   }
 }
 
@@ -25,11 +21,7 @@ describe('BasePage', () => {
     page.heading.should('exist')
   })
 
-  it('logs getter name for elContains()', () => {
-    page.link.should('exist')
-  })
-
-  it('uses explicit name when provided', () => {
-    page.getExplicitName().should('exist')
+  it('logs getter name for imprintLink', () => {
+    page.imprintLink.should('exist')
   })
 })

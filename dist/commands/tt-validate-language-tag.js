@@ -3,13 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttValidateLanguageTag = void 0;
 const ttValidateLanguageTag = (language = 'de') => {
     cy.log('ttValidateLanguageTag - NCA TESTIFY');
-    cy.get('html').should('have.attr', 'lang');
-    cy.get('html')
+    // @ts-ignore - Custom command registered at runtime
+    cy.ttEl('html', 'htmlElement').should('have.attr', 'lang');
+    // @ts-ignore - Custom command registered at runtime
+    cy.ttEl('html', 'htmlElement')
         .invoke('attr', 'lang')
         .then((langTag) => {
-        cy.wrap(langTag).then((lang) => {
-            expect(lang.toLowerCase()).to.contain(language);
-        });
+        expect(langTag.toLowerCase()).to.contain(language);
     });
 };
 exports.ttValidateLanguageTag = ttValidateLanguageTag;

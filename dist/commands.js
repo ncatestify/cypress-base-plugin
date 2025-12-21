@@ -21,6 +21,8 @@ const tt_validate_language_tag_1 = require("./commands/tt-validate-language-tag"
 const tt_validate_no_google_services_1 = require("./commands/tt-validate-no-google-services");
 const tt_validate_page_content_1 = require("./commands/tt-validate-page-content");
 const tt_validate_subpages_and_images_1 = require("./commands/tt-validate-subpages-and-images");
+const tt_el_1 = require("./commands/tt-el");
+Cypress.Commands.add('ttEl', tt_el_1.ttEl);
 Cypress.Commands.add('ttAccessibility', tt_accessibility_1.ttAccessibility);
 Cypress.Commands.add('ttClickIfElementExist', tt_click_if_element_exist_1.ttClickIfElementExist);
 Cypress.Commands.add('ttCookieAllAcceptClick', tt_cookie_all_accept_1.ttCookieAllAcceptClick);

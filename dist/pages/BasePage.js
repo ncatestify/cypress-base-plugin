@@ -2,20 +2,13 @@
 /// <reference types="cypress" />
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BasePage = void 0;
-exports.resolveElementName = resolveElementName;
-function resolveElementName(explicit, caller, fallback) {
-    return explicit || caller || fallback;
-}
 class BasePage {
     el(selector, name) {
-        cy.log(`🔹 ${resolveElementName(name, this.extractCallerName(), selector)}`);
+        const logName = name || this.extractGetterName() || selector;
+        cy.log(logName);
         return cy.get(selector);
     }
-    elContains(text, name) {
-        cy.log(`🔹 ${resolveElementName(name, this.extractCallerName(), text)}`);
-        return cy.contains(text);
-    }
-    extractCallerName() {
+    extractGetterName() {
         var _a, _b;
         const stack = new Error().stack;
         if (!stack)

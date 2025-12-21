@@ -19,7 +19,9 @@ import { ttValidateLanguageTag } from './commands/tt-validate-language-tag'
 import { ttValidateNoGoogleServices } from './commands/tt-validate-no-google-services'
 import { ttValidatePageContent } from './commands/tt-validate-page-content'
 import { ttValidateSubpagesAndImages } from './commands/tt-validate-subpages-and-images'
+import { ttEl } from './commands/tt-el'
 
+Cypress.Commands.add('ttEl', ttEl)
 Cypress.Commands.add('ttAccessibility', ttAccessibility)
 Cypress.Commands.add('ttClickIfElementExist', ttClickIfElementExist)
 Cypress.Commands.add('ttCookieAllAcceptClick', ttCookieAllAcceptClick)
