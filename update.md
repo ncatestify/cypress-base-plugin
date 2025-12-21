@@ -1,5 +1,15 @@
 # Update md file
 
+2.1.70
+
+- Add BasePage abstract class for Page Object Model with semantic logging
+- Implement el(selector, name?) and elContains(text, name?) protected methods
+- Auto-extract getter names from stack trace for readable Cypress logs
+- Shows semantic names (e.g., usernameInput) instead of CSS selectors
+- Export resolveElementName pure function for testability
+- Add unit tests with table-driven test pattern
+- Add integration tests for BasePage functionality
+
 2.1.69
 
 - Restructure Cypress tests from monolithic validate.cy.ts to feature-based directories
