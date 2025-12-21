@@ -1,11 +1,11 @@
 export const ttValidateLanguageTag = (language: string = 'de'): void => {
   cy.log('ttValidateLanguageTag - NCA TESTIFY')
-  cy.get('html').should('have.attr', 'lang')
-  cy.get('html')
+  // @ts-ignore - Custom command registered at runtime
+  cy.ttEl('html', 'htmlElement').should('have.attr', 'lang')
+  // @ts-ignore - Custom command registered at runtime
+  cy.ttEl('html', 'htmlElement')
     .invoke('attr', 'lang')
-    .then((langTag) => {
-      cy.wrap(langTag).then((lang) => {
-        expect(lang.toLowerCase()).to.contain(language)
-      })
+    .then((langTag: string) => {
+      expect(langTag.toLowerCase()).to.contain(language)
     })
 }
