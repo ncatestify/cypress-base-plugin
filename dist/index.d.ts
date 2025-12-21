@@ -7,7 +7,6 @@ interface DomainMappingConfig {
   minLinksRequired?: number
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare namespace Cypress {
   interface Chainable<Subject = any> {
     ttAccessibility(context?: any, options?: any): Chainable<Subject>
@@ -43,4 +42,13 @@ declare namespace Cypress {
   }
 }
 
-export {}
+export abstract class BasePage {
+  protected el(
+    selector: string,
+    name?: string
+  ): Cypress.Chainable<JQuery<HTMLElement>>
+  protected elContains(
+    text: string,
+    name?: string
+  ): Cypress.Chainable<JQuery<HTMLElement>>
+}
