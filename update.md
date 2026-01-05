@@ -1,5 +1,10 @@
 # Update md file
 
+2.1.72
+
+- Add auto-getter name extraction to cy.ttEl command via stack trace parsing
+- cy.ttEl now automatically logs getter names when used in page objects
+
 2.1.71
 
 - Add cy.ttEl(selector, name) command for semantic element logging
