@@ -1,15 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ttValidatePageContent = void 0;
+'use strict'
+Object.defineProperty(exports, '__esModule', { value: true })
+exports.ttValidatePageContent = void 0
 // @ts-nocheck - Cypress custom commands are dynamically registered
 const ttValidatePageContent = () => {
-    cy.ttAccessibility();
-    cy.ttValidateNoGoogleServices();
-    cy.ttValidateAllImagesResponseStatusOk();
-    cy.ttEveryInternalLinkStatusOk();
-    cy.ttEveryInternalLinkIsLoading();
-    cy.ttValidateImprintClickable();
-    cy.ttOnlyOneH1();
-    cy.ttDetectHttp();
-};
-exports.ttValidatePageContent = ttValidatePageContent;
+  cy.ttAccessibility()
+  cy.ttValidateNoGoogleServices()
+  cy.ttValidateAllImagesResponseStatusOk()
+  cy.ttEveryInternalLinkStatusOk()
+  cy.ttEveryInternalLinkIsLoading()
+  cy.ttValidateImprintClickable()
+  cy.ttOnlyOneH1()
+  cy.ttDetectHttp()
+}
+exports.ttValidatePageContent = ttValidatePageContent

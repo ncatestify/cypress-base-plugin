@@ -1,1 +1,1 @@
-export declare const ttThreshold: (thresholdMB?: number) => void;
+export declare const ttThreshold: (thresholdMB?: number) => void

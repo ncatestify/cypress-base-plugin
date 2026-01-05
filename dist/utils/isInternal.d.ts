@@ -1,7 +1,7 @@
 /**
  * Type definitions for URL validation
  */
-type URLString = string;
+type URLString = string
 /**
  * Validates if URL is internal relative to base URL
  *
@@ -14,5 +14,5 @@ type URLString = string;
  * isInternal('https://same-domain.com/path') // true if baseUrl matches
  * isInternal('https://other-domain.com') // false
  */
-export declare const isInternal: (url: URLString) => boolean;
-export {};
+export declare const isInternal: (url: URLString) => boolean
+export {}

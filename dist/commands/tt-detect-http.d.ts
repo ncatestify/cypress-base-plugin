@@ -1,1 +1,1 @@
-export declare const ttDetectHttp: () => void;
+export declare const ttDetectHttp: () => void

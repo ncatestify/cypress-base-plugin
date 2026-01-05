@@ -1,1 +1,1 @@
-export declare const ttSetupConsoleErrorListener: () => void;
+export declare const ttSetupConsoleErrorListener: () => void
