@@ -1,1 +1,1 @@
-export declare const ttPageLoaded: () => void;
+export declare const ttPageLoaded: () => void

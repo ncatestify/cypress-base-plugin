@@ -1,1 +1,3 @@
-export declare const ttCookieAllAcceptClick: (cookieButtonStrings?: string[]) => Cypress.Chainable<any>;
+export declare const ttCookieAllAcceptClick: (
+  cookieButtonStrings?: string[]
+) => Cypress.Chainable<any>
