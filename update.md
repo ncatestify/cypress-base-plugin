@@ -1,5 +1,9 @@
 # Update md file
 
+2.1.73
+
+- Add ttEl type definition with JSDoc to cypress/index.d.ts
+
 2.1.72
 
 - Add auto-getter name extraction to cy.ttEl command via stack trace parsing
