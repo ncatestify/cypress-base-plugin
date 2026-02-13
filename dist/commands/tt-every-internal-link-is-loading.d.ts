@@ -1,1 +1,1 @@
-export declare const ttEveryInternalLinkIsLoading: (limit?: number) => void
+export declare const ttEveryInternalLinkIsLoading: (limit?: number) => void;
