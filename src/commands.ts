@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-// @ts-nocheck - Cypress commands registration bypasses TypeScript checking
+/// <reference path="index.d.ts" />
 import { ttAccessibility } from './commands/tt-accessibility'
 import { ttClickIfElementExist } from './commands/tt-click-if-element-exist'
 import { ttCookieAllAcceptClick } from './commands/tt-cookie-all-accept'
