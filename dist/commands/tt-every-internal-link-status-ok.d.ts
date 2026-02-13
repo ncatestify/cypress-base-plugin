@@ -1,3 +1,1 @@
-export declare const ttEveryInternalLinkStatusOk: (
-  minLinksRequired?: number
-) => Cypress.Chainable<any>
+export declare const ttEveryInternalLinkStatusOk: (minLinksRequired?: number) => Cypress.Chainable<any>;

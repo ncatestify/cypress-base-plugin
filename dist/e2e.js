@@ -1,5 +1,5 @@
-'use strict'
-Object.defineProperty(exports, '__esModule', { value: true })
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // ***********************************************************
 // This example support/e2e.js is processed and
 // loaded automatically before your test files.
@@ -14,8 +14,8 @@ Object.defineProperty(exports, '__esModule', { value: true })
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-require('cypress-axe')
+require("cypress-axe");
 // Import commands.js using ES2015 syntax:
-require('./commands')
+require("./commands");
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

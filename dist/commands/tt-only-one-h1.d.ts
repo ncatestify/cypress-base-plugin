@@ -1,1 +1,1 @@
-export declare const ttOnlyOneH1: () => void
+export declare const ttOnlyOneH1: () => void;

@@ -10,7 +10,7 @@ export const ttValidateSubpagesAndImages = (
     urls.slice(0, limit).forEach((url) => {
       if (!url.includes('.pdf')) {
         cy.visit(url)
-        ttValidateAllImagesResponseStatusOk()
+        ttValidateAllImagesResponseStatusOk(url)
       } else {
         cy.log('PDF detected' + url)
       }

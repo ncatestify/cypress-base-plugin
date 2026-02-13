@@ -1,4 +1,6 @@
-// @ts-nocheck - Cypress custom commands are dynamically registered
+/// <reference types="cypress" />
+/// <reference path="../index.d.ts" />
+
 export const ttValidatePageContent = (): void => {
   cy.ttAccessibility()
   cy.ttValidateNoGoogleServices()

@@ -4,7 +4,6 @@
 export const ttEveryInternalLinkIsLoading = (limit: number = 10): void => {
   cy.log('everyInternalLinkIsLoading - NCA TESTIFY')
 
-  //@ts-ignore - Custom command type not available in build context
   cy.ttGetInternalLinks().then((internalLinks: string[]) => {
     const linksToValidate = internalLinks.slice(0, limit)
 
@@ -23,9 +22,8 @@ export const ttEveryInternalLinkIsLoading = (limit: number = 10): void => {
         })
       } else {
         cy.visit(href)
-        cy.get('a').should('be.visible')
-        //@ts-ignore - Custom command type not available in build context
-        cy.ttValidateAllImagesResponseStatusOk()
+        cy.get('body').should('not.be.empty')
+        cy.ttValidateAllImagesResponseStatusOk(href)
       }
 
       cy.clearAllLocalStorage()

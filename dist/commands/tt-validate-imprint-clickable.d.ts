@@ -1,1 +1,1 @@
-export declare const ttValidateImprintClickable: () => void
+export declare const ttValidateImprintClickable: () => void;
