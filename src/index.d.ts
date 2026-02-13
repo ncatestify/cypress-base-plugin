@@ -19,7 +19,7 @@ declare global {
       ttPageLoaded(): Chainable<Subject>
       ttSetupConsoleErrorListener(): Chainable<Subject>
       ttThreshold(threshold?: number): Chainable<Subject>
-      ttValidateAllImagesResponseStatusOk(): Chainable<Subject>
+      ttValidateAllImagesResponseStatusOk(pageUrl?: string): Chainable<Subject>
       ttValidateImprintClickable(): Chainable<Subject>
       ttValidateLanguageTag(language: string): Chainable<Subject>
       ttValidateNoGoogleServices(): Chainable<Subject>

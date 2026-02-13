@@ -9,7 +9,7 @@ const ttValidateSubpagesAndImages = (limit = 20, linkSelector) => {
         urls.slice(0, limit).forEach((url) => {
             if (!url.includes('.pdf')) {
                 cy.visit(url);
-                (0, tt_validate_all_images_response_status_ok_1.ttValidateAllImagesResponseStatusOk)();
+                (0, tt_validate_all_images_response_status_ok_1.ttValidateAllImagesResponseStatusOk)(url);
             }
             else {
                 cy.log('PDF detected' + url);

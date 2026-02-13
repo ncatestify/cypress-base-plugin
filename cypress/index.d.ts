@@ -25,7 +25,12 @@ declare namespace Cypress {
     ttPageLoaded(): Chainable<Subject>
     ttSetupConsoleErrorListener(): Chainable<Subject>
     ttThreshold(threshold?: number): Chainable<Subject>
-    ttValidateAllImagesResponseStatusOk(): Chainable<Subject>
+    /**
+     * Validate that all images on the page return HTTP 200.
+     * Checks both <img> elements (src and srcset) and CSS background images.
+     * @param pageUrl - Optional page URL for error context. Falls back to cy.url() if not provided.
+     */
+    ttValidateAllImagesResponseStatusOk(pageUrl?: string): Chainable<Subject>
     ttValidateImprintClickable(): Chainable<Subject>
     ttValidateLanguageTag(language: string): Chainable<Subject>
     ttValidateNoGoogleServices(): Chainable<Subject>

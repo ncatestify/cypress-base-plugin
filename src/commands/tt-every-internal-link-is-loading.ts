@@ -23,7 +23,7 @@ export const ttEveryInternalLinkIsLoading = (limit: number = 10): void => {
       } else {
         cy.visit(href)
         cy.get('body').should('not.be.empty')
-        cy.ttValidateAllImagesResponseStatusOk()
+        cy.ttValidateAllImagesResponseStatusOk(href)
       }
 
       cy.clearAllLocalStorage()

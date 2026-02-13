@@ -27,7 +27,9 @@ const buildImageSourceInfo = (
   return `IMG${id}${classes}${suffix} (alt: "${alt}", element ${index + 1}${parentInfo} on page ${pageUrl})`
 }
 
-const extractCssImageUrls = (): Array<{ url: string; source: string }> => {
+const extractCssImageUrls = (
+  pageUrl: string
+): Array<{ url: string; source: string }> => {
   const cssImageUrls: Array<{ url: string; source: string }> = []
   const excludedUrlPrefixes = ['data:', 'blob:', 'javascript:', 'about:']
   const isExcludedUrl = (url: string): boolean => {
@@ -99,7 +101,7 @@ const extractCssImageUrls = (): Array<{ url: string; source: string }> => {
 
             cssImageUrls.push({
               url,
-              source: `CSS background on ${elementInfo}${cssRuleInfo}${cssFilesList}`
+              source: `CSS background on ${elementInfo}${cssRuleInfo}${cssFilesList} on page ${pageUrl}`
             })
           }
         })
@@ -110,116 +112,129 @@ const extractCssImageUrls = (): Array<{ url: string; source: string }> => {
   return cssImageUrls
 }
 
-export const ttValidateAllImagesResponseStatusOk = (): void => {
+export const ttValidateAllImagesResponseStatusOk = (
+  pageUrl?: string
+): void => {
   const imageMap = new Map<string, string>() // URL -> source description
 
-  cy.log('Collecting images from DOM and CSS...')
+  cy.url().then((currentUrl) => {
+    const resolvedPageUrl = pageUrl ?? currentUrl
 
-  // First, collect CSS background images
-  cy.window().then((win) => {
-    const cssImages = win.eval(`(${extractCssImageUrls.toString()})()`)
-    cssImages.forEach((item: { url: string; source: string }) => {
-      const normalizedUrl = normalizeUrl(item.url)
-      if (!isExcludedUrl(normalizedUrl)) {
-        imageMap.set(normalizedUrl, item.source)
-        cy.log(`📍 ${item.source}: ${item.url}`)
+    cy.log(`Validating images on page: ${resolvedPageUrl}`)
+    cy.log('Collecting images from DOM and CSS...')
+
+    // First, collect CSS background images
+    cy.window().then((win) => {
+      const cssImages = win.eval(
+        `(${extractCssImageUrls.toString()})(${JSON.stringify(resolvedPageUrl)})`
+      )
+      cssImages.forEach((item: { url: string; source: string }) => {
+        const normalizedUrl = normalizeUrl(item.url)
+        if (!isExcludedUrl(normalizedUrl)) {
+          imageMap.set(normalizedUrl, item.source)
+          cy.log(`📍 ${item.source}: ${item.url}`)
+        }
+      })
+
+      if (cssImages.length > 0) {
+        cy.log(`Found ${cssImages.length} CSS background images`)
       }
     })
 
-    if (cssImages.length > 0) {
-      cy.log(`Found ${cssImages.length} CSS background images`)
-    }
-  })
+    // Then collect IMG tag images (make it optional)
+    cy.get('body')
+      .then(($body) => {
+        const imgElements = $body.find('img')
 
-  // Then collect IMG tag images (make it optional)
-  cy.get('body')
-    .then(($body) => {
-      const imgElements = $body.find('img')
+        if (imgElements.length > 0) {
+          cy.log(`Found ${imgElements.length} <img> elements`)
+          cy.get('img').each(($img, index) => {
+            const img = $img[0] as HTMLImageElement
+            const src = img.getAttribute('src')
+            const srcset = img.getAttribute('srcset')
 
-      if (imgElements.length > 0) {
-        cy.log(`Found ${imgElements.length} <img> elements`)
-        const pageUrl = window.location.href
-        cy.get('img').each(($img, index) => {
-          const img = $img[0] as HTMLImageElement
-          const src = img.getAttribute('src')
-          const srcset = img.getAttribute('srcset')
+            if (src !== null) {
+              const normalizedSrc = normalizeUrl(src)
+              if (!isExcludedUrl(normalizedSrc)) {
+                const imgSource = buildImageSourceInfo(
+                  img,
+                  index,
+                  'src',
+                  resolvedPageUrl
+                )
+                imageMap.set(normalizedSrc, imgSource)
+                cy.log(`📍 ${imgSource}: ${src}`)
+              }
+            }
 
-          if (src !== null) {
-            const normalizedSrc = normalizeUrl(src)
-            if (!isExcludedUrl(normalizedSrc)) {
-              const imgSource = buildImageSourceInfo(img, index, 'src', pageUrl)
-              imageMap.set(normalizedSrc, imgSource)
-              cy.log(`📍 ${imgSource}: ${src}`)
+            if (srcset !== null) {
+              const srcsetUrls = srcset
+                .split(',')
+                .map((srcsetItem) => srcsetItem.trim().split(' ')[0])
+                .map(normalizeUrl)
+              srcsetUrls.forEach((url) => {
+                if (!isExcludedUrl(url)) {
+                  const srcsetSource = buildImageSourceInfo(
+                    img,
+                    index,
+                    'srcset',
+                    resolvedPageUrl
+                  )
+                  imageMap.set(url, srcsetSource)
+                  cy.log(`📍 ${srcsetSource}: ${url}`)
+                }
+              })
+            }
+
+            if (src === null && srcset === null) {
+              const alt = img.getAttribute('alt') ?? ''
+              cy.log(`⚠️ Image ${alt} has neither src nor srcset attribute`)
+            }
+          })
+        } else {
+          cy.log('No <img> elements found')
+        }
+        return null
+      })
+      .then(() => {
+        // Validate all collected images
+        const totalImages = imageMap.size
+
+        if (totalImages === 0) {
+          cy.log('✅ No images found to validate')
+          return
+        }
+
+        cy.log(`🔍 Validating ${totalImages} total images (IMG + CSS)`)
+
+        const baseUrl = Cypress.config('baseUrl')
+        const auth = extractAuth(baseUrl)
+
+        Array.from(imageMap.entries()).forEach(([url, source]) => {
+          const requestOptions: Partial<Cypress.RequestOptions> = {
+            method: 'HEAD',
+            url: url,
+            failOnStatusCode: false
+          }
+
+          if (auth) {
+            requestOptions.auth = {
+              username: auth.username,
+              password: auth.password
             }
           }
 
-          if (srcset !== null) {
-            const srcsetUrls = srcset
-              .split(',')
-              .map((srcsetItem) => srcsetItem.trim().split(' ')[0])
-              .map(normalizeUrl)
-            srcsetUrls.forEach((url) => {
-              if (!isExcludedUrl(url)) {
-                const srcsetSource = buildImageSourceInfo(
-                  img,
-                  index,
-                  'srcset',
-                  pageUrl
-                )
-                imageMap.set(url, srcsetSource)
-                cy.log(`📍 ${srcsetSource}: ${url}`)
-              }
-            })
-          }
-
-          if (src === null && srcset === null) {
-            const alt = img.getAttribute('alt') ?? ''
-            cy.log(`⚠️ Image ${alt} has neither src nor srcset attribute`)
-          }
-        })
-      } else {
-        cy.log('No <img> elements found')
-      }
-      return null
-    })
-    .then(() => {
-      // Validate all collected images
-      const totalImages = imageMap.size
-
-      if (totalImages === 0) {
-        cy.log('✅ No images found to validate')
-        return
-      }
-
-      cy.log(`🔍 Validating ${totalImages} total images (IMG + CSS)`)
-
-      const baseUrl = Cypress.config('baseUrl')
-      const auth = extractAuth(baseUrl)
-
-      Array.from(imageMap.entries()).forEach(([url, source]) => {
-        const requestOptions: Partial<Cypress.RequestOptions> = {
-          method: 'HEAD',
-          url: url,
-          failOnStatusCode: false
-        }
-
-        if (auth) {
-          requestOptions.auth = {
-            username: auth.username,
-            password: auth.password
-          }
-        }
-
-        cy.request(requestOptions).then((response) => {
-          if (response.status === 200) {
-            cy.log(`✅ ${url}`)
-          } else {
-            cy.log(`❌ ${url} - Status: ${response.status}`)
-            throw new Error(
-              `Image validation failed: ${url} returned ${response.status}. Source: ${source}`
-            )
-          }
+          cy.request(requestOptions).then((response) => {
+            if (response.status === 200) {
+              cy.log(`✅ ${url}`)
+            } else {
+              cy.log(`❌ ${url} - Status: ${response.status}`)
+              throw new Error(
+                `Image validation failed on page: ${resolvedPageUrl}\n  Image URL: ${url}\n  Status: ${response.status}\n  Source: ${source}`
+              )
+            }
+          })
         })
       })
-    })
+  })
 }

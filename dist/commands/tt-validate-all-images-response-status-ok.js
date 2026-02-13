@@ -21,7 +21,7 @@ const buildImageSourceInfo = (img, index, type, pageUrl) => {
     const suffix = type === 'srcset' ? ' srcset' : '';
     return `IMG${id}${classes}${suffix} (alt: "${alt}", element ${index + 1}${parentInfo} on page ${pageUrl})`;
 };
-const extractCssImageUrls = () => {
+const extractCssImageUrls = (pageUrl) => {
     const cssImageUrls = [];
     const excludedUrlPrefixes = ['data:', 'blob:', 'javascript:', 'about:'];
     const isExcludedUrl = (url) => {
@@ -83,7 +83,7 @@ const extractCssImageUrls = () => {
                         }
                         cssImageUrls.push({
                             url,
-                            source: `CSS background on ${elementInfo}${cssRuleInfo}${cssFilesList}`
+                            source: `CSS background on ${elementInfo}${cssRuleInfo}${cssFilesList} on page ${pageUrl}`
                         });
                     }
                 });
@@ -92,97 +92,100 @@ const extractCssImageUrls = () => {
     });
     return cssImageUrls;
 };
-const ttValidateAllImagesResponseStatusOk = () => {
+const ttValidateAllImagesResponseStatusOk = (pageUrl) => {
     const imageMap = new Map(); // URL -> source description
-    cy.log('Collecting images from DOM and CSS...');
-    // First, collect CSS background images
-    cy.window().then((win) => {
-        const cssImages = win.eval(`(${extractCssImageUrls.toString()})()`);
-        cssImages.forEach((item) => {
-            const normalizedUrl = normalizeUrl(item.url);
-            if (!isExcludedUrl(normalizedUrl)) {
-                imageMap.set(normalizedUrl, item.source);
-                cy.log(`📍 ${item.source}: ${item.url}`);
-            }
-        });
-        if (cssImages.length > 0) {
-            cy.log(`Found ${cssImages.length} CSS background images`);
-        }
-    });
-    // Then collect IMG tag images (make it optional)
-    cy.get('body')
-        .then(($body) => {
-        const imgElements = $body.find('img');
-        if (imgElements.length > 0) {
-            cy.log(`Found ${imgElements.length} <img> elements`);
-            const pageUrl = window.location.href;
-            cy.get('img').each(($img, index) => {
-                var _a;
-                const img = $img[0];
-                const src = img.getAttribute('src');
-                const srcset = img.getAttribute('srcset');
-                if (src !== null) {
-                    const normalizedSrc = normalizeUrl(src);
-                    if (!isExcludedUrl(normalizedSrc)) {
-                        const imgSource = buildImageSourceInfo(img, index, 'src', pageUrl);
-                        imageMap.set(normalizedSrc, imgSource);
-                        cy.log(`📍 ${imgSource}: ${src}`);
-                    }
-                }
-                if (srcset !== null) {
-                    const srcsetUrls = srcset
-                        .split(',')
-                        .map((srcsetItem) => srcsetItem.trim().split(' ')[0])
-                        .map(normalizeUrl);
-                    srcsetUrls.forEach((url) => {
-                        if (!isExcludedUrl(url)) {
-                            const srcsetSource = buildImageSourceInfo(img, index, 'srcset', pageUrl);
-                            imageMap.set(url, srcsetSource);
-                            cy.log(`📍 ${srcsetSource}: ${url}`);
-                        }
-                    });
-                }
-                if (src === null && srcset === null) {
-                    const alt = (_a = img.getAttribute('alt')) !== null && _a !== void 0 ? _a : '';
-                    cy.log(`⚠️ Image ${alt} has neither src nor srcset attribute`);
+    cy.url().then((currentUrl) => {
+        const resolvedPageUrl = pageUrl !== null && pageUrl !== void 0 ? pageUrl : currentUrl;
+        cy.log(`Validating images on page: ${resolvedPageUrl}`);
+        cy.log('Collecting images from DOM and CSS...');
+        // First, collect CSS background images
+        cy.window().then((win) => {
+            const cssImages = win.eval(`(${extractCssImageUrls.toString()})(${JSON.stringify(resolvedPageUrl)})`);
+            cssImages.forEach((item) => {
+                const normalizedUrl = normalizeUrl(item.url);
+                if (!isExcludedUrl(normalizedUrl)) {
+                    imageMap.set(normalizedUrl, item.source);
+                    cy.log(`📍 ${item.source}: ${item.url}`);
                 }
             });
-        }
-        else {
-            cy.log('No <img> elements found');
-        }
-        return null;
-    })
-        .then(() => {
-        // Validate all collected images
-        const totalImages = imageMap.size;
-        if (totalImages === 0) {
-            cy.log('✅ No images found to validate');
-            return;
-        }
-        cy.log(`🔍 Validating ${totalImages} total images (IMG + CSS)`);
-        const baseUrl = Cypress.config('baseUrl');
-        const auth = (0, extractAuth_1.extractAuth)(baseUrl);
-        Array.from(imageMap.entries()).forEach(([url, source]) => {
-            const requestOptions = {
-                method: 'HEAD',
-                url: url,
-                failOnStatusCode: false
-            };
-            if (auth) {
-                requestOptions.auth = {
-                    username: auth.username,
-                    password: auth.password
-                };
+            if (cssImages.length > 0) {
+                cy.log(`Found ${cssImages.length} CSS background images`);
             }
-            cy.request(requestOptions).then((response) => {
-                if (response.status === 200) {
-                    cy.log(`✅ ${url}`);
+        });
+        // Then collect IMG tag images (make it optional)
+        cy.get('body')
+            .then(($body) => {
+            const imgElements = $body.find('img');
+            if (imgElements.length > 0) {
+                cy.log(`Found ${imgElements.length} <img> elements`);
+                cy.get('img').each(($img, index) => {
+                    var _a;
+                    const img = $img[0];
+                    const src = img.getAttribute('src');
+                    const srcset = img.getAttribute('srcset');
+                    if (src !== null) {
+                        const normalizedSrc = normalizeUrl(src);
+                        if (!isExcludedUrl(normalizedSrc)) {
+                            const imgSource = buildImageSourceInfo(img, index, 'src', resolvedPageUrl);
+                            imageMap.set(normalizedSrc, imgSource);
+                            cy.log(`📍 ${imgSource}: ${src}`);
+                        }
+                    }
+                    if (srcset !== null) {
+                        const srcsetUrls = srcset
+                            .split(',')
+                            .map((srcsetItem) => srcsetItem.trim().split(' ')[0])
+                            .map(normalizeUrl);
+                        srcsetUrls.forEach((url) => {
+                            if (!isExcludedUrl(url)) {
+                                const srcsetSource = buildImageSourceInfo(img, index, 'srcset', resolvedPageUrl);
+                                imageMap.set(url, srcsetSource);
+                                cy.log(`📍 ${srcsetSource}: ${url}`);
+                            }
+                        });
+                    }
+                    if (src === null && srcset === null) {
+                        const alt = (_a = img.getAttribute('alt')) !== null && _a !== void 0 ? _a : '';
+                        cy.log(`⚠️ Image ${alt} has neither src nor srcset attribute`);
+                    }
+                });
+            }
+            else {
+                cy.log('No <img> elements found');
+            }
+            return null;
+        })
+            .then(() => {
+            // Validate all collected images
+            const totalImages = imageMap.size;
+            if (totalImages === 0) {
+                cy.log('✅ No images found to validate');
+                return;
+            }
+            cy.log(`🔍 Validating ${totalImages} total images (IMG + CSS)`);
+            const baseUrl = Cypress.config('baseUrl');
+            const auth = (0, extractAuth_1.extractAuth)(baseUrl);
+            Array.from(imageMap.entries()).forEach(([url, source]) => {
+                const requestOptions = {
+                    method: 'HEAD',
+                    url: url,
+                    failOnStatusCode: false
+                };
+                if (auth) {
+                    requestOptions.auth = {
+                        username: auth.username,
+                        password: auth.password
+                    };
                 }
-                else {
-                    cy.log(`❌ ${url} - Status: ${response.status}`);
-                    throw new Error(`Image validation failed: ${url} returned ${response.status}. Source: ${source}`);
-                }
+                cy.request(requestOptions).then((response) => {
+                    if (response.status === 200) {
+                        cy.log(`✅ ${url}`);
+                    }
+                    else {
+                        cy.log(`❌ ${url} - Status: ${response.status}`);
+                        throw new Error(`Image validation failed on page: ${resolvedPageUrl}\n  Image URL: ${url}\n  Status: ${response.status}\n  Source: ${source}`);
+                    }
+                });
             });
         });
     });

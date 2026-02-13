@@ -21,7 +21,7 @@ const ttEveryInternalLinkIsLoading = (limit = 10) => {
             else {
                 cy.visit(href);
                 cy.get('body').should('not.be.empty');
-                cy.ttValidateAllImagesResponseStatusOk();
+                cy.ttValidateAllImagesResponseStatusOk(href);
             }
             cy.clearAllLocalStorage();
         });
