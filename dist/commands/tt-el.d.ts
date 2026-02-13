@@ -1,4 +1,1 @@
-export declare const ttEl: (
-  selector: string,
-  name?: string
-) => Cypress.Chainable<JQuery<HTMLElement>>
+export declare const ttEl: (selector: string, name?: string) => Cypress.Chainable<JQuery<HTMLElement>>;
