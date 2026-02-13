@@ -1,1 +1,1 @@
-export declare const ttValidatePageContent: () => void
+export declare const ttValidatePageContent: () => void;
