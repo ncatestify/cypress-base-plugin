@@ -43,7 +43,7 @@ export const applyAuth = (
 }
 
 /**
- * Add baseUrl credentials to internal links using simple @ split approach
+ * Add baseUrl credentials to internal links
  * @param links - Array of internal link URLs
  * @param baseUrl - Base URL that may contain credentials (e.g., https://user:pass@domain.com)
  * @returns Array of links with credentials applied
@@ -57,28 +57,13 @@ export const addCredentialsToInternalLinks = (
       typeof Cypress !== 'undefined' ? Cypress.config('baseUrl') : undefined
   }
 
-  // Return original links if no baseUrl or no credentials
-  if (!baseUrl || !baseUrl.includes('@')) return links
+  if (!baseUrl) return links
 
-  // Extract credential part (everything before @)
-  const credentialPart = baseUrl.split('@')[0] // e.g., "https://nca:nca"
+  const auth = extractAuth(baseUrl)
+  if (!auth) return links
 
   return links.map((link) => {
-    // Skip if link already has credentials
     if (link.includes('@')) return link
-
-    // For absolute URLs, replace protocol with credential part
-    if (link.includes('://')) {
-      const protocolEnd = link.indexOf('://') + 3
-      return credentialPart + '@' + link.substring(protocolEnd)
-    }
-
-    // For relative URLs, convert to absolute with credentials
-    if (link.startsWith('/')) {
-      const domainPart = baseUrl.split('@')[1] // e.g., "testify.projects.nevercodealone.de"
-      return credentialPart + '@' + domainPart + link
-    }
-
-    return link
+    return applyAuth(link, auth)
   })
 }
