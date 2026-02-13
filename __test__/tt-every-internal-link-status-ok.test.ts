@@ -12,9 +12,17 @@ describe('ttEveryInternalLinkStatusOk', () => {
         its: vi.fn(() => ({ should: vi.fn() }))
       })),
       ttGetInternalLinks: vi.fn(() => ({ then: (cb: any) => cb([]) })),
-      request: vi.fn()
+      request: vi.fn(),
+      then: vi.fn((cb: any) => cb())
     }
     global.cy = cy
+    ;(global as any).expect = (value: any) => ({
+      to: {
+        have: {
+          length: vi.fn()
+        }
+      }
+    })
   })
 
   const setupTest = (urls: string[], responses: Record<string, any>) => {
@@ -89,5 +97,56 @@ describe('ttEveryInternalLinkStatusOk', () => {
     }))
 
     ttEveryInternalLinkStatusOk(5)
+  })
+
+  test('calls cy.then for final assertion after all requests', () => {
+    setupTest(['https://example.com/ok'], {
+      default: { status: 200, headers: { 'content-type': 'text/html' } }
+    })
+
+    ttEveryInternalLinkStatusOk()
+
+    expect(cy.then).toHaveBeenCalled()
+  })
+
+  test('final assertion passes when all links are valid', () => {
+    const assertionSpy = vi.fn()
+    ;(global as any).expect = (value: any) => ({
+      to: {
+        have: {
+          length: assertionSpy
+        }
+      }
+    })
+
+    setupTest(['https://example.com/ok'], {
+      default: { status: 200, headers: { 'content-type': 'text/html' } }
+    })
+
+    ttEveryInternalLinkStatusOk()
+
+    expect(assertionSpy).toHaveBeenCalledWith(0, expect.any(String))
+  })
+
+  test('final assertion receives failed links when status is invalid', () => {
+    const assertionSpy = vi.fn()
+    ;(global as any).expect = (value: any) => ({
+      to: {
+        have: {
+          length: assertionSpy
+        }
+      }
+    })
+
+    setupTest(['https://example.com/404'], {
+      default: { status: 404, headers: { 'content-type': 'text/html' } }
+    })
+
+    ttEveryInternalLinkStatusOk()
+
+    expect(assertionSpy).toHaveBeenCalledWith(
+      0,
+      expect.stringContaining('https://example.com/404')
+    )
   })
 })
