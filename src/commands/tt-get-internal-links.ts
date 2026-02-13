@@ -24,6 +24,11 @@ const normalizeUrl = (
     return href
   }
 
+  if (href.startsWith('//')) {
+    const protocol = baseUrl.startsWith('https://') ? 'https:' : 'http:'
+    return protocol + href
+  }
+
   if (href.startsWith('/')) {
     return new URL(href, baseUrl).toString()
   }
