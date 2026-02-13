@@ -1,5 +1,18 @@
 # Update md file
 
+2.1.74
+
+- Add page URL context to image validation error messages
+- Fix async boolean bug in ttEveryInternalLinkStatusOk
+- Fix type declarations with `declare global` and align signatures across index.d.ts files
+- Add `minLinksRequired` param to ttEveryInternalLinkStatusOk type definition
+- Remove `@ts-nocheck`/`@ts-ignore` directives from commands.ts, ttEveryInternalLinkIsLoading, ttValidatePageContent
+- Remove dead NCA special-case logic from isInternal
+- Remove unused domainMapping module and its tests
+- Use URL API for credential injection instead of string splitting
+- Handle protocol-relative URLs in ttGetInternalLinks normalizeUrl
+- Rebuild dist files
+
 2.1.73
 
 - Add ttEl type definition with JSDoc to cypress/index.d.ts
