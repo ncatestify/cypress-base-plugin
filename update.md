@@ -1,5 +1,15 @@
 # Update md file
 
+2.2.0
+
+- Update Cypress to 15.11.0
+- Update Vitest 3 to 4.0.18 and @vitest/ui to 4.0.18
+- Update all devDependencies to latest versions
+- Update Node.js engines to ^20.1.0 || ^22.0.0 || >=24.0.0
+- Update chai peer dependency to ^4.3.10 || ^5.0.0 || ^6.0.0
+- Remove @11ty/eleventy from peer dependencies
+- 0 vulnerabilities (down from 8)
+
 2.1.74
 
 - Add page URL context to image validation error messages
