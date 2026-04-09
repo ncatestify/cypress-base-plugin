@@ -10,9 +10,7 @@ declare global {
       ttDetectHttp(): Chainable<Subject>
       ttElementExists(element: string): Chainable<boolean>
       ttEveryInternalLinkIsLoading(limit?: number): Chainable<Subject>
-      ttEveryInternalLinkStatusOk(
-        minLinksRequired?: number
-      ): Chainable<Subject>
+      ttEveryInternalLinkStatusOk(minLinksRequired?: number): Chainable<Subject>
       ttGetInternalLinks(linkSelector?: string): Chainable<string[]>
       ttInvalidPath404(): Chainable<Subject>
       ttOnlyOneH1(): Chainable<Subject>
