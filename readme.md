@@ -5,6 +5,7 @@ Ready-to-use tests for any website. No testing experience required.
 ## What is this?
 
 This plugin gives you **pre-built tests** that check if your website works correctly:
+
 - Are all links working?
 - Do all images load?
 - Is the site accessible?
@@ -92,8 +93,8 @@ cy.get('.btn-primary')     // Which button?
 Use `cy.ttEl(selector, name)` for readable logs:
 
 ```ts
-cy.ttEl('#ext-comp-1234', 'usernameInput')  // Logs: usernameInput
-cy.ttEl('.btn-primary', 'submitButton')     // Logs: submitButton
+cy.ttEl('#ext-comp-1234', 'usernameInput') // Logs: usernameInput
+cy.ttEl('.btn-primary', 'submitButton') // Logs: submitButton
 ```
 
 Now your test logs show meaningful names instead of selectors.
@@ -112,15 +113,15 @@ import { BasePage } from 'cypress-ncatestify-plugin'
 
 export class LoginPage extends BasePage {
   get usernameInput() {
-    return this.el('#username')  // Logs: usernameInput
+    return this.el('#username') // Logs: usernameInput
   }
 
   get passwordInput() {
-    return this.el('#password')  // Logs: passwordInput
+    return this.el('#password') // Logs: passwordInput
   }
 
   get submitButton() {
-    return this.el('button[type="submit"]')  // Logs: submitButton
+    return this.el('button[type="submit"]') // Logs: submitButton
   }
 
   login(user: string, pass: string) {
@@ -154,8 +155,8 @@ describe('Login', () => {
 
 ```ts
 // Select element with semantic logging
-cy.ttEl('#username', 'usernameInput')  // Logs: usernameInput
-cy.ttEl('h1')                          // Logs: h1
+cy.ttEl('#username', 'usernameInput') // Logs: usernameInput
+cy.ttEl('h1') // Logs: h1
 ```
 
 ### Link Validation
@@ -165,12 +166,12 @@ cy.ttEl('h1')                          // Logs: h1
 cy.ttEveryInternalLinkStatusOk()
 
 // Visit each internal link to verify it loads
-cy.ttEveryInternalLinkIsLoading()      // Default: 10 links
-cy.ttEveryInternalLinkIsLoading(20)    // Check 20 links
+cy.ttEveryInternalLinkIsLoading() // Default: 10 links
+cy.ttEveryInternalLinkIsLoading(20) // Check 20 links
 
 // Get all internal links as array
 cy.ttGetInternalLinks()
-cy.ttGetInternalLinks('.content')      // From specific container
+cy.ttGetInternalLinks('.content') // From specific container
 ```
 
 ### Image Validation
@@ -185,7 +186,7 @@ cy.ttValidateAllImagesResponseStatusOk()
 ```ts
 // Run accessibility tests (uses axe-core)
 cy.ttAccessibility()
-cy.ttAccessibility('.main-content')    // Test specific area
+cy.ttAccessibility('.main-content') // Test specific area
 ```
 
 ### SEO Checks
@@ -195,8 +196,8 @@ cy.ttAccessibility('.main-content')    // Test specific area
 cy.ttOnlyOneH1()
 
 // Check language tag
-cy.ttValidateLanguageTag('de')         // German
-cy.ttValidateLanguageTag('en')         // English
+cy.ttValidateLanguageTag('de') // German
+cy.ttValidateLanguageTag('en') // English
 
 // Check imprint/legal link exists
 cy.ttValidateImprintClickable()
@@ -233,8 +234,8 @@ cy.ttCookieAllAcceptClick()
 
 ```ts
 // Check page size threshold (MB)
-cy.ttThreshold()       // Default threshold
-cy.ttThreshold(2)      // 2MB limit
+cy.ttThreshold() // Default threshold
+cy.ttThreshold(2) // 2MB limit
 
 // Verify page loaded completely
 cy.ttPageLoaded()
@@ -247,7 +248,7 @@ cy.ttPageLoaded()
 cy.ttClickIfElementExist('.cookie-banner')
 
 // Check if element exists (returns boolean)
-cy.ttElementExists('.modal').then(exists => {
+cy.ttElementExists('.modal').then((exists) => {
   if (exists) {
     // do something
   }
@@ -307,7 +308,7 @@ Increase the timeout in your config:
 export default defineConfig({
   e2e: {
     baseUrl: 'https://your-site.com',
-    defaultCommandTimeout: 10000  // 10 seconds
+    defaultCommandTimeout: 10000 // 10 seconds
   }
 })
 ```
@@ -341,20 +342,6 @@ npm run build
 cd eleventy-page && npx @11ty/eleventy --serve
 # Open http://localhost:8080
 ```
-
----
-
-## Compatibility
-
-- Cypress 14.x / 15.x
-- TypeScript 5.x
-- Node.js 18+
-
-## Sites using this plugin
-
-- https://www.auto-hortz.de
-- https://www.discounto.de
-- https://nevercodealone.de
 
 ---
 
