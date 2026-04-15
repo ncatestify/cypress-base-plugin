@@ -39,5 +39,12 @@ declare namespace Cypress {
       limit?: number,
       linkSelector?: string
     ): Chainable<Subject>
+    ttValidateMetaDescription(): Chainable<Subject>
+    ttValidateFavicon(): Chainable<Subject>
+    ttValidateTitleTag(): Chainable<Subject>
+    ttValidateCanonicalUrl(): Chainable<Subject>
+    ttValidateViewportMeta(): Chainable<Subject>
+    ttCheckConsoleWarnings(): Chainable<Subject>
+    ttValidateFormLabels(): Chainable<Subject>
   }
 }
