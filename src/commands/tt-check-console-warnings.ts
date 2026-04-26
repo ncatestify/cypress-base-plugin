@@ -1,19 +1,17 @@
-let warnings: string[] = []
-
 export const ttCheckConsoleWarnings = (): void => {
   cy.log('ttCheckConsoleWarnings - NCA TESTIFY')
 
-  warnings = []
+  let warnings: string[] = []
+
+  cy.reload()
 
   cy.window().then((win) => {
     const originalWarn = win.console.warn
-    win.console.warn = (...args: any[]) => {
+    win.console.warn = (...args: unknown[]) => {
       warnings.push(args.map((a) => String(a)).join(' '))
       originalWarn.apply(win.console, args)
     }
   })
-
-  cy.reload()
 
   cy.window().should('exist')
 
