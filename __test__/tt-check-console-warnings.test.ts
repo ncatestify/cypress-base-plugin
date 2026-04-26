@@ -29,4 +29,27 @@ describe('ttCheckConsoleWarnings', () => {
     ttCheckConsoleWarnings()
     expect(cy.reload).toHaveBeenCalled()
   })
+
+  test('patches console.warn after reload', async () => {
+    const mockWin = {
+      console: {
+        warn: vi.fn()
+      }
+    }
+    cy.window = vi.fn(() => ({
+      should: vi.fn(),
+      then: (cb: Function) => {
+        cb(mockWin)
+        return { should: vi.fn() }
+      }
+    }))
+    cy.then = vi.fn((cb: Function) => cb())
+
+    const { ttCheckConsoleWarnings } =
+      await import('../src/commands/tt-check-console-warnings')
+    ttCheckConsoleWarnings()
+
+    expect(typeof mockWin.console.warn).toBe('function')
+    expect(mockWin.console.warn).not.toBe(vi.fn())
+  })
 })
