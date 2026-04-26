@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.2.1
+
+- Add ttValidateTitleTag command
+- Add ttValidateViewportMeta command
+- Add ttValidateCanonicalUrl command
+- Add ttValidateFormLabels command
+- Add ttCheckConsoleWarnings command
+- Add ttValidateMetaDescription command
+- Add ttValidateFavicon command
+- Add type declarations for all new commands
+- Add unit tests for new commands
+- Add e2e tests for SEO and technical validation
+- Update Eleventy test fixtures with meta tags and favicon
+- Fix console.warn patch lost after reload in ttCheckConsoleWarnings
+
 ## 2.2.0
 
 - Update Cypress to 15.11.0
