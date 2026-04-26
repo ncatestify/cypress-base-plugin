@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttCheckConsoleWarnings = void 0;
-let warnings = [];
 const ttCheckConsoleWarnings = () => {
     cy.log('ttCheckConsoleWarnings - NCA TESTIFY');
-    warnings = [];
+    let warnings = [];
+    cy.reload();
     cy.window().then((win) => {
         const originalWarn = win.console.warn;
         win.console.warn = (...args) => {
@@ -12,7 +12,6 @@ const ttCheckConsoleWarnings = () => {
             originalWarn.apply(win.console, args);
         };
     });
-    cy.reload();
     cy.window().should('exist');
     cy.then(() => {
         if (warnings.length > 0) {
