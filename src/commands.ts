@@ -20,6 +20,13 @@ import { ttValidateNoGoogleServices } from './commands/tt-validate-no-google-ser
 import { ttValidatePageContent } from './commands/tt-validate-page-content'
 import { ttValidateSubpagesAndImages } from './commands/tt-validate-subpages-and-images'
 import { ttEl } from './commands/tt-el'
+import { ttValidateMetaDescription } from './commands/tt-validate-meta-description'
+import { ttValidateFavicon } from './commands/tt-validate-favicon'
+import { ttValidateTitleTag } from './commands/tt-validate-title-tag'
+import { ttValidateCanonicalUrl } from './commands/tt-validate-canonical-url'
+import { ttValidateViewportMeta } from './commands/tt-validate-viewport-meta'
+import { ttCheckConsoleWarnings } from './commands/tt-check-console-warnings'
+import { ttValidateFormLabels } from './commands/tt-validate-form-labels'
 
 Cypress.Commands.add('ttEl', ttEl)
 Cypress.Commands.add('ttAccessibility', ttAccessibility)
@@ -47,3 +54,10 @@ Cypress.Commands.add('ttValidateLanguageTag', ttValidateLanguageTag)
 Cypress.Commands.add('ttValidateNoGoogleServices', ttValidateNoGoogleServices)
 Cypress.Commands.add('ttValidatePageContent', ttValidatePageContent)
 Cypress.Commands.add('ttValidateSubpagesAndImages', ttValidateSubpagesAndImages)
+Cypress.Commands.add('ttValidateMetaDescription', ttValidateMetaDescription)
+Cypress.Commands.add('ttValidateFavicon', ttValidateFavicon)
+Cypress.Commands.add('ttValidateTitleTag', ttValidateTitleTag)
+Cypress.Commands.add('ttValidateCanonicalUrl', ttValidateCanonicalUrl)
+Cypress.Commands.add('ttValidateViewportMeta', ttValidateViewportMeta)
+Cypress.Commands.add('ttCheckConsoleWarnings', ttCheckConsoleWarnings)
+Cypress.Commands.add('ttValidateFormLabels', ttValidateFormLabels)

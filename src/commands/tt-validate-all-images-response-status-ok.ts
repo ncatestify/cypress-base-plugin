@@ -112,9 +112,7 @@ const extractCssImageUrls = (
   return cssImageUrls
 }
 
-export const ttValidateAllImagesResponseStatusOk = (
-  pageUrl?: string
-): void => {
+export const ttValidateAllImagesResponseStatusOk = (pageUrl?: string): void => {
   const imageMap = new Map<string, string>() // URL -> source description
 
   cy.url().then((currentUrl) => {

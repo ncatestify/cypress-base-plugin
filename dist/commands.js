@@ -22,6 +22,13 @@ const tt_validate_no_google_services_1 = require("./commands/tt-validate-no-goog
 const tt_validate_page_content_1 = require("./commands/tt-validate-page-content");
 const tt_validate_subpages_and_images_1 = require("./commands/tt-validate-subpages-and-images");
 const tt_el_1 = require("./commands/tt-el");
+const tt_validate_meta_description_1 = require("./commands/tt-validate-meta-description");
+const tt_validate_favicon_1 = require("./commands/tt-validate-favicon");
+const tt_validate_title_tag_1 = require("./commands/tt-validate-title-tag");
+const tt_validate_canonical_url_1 = require("./commands/tt-validate-canonical-url");
+const tt_validate_viewport_meta_1 = require("./commands/tt-validate-viewport-meta");
+const tt_check_console_warnings_1 = require("./commands/tt-check-console-warnings");
+const tt_validate_form_labels_1 = require("./commands/tt-validate-form-labels");
 Cypress.Commands.add('ttEl', tt_el_1.ttEl);
 Cypress.Commands.add('ttAccessibility', tt_accessibility_1.ttAccessibility);
 Cypress.Commands.add('ttClickIfElementExist', tt_click_if_element_exist_1.ttClickIfElementExist);
@@ -42,3 +49,10 @@ Cypress.Commands.add('ttValidateLanguageTag', tt_validate_language_tag_1.ttValid
 Cypress.Commands.add('ttValidateNoGoogleServices', tt_validate_no_google_services_1.ttValidateNoGoogleServices);
 Cypress.Commands.add('ttValidatePageContent', tt_validate_page_content_1.ttValidatePageContent);
 Cypress.Commands.add('ttValidateSubpagesAndImages', tt_validate_subpages_and_images_1.ttValidateSubpagesAndImages);
+Cypress.Commands.add('ttValidateMetaDescription', tt_validate_meta_description_1.ttValidateMetaDescription);
+Cypress.Commands.add('ttValidateFavicon', tt_validate_favicon_1.ttValidateFavicon);
+Cypress.Commands.add('ttValidateTitleTag', tt_validate_title_tag_1.ttValidateTitleTag);
+Cypress.Commands.add('ttValidateCanonicalUrl', tt_validate_canonical_url_1.ttValidateCanonicalUrl);
+Cypress.Commands.add('ttValidateViewportMeta', tt_validate_viewport_meta_1.ttValidateViewportMeta);
+Cypress.Commands.add('ttCheckConsoleWarnings', tt_check_console_warnings_1.ttCheckConsoleWarnings);
+Cypress.Commands.add('ttValidateFormLabels', tt_validate_form_labels_1.ttValidateFormLabels);

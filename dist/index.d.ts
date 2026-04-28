@@ -10,9 +10,7 @@ declare global {
       ttDetectHttp(): Chainable<Subject>
       ttElementExists(element: string): Chainable<boolean>
       ttEveryInternalLinkIsLoading(limit?: number): Chainable<Subject>
-      ttEveryInternalLinkStatusOk(
-        minLinksRequired?: number
-      ): Chainable<Subject>
+      ttEveryInternalLinkStatusOk(minLinksRequired?: number): Chainable<Subject>
       ttGetInternalLinks(linkSelector?: string): Chainable<string[]>
       ttInvalidPath404(): Chainable<Subject>
       ttOnlyOneH1(): Chainable<Subject>
@@ -28,6 +26,13 @@ declare global {
         limit?: number,
         linkSelector?: string
       ): Chainable<Subject>
+      ttValidateMetaDescription(): Chainable<Subject>
+      ttValidateFavicon(): Chainable<Subject>
+      ttValidateTitleTag(): Chainable<Subject>
+      ttValidateCanonicalUrl(): Chainable<Subject>
+      ttValidateViewportMeta(): Chainable<Subject>
+      ttCheckConsoleWarnings(): Chainable<Subject>
+      ttValidateFormLabels(): Chainable<Subject>
     }
   }
 }
