@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.2
+
+- Update Cypress to 15.14.1
+- Add allowCypressEnv: false to suppress Cypress.env() deprecation warning
+
 ## 2.2.1
 
 - Add ttValidateTitleTag command
