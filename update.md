@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.3
+
+- Add exclude parameter to internal link testing functions
+- Enhanced ttGetInternalLinks, ttEveryInternalLinkStatusOk, and ttEveryInternalLinkIsLoading
+- Maintains full backward compatibility
+
 ## 2.2.2
 
 - Update Cypress to 15.14.1
