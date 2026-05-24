@@ -9,9 +9,9 @@ declare global {
       ttCookieAllAcceptClick(): Chainable<Subject>
       ttDetectHttp(): Chainable<Subject>
       ttElementExists(element: string): Chainable<boolean>
-      ttEveryInternalLinkIsLoading(limit?: number): Chainable<Subject>
-      ttEveryInternalLinkStatusOk(minLinksRequired?: number): Chainable<Subject>
-      ttGetInternalLinks(linkSelector?: string): Chainable<string[]>
+      ttEveryInternalLinkIsLoading(limit?: number, exclude?: string[]): Chainable<Subject>
+      ttEveryInternalLinkStatusOk(minLinksRequired?: number, exclude?: string[]): Chainable<Subject>
+      ttGetInternalLinks(linkSelector?: string, exclude?: string[]): Chainable<string[]>
       ttInvalidPath404(): Chainable<Subject>
       ttOnlyOneH1(): Chainable<Subject>
       ttPageLoaded(): Chainable<Subject>

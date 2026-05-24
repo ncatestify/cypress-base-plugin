@@ -2,8 +2,8 @@
 /// <reference path="../index.d.ts" />
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttEveryInternalLinkStatusOk = void 0;
-const ttEveryInternalLinkStatusOk = (minLinksRequired = 1) => {
-    return cy.ttGetInternalLinks().then((urls) => {
+const ttEveryInternalLinkStatusOk = (minLinksRequired = 1, exclude = []) => {
+    return cy.ttGetInternalLinks('', exclude).then((urls) => {
         cy.log('everyInternalLinkStatusOk - NCA TESTIFY');
         cy.wrap(urls).its('length').should('be.gte', minLinksRequired);
         const failedLinks = [];
