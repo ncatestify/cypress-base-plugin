@@ -1,10 +1,13 @@
 /// <reference types="cypress" />
 /// <reference path="../index.d.ts" />
 
-export const ttEveryInternalLinkIsLoading = (limit: number = 10): void => {
+export const ttEveryInternalLinkIsLoading = (
+  limit: number = 10,
+  exclude: string[] = []
+): void => {
   cy.log('everyInternalLinkIsLoading - NCA TESTIFY')
 
-  cy.ttGetInternalLinks().then((internalLinks: string[]) => {
+  cy.ttGetInternalLinks('', exclude).then((internalLinks: string[]) => {
     const linksToValidate = internalLinks.slice(0, limit)
 
     cy.log(
