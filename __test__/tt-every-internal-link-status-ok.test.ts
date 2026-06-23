@@ -149,4 +149,91 @@ describe('ttEveryInternalLinkStatusOk', () => {
       expect.stringContaining('https://example.com/404')
     )
   })
+
+  // New tests for exclude parameter functionality
+  test('calls ttGetInternalLinks with exclude parameter', () => {
+    const exclude = ['35ea10a0-8a8e-4a59-b7c5-dcf0361dd90a', 'b']
+    const mockUrls = ['https://example.com/page1', 'https://example.com/page2']
+    
+    cy.ttGetInternalLinks.mockImplementation((selector, excludeParam) => {
+      expect(excludeParam).toEqual(exclude)
+      return { then: (cb: any) => cb(mockUrls) }
+    })
+    
+    setupTest(mockUrls, {
+      default: { status: 200, headers: { 'content-type': 'text/html' } }
+    })
+
+    ttEveryInternalLinkStatusOk(1, exclude)
+    expect(cy.ttGetInternalLinks).toHaveBeenCalledWith('', exclude)
+  })
+
+  test('excludes specified links from validation', () => {
+    const exclude = ['test-id', 'b']
+    // Links that would normally be included but should be excluded
+    const allUrls = [
+      'https://example.com/page1', 
+      'https://example.com/page2?param=test-id',
+      'https://example.com/b',
+      'https://example.com/about'
+    ]
+    
+    // Only URLs that don't contain exclude strings should be processed
+    const expectedProcessedUrls = [
+      'https://example.com/page1',
+      'https://example.com/about'
+    ]
+    
+    cy.ttGetInternalLinks.mockImplementation((selector, excludeParam) => {
+      expect(excludeParam).toEqual(exclude)
+      return { then: (cb: any) => cb(expectedProcessedUrls) }
+    })
+    
+    setupTest(expectedProcessedUrls, {
+      default: { status: 200, headers: { 'content-type': 'text/html' } }
+    })
+
+    ttEveryInternalLinkStatusOk(1, exclude)
+    
+    // Verify that only non-excluded URLs are processed
+    expectedProcessedUrls.forEach(url => {
+      expect(cy.request).toHaveBeenCalledWith(
+        expect.objectContaining({ url })
+      )
+    })
+  })
+
+  test('works with empty exclude array', () => {
+    const exclude: string[] = []
+    const mockUrls = ['https://example.com/page1', 'https://example.com/page2']
+    
+    cy.ttGetInternalLinks.mockImplementation((selector, excludeParam) => {
+      expect(excludeParam).toEqual(exclude)
+      return { then: (cb: any) => cb(mockUrls) }
+    })
+    
+    setupTest(mockUrls, {
+      default: { status: 200, headers: { 'content-type': 'text/html' } }
+    })
+
+    ttEveryInternalLinkStatusOk(1, exclude)
+    expect(cy.ttGetInternalLinks).toHaveBeenCalledWith('', exclude)
+  })
+
+  test('maintains backward compatibility without exclude parameter', () => {
+    const mockUrls = ['https://example.com/page1', 'https://example.com/page2']
+    
+    cy.ttGetInternalLinks.mockImplementation((selector, excludeParam) => {
+      expect(excludeParam).toEqual([]) // Default empty array
+      return { then: (cb: any) => cb(mockUrls) }
+    })
+    
+    setupTest(mockUrls, {
+      default: { status: 200, headers: { 'content-type': 'text/html' } }
+    })
+
+    // Call without exclude parameter
+    ttEveryInternalLinkStatusOk(1)
+    expect(cy.ttGetInternalLinks).toHaveBeenCalledWith('', [])
+  })
 })

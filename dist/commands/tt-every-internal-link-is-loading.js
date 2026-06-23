@@ -3,9 +3,9 @@
 /// <reference path="../index.d.ts" />
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttEveryInternalLinkIsLoading = void 0;
-const ttEveryInternalLinkIsLoading = (limit = 10) => {
+const ttEveryInternalLinkIsLoading = (limit = 10, exclude = []) => {
     cy.log('everyInternalLinkIsLoading - NCA TESTIFY');
-    cy.ttGetInternalLinks().then((internalLinks) => {
+    cy.ttGetInternalLinks('', exclude).then((internalLinks) => {
         const linksToValidate = internalLinks.slice(0, limit);
         cy.log(`Found ${internalLinks.length} unique internal links, validating ${linksToValidate.length}`);
         linksToValidate.forEach((href) => {

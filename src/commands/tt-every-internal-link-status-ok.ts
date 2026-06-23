@@ -1,9 +1,10 @@
 /// <reference path="../index.d.ts" />
 
 export const ttEveryInternalLinkStatusOk = (
-  minLinksRequired: number = 1
+  minLinksRequired: number = 1,
+  exclude: string[] = []
 ): Cypress.Chainable<any> => {
-  return cy.ttGetInternalLinks().then((urls: string[]) => {
+  return cy.ttGetInternalLinks('', exclude).then((urls: string[]) => {
     cy.log('everyInternalLinkStatusOk - NCA TESTIFY')
     cy.wrap(urls).its('length').should('be.gte', minLinksRequired)
 

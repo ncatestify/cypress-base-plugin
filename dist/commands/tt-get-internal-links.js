@@ -26,7 +26,7 @@ const normalizeUrl = (href, baseUrl, currentUrl) => {
     }
     return new URL(href, currentUrl).toString();
 };
-const ttGetInternalLinks = (linkSelector = '') => {
+const ttGetInternalLinks = (linkSelector = '', exclude = []) => {
     cy.log('ttGetInternalLinks - NCA TESTIFY');
     const baseUrl = Cypress.config('baseUrl');
     return cy.url().then((currentUrl) => {
@@ -36,6 +36,10 @@ const ttGetInternalLinks = (linkSelector = '') => {
             $links.each((_, element) => {
                 const href = element.getAttribute('href');
                 if (!href || !href.trim()) {
+                    return;
+                }
+                // Check if the original href should be excluded
+                if (exclude.some(excludeString => href.includes(excludeString))) {
                     return;
                 }
                 if (isNonRequestableLink(href)) {

@@ -37,7 +37,8 @@ const normalizeUrl = (
 }
 
 export const ttGetInternalLinks = (
-  linkSelector: string = ''
+  linkSelector: string = '',
+  exclude: string[] = []
 ): Cypress.Chainable<string[]> => {
   cy.log('ttGetInternalLinks - NCA TESTIFY')
 
@@ -52,6 +53,11 @@ export const ttGetInternalLinks = (
         const href = element.getAttribute('href')
 
         if (!href || !href.trim()) {
+          return
+        }
+
+        // Check if the original href should be excluded
+        if (exclude.some(excludeString => href.includes(excludeString))) {
           return
         }
 

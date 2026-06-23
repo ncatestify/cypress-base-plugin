@@ -164,14 +164,17 @@ cy.ttEl('h1') // Logs: h1
 ```ts
 // Check all internal links return 200 status
 cy.ttEveryInternalLinkStatusOk()
+cy.ttEveryInternalLinkStatusOk(1, ['35ea10a0-8a8e-4a59-b7c5-dcf0361dd90a', 'b']) // Exclude specific links
 
 // Visit each internal link to verify it loads
 cy.ttEveryInternalLinkIsLoading() // Default: 10 links
 cy.ttEveryInternalLinkIsLoading(20) // Check 20 links
+cy.ttEveryInternalLinkIsLoading(10, ['35ea10a0-8a8e-4a59-b7c5-dcf0361dd90a', 'b']) // Exclude specific links
 
 // Get all internal links as array
 cy.ttGetInternalLinks()
 cy.ttGetInternalLinks('.content') // From specific container
+cy.ttGetInternalLinks('.content', ['35ea10a8e-4a59-b7c5-dcf0361dd90a', 'b']) // Exclude specific links
 ```
 
 ### Image Validation
