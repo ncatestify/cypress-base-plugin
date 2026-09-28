@@ -24,7 +24,8 @@ declare global {
       ttValidatePageContent(): Chainable<Subject>
       ttValidateSubpagesAndImages(
         limit?: number,
-        linkSelector?: string
+        linkSelector?: string,
+        loadTimeout?: number
       ): Chainable<Subject>
       ttValidateMetaDescription(): Chainable<Subject>
       ttValidateFavicon(): Chainable<Subject>
