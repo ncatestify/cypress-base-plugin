@@ -182,6 +182,10 @@ cy.ttGetInternalLinks('.content', ['35ea10a8e-4a59-b7c5-dcf0361dd90a', 'b']) // 
 ```ts
 // Check all images load successfully
 cy.ttValidateAllImagesResponseStatusOk()
+
+// Visit subpages, scroll each page to trigger lazy loading and check all images
+cy.ttValidateSubpagesAndImages() // Default: 20 subpages, 10s wait per page
+cy.ttValidateSubpagesAndImages(50, '[data-qa="article-link"]', 15000) // Custom limit, selector and load timeout
 ```
 
 ### Accessibility

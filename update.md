@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.5
+
+- Add lazy loading support to ttValidateSubpagesAndImages
+- Scrolls each subpage stepwise to the bottom before validating images
+- New optional parameter loadTimeout (default 10000ms) waits for the last image to load
+- Maintains full backward compatibility
+
 ## 2.2.3
 
 - Add exclude parameter to internal link testing functions
