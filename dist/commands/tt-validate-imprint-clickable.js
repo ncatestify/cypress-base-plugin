@@ -3,7 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttValidateImprintClickable = void 0;
 const chai_1 = require("chai");
 const ttValidateImprintClickable = () => {
-    cy.get('a')
+    cy.get('a').as('ttImprintLinks');
+    cy.get('@ttImprintLinks')
         .each(($el, _index, _$list) => {
         if ($el.text().toLowerCase().includes('impressum')) {
             const element = $el.get(0);
@@ -19,8 +20,8 @@ const ttValidateImprintClickable = () => {
                 });
             }
         }
-    })
-        .then(($list) => {
+    });
+    cy.get('@ttImprintLinks').then(($list) => {
         if ($list.length === 0) {
             (0, chai_1.expect)(false).to.be.true; // Fails the test if no clickable link is found
         }

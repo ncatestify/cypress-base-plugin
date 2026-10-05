@@ -11,6 +11,7 @@ const ttPageLoaded = () => {
     }).as('anyRequest');
     function waitForRequestsToFinish() {
         if (pendingRequests > 0) {
+            // eslint-disable-next-line cypress/no-unnecessary-waiting -- polls until all intercepted requests have finished
             cy.wait(1000).then(waitForRequestsToFinish);
         }
         else {

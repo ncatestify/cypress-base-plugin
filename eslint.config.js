@@ -1,13 +1,16 @@
+const { defineConfig, globalIgnores } = require('eslint/config')
 const js = require('@eslint/js')
 const typescript = require('@typescript-eslint/eslint-plugin')
 const typescriptParser = require('@typescript-eslint/parser')
 const cypress = require('eslint-plugin-cypress')
+const mocha = require('eslint-plugin-mocha').default
+const chaiFriendly = require('eslint-plugin-chai-friendly')
 const importPlugin = require('eslint-plugin-import')
 const n = require('eslint-plugin-n')
 const promise = require('eslint-plugin-promise')
 const globals = require('globals')
 
-module.exports = [
+module.exports = defineConfig([
   // Base JS config for all JS files
   {
     files: ['**/*.js'],
@@ -29,6 +32,7 @@ module.exports = [
   // TypeScript config
   {
     files: ['**/*.ts', '**/*.tsx'],
+    extends: [cypress.configs.recommended],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -49,7 +53,6 @@ module.exports = [
     },
     plugins: {
       '@typescript-eslint': typescript,
-      cypress: cypress,
       import: importPlugin,
       n: n,
       promise: promise
@@ -104,18 +107,25 @@ module.exports = [
       'n/no-unsupported-features/es-syntax': 'off',
       'n/no-missing-import': 'off', // TypeScript handles this
 
-      // Cypress rules
-      'cypress/no-assigning-return-values': 'error',
-      'cypress/no-unnecessary-waiting': 'warn', // Changed to warn
+      // Cypress rules - tweaks on top of eslint-plugin-cypress recommended
+      'cypress/no-unnecessary-waiting': 'warn', // Downgraded from error
       'cypress/assertion-before-screenshot': 'warn',
       'cypress/no-force': 'warn',
-      'cypress/no-async-tests': 'error'
+      'cypress/no-async-before': 'error',
+      'cypress/no-chained-get': 'error',
+      'cypress/no-debug': 'error',
+      'cypress/no-pause': 'error'
     }
   },
-  // Cypress-specific overrides
+  // Cypress spec files: mocha + chai-friendly
   {
     files: ['cypress/**/*.{js,ts}'],
+    extends: [mocha.configs.recommended, chaiFriendly.configs.recommendedFlat],
     rules: {
+      'mocha/no-exclusive-tests': 'error', // Upgraded from warn
+      'mocha/no-pending-tests': 'error', // Upgraded from warn
+      'mocha/no-mocha-arrows': 'off', // Cypress specs use arrow functions
+      'mocha/no-async-in-sync-tests': 'off', // For Cypress compatibility
       'promise/always-return': 'off', // Cypress commands don't need returns
       'promise/catch-or-return': 'off' // Cypress handles errors differently
     }
@@ -127,18 +137,16 @@ module.exports = [
       '@typescript-eslint/no-explicit-any': 'off'
     }
   },
-  {
-    ignores: [
-      'dist/**',
-      'node_modules/**',
-      'cypress.config.js',
-      'cypress.config.ts',
-      'jest.config.js',
-      'jest.config.ts',
-      'vitest.config.ts',
-      'eleventy-page/**',
-      '__test__/**',
-      '*.d.ts' // Ignore type definition files
-    ]
-  }
-]
+  globalIgnores([
+    'dist/**',
+    'node_modules/**',
+    'cypress.config.js',
+    'cypress.config.ts',
+    'jest.config.js',
+    'jest.config.ts',
+    'vitest.config.ts',
+    'eleventy-page/**',
+    '__test__/**',
+    '*.d.ts' // Ignore type definition files
+  ])
+])
