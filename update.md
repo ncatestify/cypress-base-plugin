@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.2.6
+
+- Fix ttSetupConsoleErrorListener missing nearly all JavaScript errors
+- Install collectors via window:before:load so they exist before page scripts run (previously lost on every reload)
+- Detect console.error calls, runtime errors with file location, resource load failures (img/script/link) and unhandled promise rejections
+- Keep network error detection (status >= 400), wait for network idle plus grace period for delayed errors
+- Fix ttCheckConsoleWarnings losing warnings printed during page load (console.warn stub is now installed before reload)
+- Fix ttValidateFormLabels failing with a timeout on pages without form elements (dead zero-elements guard)
+- Add labeled contact form to the Eleventy start page fixture so form label validation is verified end to end
+- Expand console-errors fixture page with all error categories (console.error, runtime, resource 404, delayed, unhandled rejection)
+- Rework ESLint setup: eslint-plugin-cypress 6 recommended preset, eslint-plugin-mocha, eslint-plugin-chai-friendly, Cypress 15.21.1
+
 ## 2.2.5
 
 - Add lazy loading support to ttValidateSubpagesAndImages
