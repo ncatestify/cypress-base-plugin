@@ -1,7 +1,9 @@
 import { expect } from 'chai'
 
 export const ttValidateImprintClickable = (): void => {
-  cy.get('a')
+  cy.get('a').as('ttImprintLinks')
+
+  cy.get('@ttImprintLinks')
     .each(($el, _index, _$list) => {
       if ($el.text().toLowerCase().includes('impressum')) {
         const element = $el.get(0)
@@ -21,9 +23,10 @@ export const ttValidateImprintClickable = (): void => {
         }
       }
     })
-    .then(($list) => {
-      if ($list.length === 0) {
-        expect(false).to.be.true // Fails the test if no clickable link is found
-      }
-    })
+
+  cy.get('@ttImprintLinks').then(($list) => {
+    if ($list.length === 0) {
+      expect(false).to.be.true // Fails the test if no clickable link is found
+    }
+  })
 }

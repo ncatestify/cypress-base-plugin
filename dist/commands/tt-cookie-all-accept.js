@@ -8,6 +8,7 @@ const ttCookieAllAcceptClick = (cookieButtonStrings = ['alle akzeptieren', 'alle
         for (const buttonString of cookieButtonStrings) {
             if ($body.text().toLowerCase().includes(buttonString)) {
                 cy.log(`Found matching string: ${buttonString}`);
+                // eslint-disable-next-line cypress/no-force -- cookie banners are often overlaid, so the click must bypass actionability checks
                 cy.contains(buttonString, { matchCase: false }).click({ force: true });
                 found = true;
                 break;

@@ -1,6 +1,9 @@
 export const ttValidateFormLabels = (): void => {
   cy.log('ttValidateFormLabels - NCA TESTIFY')
-  cy.get('input, textarea, select').then(($elements) => {
+
+  cy.get('body').then(($body) => {
+    const $elements = $body.find('input, textarea, select')
+
     if ($elements.length === 0) {
       cy.log('No form elements found')
       return
@@ -11,7 +14,7 @@ export const ttValidateFormLabels = (): void => {
     const errors: string[] = []
 
     $elements.each((index, element) => {
-      const el = element as
+      const el = element as unknown as
         | HTMLInputElement
         | HTMLTextAreaElement
         | HTMLSelectElement

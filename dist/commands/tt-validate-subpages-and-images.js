@@ -10,6 +10,7 @@ const scrollTillLoaded = (loadTimeout) => {
             const nextScroll = win.scrollY + win.innerHeight;
             win.scrollTo(0, nextScroll);
             if (nextScroll < win.document.documentElement.scrollHeight) {
+                // eslint-disable-next-line cypress/no-unnecessary-waiting -- gives lazy loading images time to trigger while scrolling
                 cy.wait(300, { log: false }).then(scrollToBottom);
                 return;
             }

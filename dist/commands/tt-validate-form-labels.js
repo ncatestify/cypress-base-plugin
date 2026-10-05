@@ -3,7 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ttValidateFormLabels = void 0;
 const ttValidateFormLabels = () => {
     cy.log('ttValidateFormLabels - NCA TESTIFY');
-    cy.get('input, textarea, select').then(($elements) => {
+    cy.get('body').then(($body) => {
+        const $elements = $body.find('input, textarea, select');
         if ($elements.length === 0) {
             cy.log('No form elements found');
             return;
