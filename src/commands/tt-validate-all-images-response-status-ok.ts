@@ -1,4 +1,4 @@
-import { extractAuth } from './../utils/extractAuth'
+import { extractAuthForUrl } from './../utils/extractAuth'
 
 const excludedUrlPrefixes = ['data:', 'blob:', 'javascript:', 'about:']
 
@@ -206,7 +206,6 @@ export const ttValidateAllImagesResponseStatusOk = (pageUrl?: string): void => {
         cy.log(`🔍 Validating ${totalImages} total images (IMG + CSS)`)
 
         const baseUrl = Cypress.config('baseUrl')
-        const auth = extractAuth(baseUrl)
 
         Array.from(imageMap.entries()).forEach(([url, source]) => {
           const requestOptions: Partial<Cypress.RequestOptions> = {
@@ -215,6 +214,7 @@ export const ttValidateAllImagesResponseStatusOk = (pageUrl?: string): void => {
             failOnStatusCode: false
           }
 
+          const auth = extractAuthForUrl(url, baseUrl)
           if (auth) {
             requestOptions.auth = {
               username: auth.username,
