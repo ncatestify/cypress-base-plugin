@@ -24,3 +24,17 @@ export declare const applyAuth: (url: string, auth: {
  * @returns Array of links with credentials applied
  */
 export declare const addCredentialsToInternalLinks: (links: string[], baseUrl?: string) => string[];
+/**
+ * Extract Basic Auth credentials from the baseUrl for a target URL.
+ * Credentials are only returned when the baseUrl contains credentials and
+ * the target URL belongs to the baseUrl host (without credentials).
+ * External URLs never receive credentials.
+ *
+ * @param url - Target URL (e.g. an image URL)
+ * @param baseUrl - Base URL that may contain credentials (e.g. https://user:pass@domain.com)
+ * @returns Object with auth credentials for internal URLs or null
+ */
+export declare const extractAuthForUrl: (url: string, baseUrl?: string) => {
+    username: string;
+    password: string;
+} | null;

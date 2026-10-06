@@ -164,13 +164,13 @@ const ttValidateAllImagesResponseStatusOk = (pageUrl) => {
             }
             cy.log(`🔍 Validating ${totalImages} total images (IMG + CSS)`);
             const baseUrl = Cypress.config('baseUrl');
-            const auth = (0, extractAuth_1.extractAuth)(baseUrl);
             Array.from(imageMap.entries()).forEach(([url, source]) => {
                 const requestOptions = {
                     method: 'HEAD',
                     url: url,
                     failOnStatusCode: false
                 };
+                const auth = (0, extractAuth_1.extractAuthForUrl)(url, baseUrl);
                 if (auth) {
                     requestOptions.auth = {
                         username: auth.username,

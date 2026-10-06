@@ -2,7 +2,8 @@ import { describe, test, expect, vi, beforeEach } from 'vitest'
 import {
   extractAuth,
   applyAuth,
-  addCredentialsToInternalLinks
+  addCredentialsToInternalLinks,
+  extractAuthForUrl
 } from '../src/utils/extractAuth'
 
 describe('extractAuth', () => {
@@ -101,5 +102,51 @@ describe('addCredentialsToInternalLinks', () => {
     const links = ['https://example.com/page']
     const result = addCredentialsToInternalLinks(links, undefined as any)
     expect(result).toEqual(['https://example.com/page'])
+  })
+})
+
+describe('extractAuthForUrl', () => {
+  const credentialedBaseUrl = 'https://nca:nca@staging.example.com'
+
+  test('returns credentials for absolute URL matching the credential free baseUrl host', () => {
+    const result = extractAuthForUrl(
+      'https://staging.example.com/img/logo.png',
+      credentialedBaseUrl
+    )
+    expect(result).toEqual({ username: 'nca', password: 'nca' })
+  })
+
+  test('returns credentials for relative URLs', () => {
+    const result = extractAuthForUrl('/img/logo.png', credentialedBaseUrl)
+    expect(result).toEqual({ username: 'nca', password: 'nca' })
+  })
+
+  test('returns credentials for protocol relative URLs of the same host', () => {
+    const result = extractAuthForUrl(
+      '//staging.example.com/img/logo.png',
+      credentialedBaseUrl
+    )
+    expect(result).toEqual({ username: 'nca', password: 'nca' })
+  })
+
+  test('returns null for external URLs when baseUrl contains credentials', () => {
+    const result = extractAuthForUrl(
+      'https://external-cdn.com/img/hero.png',
+      credentialedBaseUrl
+    )
+    expect(result).toBeNull()
+  })
+
+  test('returns null when baseUrl has no credentials', () => {
+    const result = extractAuthForUrl(
+      'https://example.com/img/logo.png',
+      'https://example.com'
+    )
+    expect(result).toBeNull()
+  })
+
+  test('treats non absolute URLs as relative and returns credentials', () => {
+    const result = extractAuthForUrl('not-a-url', credentialedBaseUrl)
+    expect(result).toEqual({ username: 'nca', password: 'nca' })
   })
 })

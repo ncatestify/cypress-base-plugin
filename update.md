@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.7
+
+- Add extractAuthForUrl util that returns basic auth credentials only for internal URLs
+- Send basic auth credentials in ttValidateAllImagesResponseStatusOk only for internal image URLs
+- Add tests for the credential aware auth extraction and image validation
+
 ## 2.2.6
 
 - Fix ttSetupConsoleErrorListener missing nearly all JavaScript errors

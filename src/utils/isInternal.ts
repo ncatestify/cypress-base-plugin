@@ -4,10 +4,17 @@
 const DEFAULT_BASE_URL = 'https://localhost:3000' as const
 
 /**
- * Extracts domain from URL, removing protocol and path
+ * Extracts domain from URL, removing protocol, credentials and path
  */
 const extractDomain = (url: string): string => {
-  return url.replace(/https?:\/\//, '').split('/')[0]
+  try {
+    return new URL(url).host
+  } catch {
+    return url
+      .replace(/https?:\/\//, '')
+      .split('/')[0]
+      .replace(/^[^/@]+@/, '')
+  }
 }
 
 /**
