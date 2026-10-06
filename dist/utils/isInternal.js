@@ -6,10 +6,18 @@ exports.isInternal = void 0;
  */
 const DEFAULT_BASE_URL = 'https://localhost:3000';
 /**
- * Extracts domain from URL, removing protocol and path
+ * Extracts domain from URL, removing protocol, credentials and path
  */
 const extractDomain = (url) => {
-    return url.replace(/https?:\/\//, '').split('/')[0];
+    try {
+        return new URL(url).host;
+    }
+    catch {
+        return url
+            .replace(/https?:\/\//, '')
+            .split('/')[0]
+            .replace(/^[^/@]+@/, '');
+    }
 };
 /**
  * Checks if URL is a relative path
