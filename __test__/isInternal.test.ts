@@ -28,6 +28,24 @@ describe('isInternal', () => {
       url: 'https://testingcrud.testify.projects.nevercodealone.de/page',
       baseUrl: 'https://nevercodealone.de/',
       expected: false
+    },
+    {
+      name: 'credentialed baseUrl with absolute URL of the same host is internal',
+      url: 'https://staging.example.com/page',
+      baseUrl: 'https://nca:nca@staging.example.com',
+      expected: true
+    },
+    {
+      name: 'credentialed baseUrl with credentialed URL of the same host is internal',
+      url: 'https://nca:nca@staging.example.com/page',
+      baseUrl: 'https://nca:nca@staging.example.com',
+      expected: true
+    },
+    {
+      name: 'credentialed baseUrl excludes external URLs',
+      url: 'https://external-cdn.com/img.png',
+      baseUrl: 'https://nca:nca@staging.example.com',
+      expected: false
     }
   ]
 
